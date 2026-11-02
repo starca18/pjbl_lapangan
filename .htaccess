@@ -1,4 +1,14 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # Don't touch static assets folder
+    RewriteRule ^assets/ - [L]
+
+    # Don't touch existing files
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # Route all other requests to public/
+    RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
