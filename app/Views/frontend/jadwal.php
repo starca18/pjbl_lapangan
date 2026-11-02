@@ -37,6 +37,7 @@
 .tix-date-pill:hover {
   border-color: #f97316 !important;
   color: #c2410c !important;
+  background-color: #fff7ed !important;
   transform: translateY(-2px);
 }
 .tix-date-pill.active {
@@ -93,10 +94,10 @@
   background-color: #fff7ed !important;
 }
 .tix-sport-pill.active {
-  background-color: #f97316 !important;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #f97316 100%) !important;
   color: #ffffff !important;
-  border-color: #f97316 !important;
-  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3) !important;
+  border-color: #c2410c !important;
+  box-shadow: 0 3px 10px rgba(234, 88, 12, 0.35) !important;
 }
 .tix-court-card {
   background-color: #ffffff;
@@ -113,94 +114,142 @@
 .tix-court-body {
   padding: 1rem 1.25rem 1.25rem 1.25rem;
 }
+
+/* Showtime / Slots Grid (Responsive 2-4 cols) */
 .tix-slots-grid {
   display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
-  gap: 0.5rem !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.65rem !important;
+}
+@media (min-width: 480px) {
+  .tix-slots-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.75rem !important;
+  }
 }
 @media (min-width: 768px) {
   .tix-slots-grid {
-    grid-template-columns: repeat(6, 1fr) !important;
-    gap: 0.65rem !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.85rem !important;
   }
 }
 @media (min-width: 1200px) {
   .tix-slots-grid {
-    grid-template-columns: repeat(8, 1fr) !important;
-    gap: 0.75rem !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 1rem !important;
   }
 }
+
+/* Time Slot Chip (3-line Card Structure: Duration, Time Range, Price/Status) */
 .tix-slot-chip {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  min-height: 52px !important;
-  padding: 0.45rem 0.25rem !important;
-  border-radius: 10px !important;
-  border: 1.5px solid #cbd5e1 !important;
+  min-height: 82px !important;
+  padding: 0.75rem 0.45rem !important;
+  border-radius: 12px !important;
+  border: 1.5px solid #fed7aa !important;
   background-color: #ffffff !important;
   color: #0f172a !important;
   text-decoration: none !important;
   cursor: pointer;
   user-select: none;
   width: 100% !important;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  text-align: center;
 }
-.tix-slot-chip .slot-time {
-  font-size: 0.92rem;
-  font-weight: 800;
-  line-height: 1.1;
+.tix-slot-chip .slot-duration {
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  color: #64748b !important;
+  letter-spacing: 0.2px;
+  line-height: 1;
+  margin-bottom: 4px;
 }
-.tix-slot-chip .slot-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-top: 3px;
-  color: #16a34a;
+.tix-slot-chip .slot-time-range {
+  font-size: 0.92rem !important;
+  font-weight: 800 !important;
+  line-height: 1.15;
+  letter-spacing: -0.2px;
+  color: #0f172a !important;
+  white-space: nowrap;
 }
-.tix-slot-chip.slot-free:hover {
-  border-color: #f97316 !important;
-  background-color: #fff7ed !important;
+.tix-slot-chip .slot-price-tag {
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
   color: #c2410c !important;
-  transform: translateY(-2px);
+  margin-top: 5px;
+  line-height: 1;
 }
+.tix-slot-chip .slot-status-tag {
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  margin-top: 5px;
+  line-height: 1;
+}
+
+/* Hover Available */
+.tix-slot-chip.slot-free:hover {
+  border-color: #ea580c !important;
+  background-color: #fff7ed !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(234, 88, 12, 0.2) !important;
+}
+.tix-slot-chip.slot-free:hover .slot-time-range {
+  color: #c2410c !important;
+}
+
+/* Selected State */
 .tix-slot-chip.selected {
   background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #f97316 100%) !important;
   border-color: #c2410c !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4) !important;
-  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.45) !important;
+  transform: translateY(-2px) scale(1.02);
 }
-.tix-slot-chip.selected .slot-time { color: #ffffff !important; }
-.tix-slot-chip.selected .slot-label { color: #ffedd5 !important; font-weight: 700; }
+.tix-slot-chip.selected .slot-duration { color: #ffedd5 !important; }
+.tix-slot-chip.selected .slot-time-range { color: #ffffff !important; }
+.tix-slot-chip.selected .slot-price-tag { color: #ffffff !important; font-weight: 800 !important; }
+
+/* Booked / Full State */
 .tix-slot-chip.slot-disabled-booked {
-  background-color: #f1f5f9 !important;
+  background-color: #f8fafc !important;
   border-color: #e2e8f0 !important;
   color: #94a3b8 !important;
   cursor: not-allowed;
-  opacity: 0.8;
+  opacity: 0.75;
 }
-.tix-slot-chip.slot-disabled-booked .slot-time { color: #94a3b8 !important; }
-.tix-slot-chip.slot-disabled-booked .slot-label { color: #ef4444 !important; }
+.tix-slot-chip.slot-disabled-booked .slot-duration { color: #94a3b8 !important; }
+.tix-slot-chip.slot-disabled-booked .slot-time-range { color: #94a3b8 !important; }
+.tix-slot-chip.slot-disabled-booked .slot-status-tag { color: #94a3b8 !important; font-weight: 600 !important; }
+
+/* Pending State */
 .tix-slot-chip.slot-disabled-pending {
   background-color: #fffbeb !important;
   border-color: #fde68a !important;
   color: #b45309 !important;
   cursor: not-allowed;
+  opacity: 0.9;
 }
-.tix-slot-chip.slot-disabled-pending .slot-time { color: #b45309 !important; }
-.tix-slot-chip.slot-disabled-pending .slot-label { color: #d97706 !important; }
+.tix-slot-chip.slot-disabled-pending .slot-duration { color: #b45309 !important; }
+.tix-slot-chip.slot-disabled-pending .slot-time-range { color: #b45309 !important; }
+.tix-slot-chip.slot-disabled-pending .slot-status-tag { color: #d97706 !important; }
+
+/* Past Hour State */
 .tix-slot-chip.slot-disabled-past {
   background-color: #f8fafc !important;
   border-color: #f1f5f9 !important;
   color: #cbd5e1 !important;
   cursor: not-allowed;
-  opacity: 0.65;
+  opacity: 0.55;
 }
-.tix-slot-chip.slot-disabled-past .slot-time { color: #cbd5e1 !important; }
-.tix-slot-chip.slot-disabled-past .slot-label { color: #94a3b8 !important; }
+.tix-slot-chip.slot-disabled-past .slot-duration { color: #cbd5e1 !important; }
+.tix-slot-chip.slot-disabled-past .slot-time-range { color: #cbd5e1 !important; }
+.tix-slot-chip.slot-disabled-past .slot-status-tag { color: #94a3b8 !important; }
 
+/* Sticky Bottom Action Drawer ("RESERVASI") */
 .tix-bottom-bar {
   position: fixed;
   bottom: 0;
@@ -349,7 +398,7 @@
     <div class="col-md-5 text-md-end">
       <div class="small text-secondary d-flex align-items-center justify-content-md-end gap-3">
         <span class="d-inline-flex align-items-center gap-1">
-          <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1.5px solid #cbd5e1;border-radius:3px;"></span>
+          <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1.5px solid #fed7aa;border-radius:3px;"></span>
           Tersedia
         </span>
         <span class="d-inline-flex align-items-center gap-1">
@@ -357,7 +406,7 @@
           Dipilih
         </span>
         <span class="d-inline-flex align-items-center gap-1">
-          <span style="display:inline-block;width:12px;height:12px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:3px;"></span>
+          <span style="display:inline-block;width:12px;height:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:3px;"></span>
           Penuh
         </span>
       </div>
@@ -439,7 +488,7 @@
             </div>
           </div>
 
-          <!-- Card Body (Grid of Showtimes) -->
+          <!-- Card Body (Grid of Showtimes - 3-Line Card Structure) -->
           <div class="tix-court-body">
             <div class="tix-slots-grid">
               <?php foreach ($timeSlots as $time => $label): ?>
@@ -447,27 +496,36 @@
                   $isOccupied = isset($slotsByCourt[$court['id']][$time]);
                   $slotData   = $isOccupied ? $slotsByCourt[$court['id']][$time] : null;
                   $isPast     = ($selectedDate === date('Y-m-d') && $time < $currentTime);
-                  $displayTime = substr($time, 0, 5);
+                  
+                  // Compute 1-hour range e.g. 07:00 - 08:00
+                  $startDisplay = substr($time, 0, 5);
+                  $startHour = (int) substr($time, 0, 2);
+                  $endHour = $startHour + 1;
+                  $endDisplay = ($endHour < 10 ? '0' . $endHour : $endHour) . ':00';
+                  $timeRange = $startDisplay . ' - ' . $endDisplay;
                 ?>
                 
                 <?php if ($isPast): ?>
                   <!-- Jam Sudah Berlalu -->
-                  <div class="tix-slot-chip slot-disabled-past" title="Pukul <?= $displayTime ?> telah lewat">
-                    <span class="slot-time"><?= $displayTime ?></span>
-                    <span class="slot-label">Lewat</span>
+                  <div class="tix-slot-chip slot-disabled-past" title="Pukul <?= $timeRange ?> telah lewat">
+                    <span class="slot-duration">60 Menit</span>
+                    <span class="slot-time-range"><?= $timeRange ?></span>
+                    <span class="slot-status-tag">Lewat</span>
                   </div>
                 <?php elseif ($isOccupied): ?>
                   <?php if ($slotData['booking_status'] === 'pending'): ?>
                     <!-- Menunggu Verifikasi -->
-                    <div class="tix-slot-chip slot-disabled-pending" title="Pukul <?= $displayTime ?> sedang dalam proses verifikasi">
-                      <span class="slot-time"><?= $displayTime ?></span>
-                      <span class="slot-label">Proses</span>
+                    <div class="tix-slot-chip slot-disabled-pending" title="Pukul <?= $timeRange ?> sedang dalam proses verifikasi">
+                      <span class="slot-duration">60 Menit</span>
+                      <span class="slot-time-range"><?= $timeRange ?></span>
+                      <span class="slot-status-tag">Proses</span>
                     </div>
                   <?php else: ?>
-                    <!-- Sudah Penuh Dibooking -->
-                    <div class="tix-slot-chip slot-disabled-booked" title="Pukul <?= $displayTime ?> sudah dibooking">
-                      <span class="slot-time"><?= $displayTime ?></span>
-                      <span class="slot-label">Penuh</span>
+                    <!-- Sudah Penuh / Booked -->
+                    <div class="tix-slot-chip slot-disabled-booked" title="Pukul <?= $timeRange ?> sudah dibooking">
+                      <span class="slot-duration">60 Menit</span>
+                      <span class="slot-time-range"><?= $timeRange ?></span>
+                      <span class="slot-status-tag">Booked</span>
                     </div>
                   <?php endif; ?>
                 <?php else: ?>
@@ -481,11 +539,13 @@
                           data-date="<?= esc($selectedDate) ?>"
                           data-date-label="<?= esc(tanggal_indonesia($selectedDate)) ?>"
                           data-time="<?= esc($time) ?>"
-                          data-display-time="<?= esc($displayTime) ?>"
+                          data-display-time="<?= esc($startDisplay) ?>"
+                          data-time-range="<?= esc($timeRange) ?>"
                           data-slot-label="<?= esc($label) ?>"
-                          title="Klik untuk memilih jam <?= $displayTime ?>">
-                    <span class="slot-time"><?= $displayTime ?></span>
-                    <span class="slot-label">Tersedia</span>
+                          title="Pilih jam <?= $timeRange ?> - <?= rupiah($court['price_per_hour']) ?>">
+                    <span class="slot-duration">60 Menit</span>
+                    <span class="slot-time-range"><?= $timeRange ?></span>
+                    <span class="slot-price-tag"><?= rupiah($court['price_per_hour']) ?></span>
                   </button>
                 <?php endif; ?>
               <?php endforeach; ?>
@@ -504,7 +564,7 @@
       </div>
       <div class="small">
         <strong class="text-dark">Tips Pemesanan:</strong>
-        Sentuh kotak jam yang bertuliskan <strong>"Tersedia"</strong>. Anda bisa memilih 1 jam atau beberapa jam berurutan pada lapangan yang sama. Setelah memilih, tombol <strong>"RESERVASI"</strong> di bagian bawah layar akan otomatis muncul!
+        Sentuh kotak jam yang tersedia untuk memilih. Anda bisa memilih 1 jam atau beberapa jam berurutan pada lapangan yang sama. Setelah memilih, tombol <strong>"RESERVASI"</strong> di bagian bawah layar akan otomatis muncul!
       </div>
     </div>
   </div>
@@ -512,7 +572,7 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- STICKY BOTTOM BAR (Floating Drawer "PESAN SEKARANG")           -->
+<!-- STICKY BOTTOM BAR (Floating Drawer "RESERVASI")                -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <div class="tix-bottom-bar" id="tixBottomBar">
   <div class="tix-bottom-bar-inner">

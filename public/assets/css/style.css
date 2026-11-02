@@ -825,102 +825,139 @@ footer a:hover {
 /* Showtime / Slots Grid */
 .tix-slots-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+}
+
+@media (min-width: 480px) {
+  .tix-slots-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
 }
 
 @media (min-width: 768px) {
   .tix-slots-grid {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 0.65rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
   }
 }
 
 @media (min-width: 1200px) {
   .tix-slots-grid {
-    grid-template-columns: repeat(8, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
   }
 }
 
-/* Time Slot Chip (Showtime Button) */
+/* Time Slot Chip */
 .tix-slot-chip {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 52px;
-  padding: 0.45rem 0.25rem;
-  border-radius: 10px;
-  border: 1.5px solid #cbd5e1;
+  min-height: 82px;
+  padding: 0.75rem 0.45rem;
+  border-radius: 12px;
+  border: 1.5px solid #fed7aa;
   background-color: #ffffff;
   color: #0f172a;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
-  position: relative;
   width: 100%;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  text-align: center;
 }
 
-.tix-slot-chip .slot-time {
+.tix-slot-chip .slot-duration {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.2px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.tix-slot-chip .slot-time-range {
   font-size: 0.92rem;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.2px;
+  color: #0f172a;
+  white-space: nowrap;
 }
 
-.tix-slot-chip .slot-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  margin-top: 3px;
-  color: #16a34a;
+.tix-slot-chip .slot-price-tag {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #c2410c;
+  margin-top: 5px;
+  line-height: 1;
+}
+
+.tix-slot-chip .slot-status-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 5px;
+  line-height: 1;
 }
 
 /* Hover Available */
 .tix-slot-chip.slot-free:hover {
-  border-color: var(--sport-primary);
+  border-color: #ea580c;
   background-color: #fff7ed;
-  color: var(--sport-primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(249, 115, 22, 0.18);
+  box-shadow: 0 6px 16px rgba(234, 88, 12, 0.2);
 }
 
-/* Selected State (When clicked by user) */
+.tix-slot-chip.slot-free:hover .slot-time-range {
+  color: #c2410c;
+}
+
+/* Selected State */
 .tix-slot-chip.selected {
   background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #f97316 100%) !important;
   border-color: #c2410c !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4) !important;
-  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.45) !important;
+  transform: translateY(-2px) scale(1.02);
 }
 
-.tix-slot-chip.selected .slot-time {
+.tix-slot-chip.selected .slot-duration {
+  color: #ffedd5 !important;
+}
+
+.tix-slot-chip.selected .slot-time-range {
   color: #ffffff !important;
 }
 
-.tix-slot-chip.selected .slot-label {
-  color: #ffedd5 !important;
-  font-weight: 700;
+.tix-slot-chip.selected .slot-price-tag {
+  color: #ffffff !important;
+  font-weight: 800 !important;
 }
 
 /* Booked / Full State */
 .tix-slot-chip.slot-disabled-booked {
-  background-color: #f1f5f9;
+  background-color: #f8fafc;
   border-color: #e2e8f0;
   color: #94a3b8;
   cursor: not-allowed;
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
-.tix-slot-chip.slot-disabled-booked .slot-time {
+.tix-slot-chip.slot-disabled-booked .slot-duration {
   color: #94a3b8;
 }
 
-.tix-slot-chip.slot-disabled-booked .slot-label {
-  color: #ef4444;
+.tix-slot-chip.slot-disabled-booked .slot-time-range {
+  color: #94a3b8;
+}
+
+.tix-slot-chip.slot-disabled-booked .slot-status-tag {
+  color: #94a3b8;
+  font-weight: 600;
 }
 
 /* Pending State */
@@ -932,28 +969,36 @@ footer a:hover {
   opacity: 0.9;
 }
 
-.tix-slot-chip.slot-disabled-pending .slot-time {
+.tix-slot-chip.slot-disabled-pending .slot-duration {
   color: #b45309;
 }
 
-.tix-slot-chip.slot-disabled-pending .slot-label {
+.tix-slot-chip.slot-disabled-pending .slot-time-range {
+  color: #b45309;
+}
+
+.tix-slot-chip.slot-disabled-pending .slot-status-tag {
   color: #d97706;
 }
 
-/* Past Hour State (Today, already passed) */
+/* Past Hour State */
 .tix-slot-chip.slot-disabled-past {
   background-color: #f8fafc;
   border-color: #f1f5f9;
   color: #cbd5e1;
   cursor: not-allowed;
-  opacity: 0.65;
+  opacity: 0.55;
 }
 
-.tix-slot-chip.slot-disabled-past .slot-time {
+.tix-slot-chip.slot-disabled-past .slot-duration {
   color: #cbd5e1;
 }
 
-.tix-slot-chip.slot-disabled-past .slot-label {
+.tix-slot-chip.slot-disabled-past .slot-time-range {
+  color: #cbd5e1;
+}
+
+.tix-slot-chip.slot-disabled-past .slot-status-tag {
   color: #94a3b8;
 }
 
