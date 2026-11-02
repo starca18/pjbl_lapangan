@@ -1,0 +1,678 @@
+/* =====================================================
+   ArenaSport — Custom Stylesheet
+   Palette: Vibrant Orange primary, Electric Blue accent
+   ===================================================== */
+
+:root {
+  --sport-primary:      #f97316;
+  --sport-primary-dark: #ea580c;
+  --sport-primary-light:#fb923c;
+  --sport-accent:       #3b82f6;
+  --sport-dark:         #1c1917;
+  --sport-slate:        #44403c;
+  --sport-muted:        #78716c;
+  --sport-light-bg:     #fff7ed;
+  --sport-card-bg:      #ffffff;
+  --sport-border:       #fed7aa;
+
+  /* Slot states — semantic colours stay unchanged */
+  --slot-avail-bg:      #ecfdf5;
+  --slot-avail-border:  #a7f3d0;
+  --slot-avail-text:    #065f46;
+
+  --slot-booked-bg:     #fef2f2;
+  --slot-booked-border: #fecaca;
+  --slot-booked-text:   #991b1b;
+
+  --slot-pending-bg:    #fffbeb;
+  --slot-pending-border:#fde68a;
+  --slot-pending-text:  #92400e;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  color: var(--sport-dark);
+  background-color: var(--sport-light-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* ── Navbar ─────────────────────────────────────────── */
+.navbar-brand {
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.5px;
+  color: var(--sport-primary-dark) !important;
+}
+
+.nav-link {
+  font-weight: 500;
+  color: var(--sport-slate);
+  transition: color 0.15s ease-in-out;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--sport-primary) !important;
+}
+
+/* ── Hero Section ───────────────────────────────────── */
+.hero-section {
+  background: linear-gradient(135deg, #c2410c 0%, #f97316 55%, #fb923c 100%);
+  color: #ffffff;
+  padding: 5rem 0 4.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  margin-bottom: 1.25rem;
+}
+
+.hero-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 620px;
+  line-height: 1.6;
+}
+
+/* ── Buttons ─────────────────────────────────────────── */
+.btn-sport {
+  background-color: #ffffff;
+  color: var(--sport-primary-dark);
+  font-weight: 700;
+  border: none;
+  padding: 0.75rem 1.75rem;
+  border-radius: 8px;
+  min-height: 44px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-sport:hover {
+  background-color: #fff7ed;
+  color: var(--sport-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-sport-primary {
+  background-color: var(--sport-primary);
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  min-height: 44px;
+}
+
+.btn-sport-primary:hover {
+  background-color: var(--sport-primary-dark);
+  color: #ffffff;
+}
+
+.btn-sport-outline {
+  border: 1.5px solid var(--sport-primary);
+  color: var(--sport-primary);
+  font-weight: 600;
+  border-radius: 8px;
+  background: transparent;
+  min-height: 44px;
+}
+
+.btn-sport-outline:hover {
+  background-color: var(--sport-primary);
+  color: #ffffff;
+}
+
+/* ── Court Cards ──────────────────────────────────────── */
+.card-court {
+  background-color: var(--sport-card-bg);
+  border: 1px solid var(--sport-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-court:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.12);
+}
+
+.card-court .court-img-wrapper {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  background-color: #1c1917;
+}
+
+.card-court .court-img-wrapper img,
+.card-court .court-img-wrapper svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card-court:hover .court-img-wrapper img,
+.card-court:hover .court-img-wrapper svg {
+  transform: scale(1.04);
+}
+
+.court-type-pill {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(28, 25, 23, 0.85);
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.court-category-pill {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(249, 115, 22, 0.92);
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ── Schedule Matrix ──────────────────────────────────── */
+.schedule-table-wrapper {
+  border: 1px solid var(--sport-border);
+  border-radius: 10px;
+  overflow-x: auto;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-schedule {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.table-schedule thead th {
+  background-color: #fff7ed;
+  color: var(--sport-slate);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 2px solid var(--sport-border);
+  text-align: center;
+}
+
+.table-schedule thead th.sticky-col {
+  position: sticky;
+  left: 0;
+  background-color: #ffe4cc;
+  z-index: 3;
+  text-align: left;
+  min-width: 220px;
+}
+
+.table-schedule tbody td {
+  padding: 0.5rem;
+  vertical-align: middle;
+  border: 1px solid #fff7ed;
+  text-align: center;
+}
+
+.table-schedule tbody td.sticky-col {
+  position: sticky;
+  left: 0;
+  background-color: #ffffff;
+  z-index: 2;
+  text-align: left;
+  font-weight: 600;
+  border-right: 2px solid var(--sport-border);
+}
+
+/* ── Slot Badges ─────────────────────────────────────── */
+.slot-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 80px;
+  padding: 0.4rem 0.35rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.slot-available {
+  background-color: var(--slot-avail-bg);
+  border: 1px solid var(--slot-avail-border);
+  color: var(--slot-avail-text);
+}
+
+.slot-available:hover {
+  background-color: #d1fae5;
+  border-color: #34d399;
+  color: #064e3b;
+  transform: scale(1.03);
+}
+
+.slot-booked {
+  background-color: var(--slot-booked-bg);
+  border: 1px solid var(--slot-booked-border);
+  color: var(--slot-booked-text);
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.slot-pending {
+  background-color: var(--slot-pending-bg);
+  border: 1px solid var(--slot-pending-border);
+  color: var(--slot-pending-text);
+  cursor: not-allowed;
+}
+
+/* ── Slot Chooser (booking detail) ───────────────────── */
+.slot-select-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid var(--sport-border);
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: all 0.15s ease;
+  user-select: none;
+  min-height: 44px;
+}
+
+.slot-select-card:hover:not(.disabled) {
+  border-color: var(--sport-primary);
+  background-color: #fff7ed;
+}
+
+.slot-select-card.selected {
+  border-color: var(--sport-primary);
+  background-color: #ffedd5;
+  color: var(--sport-primary-dark);
+  font-weight: 700;
+}
+
+.slot-select-card.disabled {
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+/* ── Admin Sidebar ───────────────────────────────────── */
+.admin-sidebar {
+  min-height: calc(100vh - 56px);
+  background-color: #ffffff;
+  border-right: 1px solid var(--sport-border);
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  color: var(--sport-slate);
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  margin: 0.2rem 0.5rem;
+  transition: all 0.15s ease;
+  min-height: 44px;
+}
+
+.admin-nav-item i {
+  font-size: 1.2rem;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.admin-nav-item:hover,
+.admin-nav-item.active {
+  background-color: #ffedd5;
+  color: var(--sport-primary-dark);
+  font-weight: 600;
+}
+
+/* ── Footer ──────────────────────────────────────────── */
+footer {
+  background-color: #1c1917;
+  color: #a8a29e;
+  padding: 3rem 0 1.5rem;
+  margin-top: auto;
+}
+
+footer a {
+  color: #d6d3d1;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+footer a:hover {
+  color: #ffffff;
+}
+
+/* =====================================================
+   Mobile Responsive Overrides
+   Breakpoints driven by content, not device names.
+   ===================================================== */
+
+/* ── 768 px and below ──────────────────────────────── */
+@media (max-width: 768px) {
+  /* Hero */
+  .hero-section {
+    padding: 2.5rem 0 2rem;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 1.85rem;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+
+  .hero-badge {
+    font-size: 0.78rem;
+  }
+
+  /* Ensure hero CTA buttons stack and full-width on very small screens */
+  .hero-section .btn-sport,
+  .hero-section .btn-outline-light {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Schedule matrix — tighten sticky column */
+  .table-schedule thead th.sticky-col,
+  .table-schedule tbody td.sticky-col {
+    min-width: 140px;
+  }
+
+  .slot-badge {
+    min-width: 60px;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.2rem;
+  }
+
+  .table-schedule thead th {
+    font-size: 0.65rem;
+    padding: 0.5rem 0.3rem;
+  }
+
+  /* Admin sidebar — collapse to off-canvas on mobile */
+  .admin-sidebar {
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--sport-border);
+  }
+
+  /* Nav CTA inside collapsed hamburger menu */
+  .navbar-collapse .btn-sport-primary {
+    width: 100%;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .navbar-collapse .btn-light {
+    width: 100%;
+    margin-top: 0.25rem;
+    text-align: center;
+  }
+
+  /* Footer grid — stack to single column at xs */
+  footer .col-lg-4,
+  footer .col-md-6 {
+    margin-bottom: 1rem;
+  }
+
+  /* How-to steps — 2 per row instead of 4 */
+  .how-to-step {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+/* ── 480 px and below ──────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .card-court .court-img-wrapper {
+    height: 170px;
+  }
+
+  /* Step cards: full-width on very narrow screens */
+  .how-to-step {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* =====================================================
+   Interactive Isometric Sport Animations
+   ===================================================== */
+.anim {
+  animation-duration: var(--d, 2.4s);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-play-state: paused;
+}
+
+.sport-select-card:hover .anim,
+.sport-select-card:focus-visible .anim,
+.sport-select-card.on .anim,
+.sport-select-card.active .anim,
+.sport-select-card.is-touch-playing .anim {
+  animation-play-state: running;
+}
+
+.pop {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes bob {
+  0%, 100% { scale: 1 1; }
+  50% { scale: 1 0.96; }
+}
+
+@keyframes arm {
+  0% { rotate: 28deg; }
+  12% { rotate: 0deg; }
+  80% { rotate: -4deg; }
+  93% { rotate: -50deg; }
+  100% { rotate: 28deg; }
+}
+
+@keyframes push {
+  0% { scale: 1 1.18; }
+  10% { scale: 1 1; }
+  78% { scale: 1 0.9; }
+  92% { scale: 1 0.85; }
+  100% { scale: 1 1.18; }
+}
+
+@keyframes pushB {
+  0%, 8% { scale: 1 0.85; }
+  14% { scale: 1 1.18; }
+  26%, 100% { scale: 1 1; }
+}
+
+@keyframes jump {
+  0%, 6% { translate: 0 0; scale: 1 0.93; }
+  14% { translate: 0 -10px; scale: 1 1.03; }
+  32%, 100% { translate: 0 0; scale: 1 1; }
+}
+
+@keyframes legk {
+  0%, 14% { rotate: 0deg; scale: 1 1; }
+  20% { rotate: 28deg; }
+  24% { rotate: -35deg; scale: 1 0.85; }
+  36%, 100% { rotate: 0deg; scale: 1 1; }
+}
+
+@keyframes dive {
+  0%, 34% { translate: 0 0; rotate: 0deg; }
+  52%, 92% { translate: -13px -4px; rotate: -32deg; }
+  100% { translate: 0 0; rotate: 0deg; }
+}
+
+@keyframes pop {
+  0%, 56% { opacity: 0; scale: 0.5; }
+  66% { opacity: 1; scale: 1.25; }
+  78%, 92% { opacity: 1; scale: 1; }
+  100% { opacity: 0; scale: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim {
+    animation: none !important;
+  }
+}
+
+/* ── Sport Selection Card ────────────────────────────── */
+.sport-select-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 2px solid var(--sport-border);
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+}
+
+.sport-select-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--sport-primary);
+  box-shadow: 0 12px 24px -8px rgba(249, 115, 22, 0.25);
+  color: inherit;
+}
+
+.sport-select-card.on,
+.sport-select-card.active {
+  border-color: var(--sport-primary);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.25);
+  background: #fffbf7;
+}
+
+.sport-canvas-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 300 / 180;
+  background-color: #0c1722;
+  overflow: hidden;
+}
+
+.sport-canvas-wrap svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sport-card-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(28, 25, 23, 0.85);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(4px);
+}
+
+.sport-card-info {
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.sport-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--sport-dark);
+}
+
+.sport-card-price {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--sport-primary-dark);
+}
+
+.sport-card-desc {
+  font-size: 0.82rem;
+  color: var(--sport-muted);
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.sport-card-action {
+  font-size: 0.75rem;
+  color: var(--sport-muted);
+  font-weight: 500;
+}
+
+.sport-select-card:hover .sport-card-action {
+  color: var(--sport-primary-dark);
+  font-weight: 600;
+}
+
+/* ── Mobile Overrides for Sport Cards ────────────────── */
+@media (max-width: 576px) {
+  .sport-card-info {
+    padding: 0.85rem;
+  }
+  .sport-card-title {
+    font-size: 1.05rem;
+  }
+  .sport-card-price {
+    font-size: 0.78rem;
+  }
+}
