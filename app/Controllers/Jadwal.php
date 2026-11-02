@@ -81,6 +81,8 @@ class Jadwal extends BaseController
             'totalPendingCount' => $totalPendingCount,
             'totalAvailable'    => $totalAvailable,
             'totalCapacity'     => $totalCapacity,
+            'dateList'          => $dateList,
+            'currentTime'       => $currentTime,
         ]);
     }
 
