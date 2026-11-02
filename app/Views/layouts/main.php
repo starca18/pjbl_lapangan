@@ -21,10 +21,10 @@
 <body>
 
   <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top py-2.5">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top py-2">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="<?= base_url() ?>">
-        <span class="d-inline-flex align-items-center justify-content-center text-white rounded-3 p-1.5" style="width:34px;height:34px;background-color:var(--sport-primary);">
+        <span class="d-inline-flex align-items-center justify-content-center text-white rounded-3" style="width:36px;height:36px;background:linear-gradient(135deg, #ea580c, #f97316);box-shadow:0 2px 8px rgba(234,88,12,0.3);margin-right:10px;">
           <i class="bi bi-trophy-fill" style="font-size:1.1rem;"></i>
         </span>
         <span>Arena<span style="color:var(--sport-primary);">Sport</span></span>

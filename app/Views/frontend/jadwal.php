@@ -76,6 +76,9 @@
 }
 .tix-sport-pills::-webkit-scrollbar { display: none; }
 .tix-sport-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
   padding: 0.45rem 1rem !important;
   border-radius: 9999px !important;
   font-size: 0.82rem !important;
@@ -87,6 +90,9 @@
   white-space: nowrap !important;
   flex-shrink: 0 !important;
   transition: all 0.15s ease;
+}
+.tix-sport-pill i {
+  font-size: 0.95rem;
 }
 .tix-sport-pill:hover {
   border-color: #f97316 !important;
@@ -108,8 +114,59 @@
   overflow: hidden;
 }
 .tix-court-header {
-  padding: 0.85rem 1.15rem;
+  padding: 0.95rem 1.15rem;
   border-bottom: 1px solid #f1f5f9;
+}
+.tix-court-icon-badge {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-right: 14px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.tix-court-card:hover .tix-court-icon-badge {
+  transform: scale(1.05);
+}
+.cat-futsal {
+  background: #fff7ed;
+  color: #ea580c;
+  border: 1.5px solid #fed7aa;
+}
+.cat-mini-soccer {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1.5px solid #bbf7d0;
+}
+.cat-badminton {
+  background: #f0fdfa;
+  color: #0d9488;
+  border: 1.5px solid #99f6e4;
+}
+.cat-voli {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1.5px solid #bfdbfe;
+}
+.cat-tenis {
+  background: #fefce8;
+  color: #ca8a04;
+  border: 1.5px solid #fef08a;
+}
+.cat-padel {
+  background: #faf5ff;
+  color: #7c3aed;
+  border: 1.5px solid #e9d5ff;
+}
+.cat-default {
+  background: #f8fafc;
+  color: #64748b;
+  border: 1.5px solid #e2e8f0;
 }
 .tix-court-body {
   padding: 0.85rem 1.15rem 1.15rem 1.15rem;
@@ -311,14 +368,21 @@
 </style>
 
 <!-- Header (Clean & Compact) -->
-<div class="bg-white border-bottom py-2.5">
-  <div class="container d-flex align-items-center justify-content-between">
-    <h2 class="fw-bold mb-0 fs-4 text-dark">Jadwal Lapangan</h2>
-    <input type="date" id="customDatePicker" class="form-control form-control-sm border-secondary-subtle px-2 py-1" 
-           style="width:auto; font-size:0.85rem;" 
-           value="<?= esc($selectedDate) ?>" min="<?= date('Y-m-d') ?>" 
-           title="Pilih tanggal bermain"
-           onchange="window.location.href='<?= base_url('jadwal?date=') ?>' + this.value + '<?= $selectedCategory ? '&category=' . $selectedCategory : '' ?>'">
+<div class="bg-white border-bottom py-3">
+  <div class="container d-flex align-items-center justify-content-between gap-3">
+    <div class="d-flex align-items-center" style="gap:10px;">
+      <span class="d-inline-flex align-items-center justify-content-center text-white rounded-3" style="width:34px;height:34px;background:linear-gradient(135deg, #ea580c, #f97316);box-shadow:0 2px 6px rgba(234,88,12,0.25);">
+        <i class="bi bi-calendar3" style="font-size:0.95rem;"></i>
+      </span>
+      <h1 class="h5 fw-bold mb-0 text-dark">Jadwal Lapangan</h1>
+    </div>
+    <div class="d-flex align-items-center">
+      <input type="date" id="customDatePicker" class="form-control form-control-sm px-2.5 py-1.5" 
+             style="width:auto; font-size:0.85rem; border:1.5px solid #fed7aa; background:#fff7ed; color:#c2410c; font-weight:600; border-radius:10px;" 
+             value="<?= esc($selectedDate) ?>" min="<?= date('Y-m-d') ?>" 
+             title="Pilih tanggal bermain"
+             onchange="window.location.href='<?= base_url('jadwal?date=') ?>' + this.value + '<?= $selectedCategory ? '&category=' . $selectedCategory : '' ?>'">
+    </div>
   </div>
 </div>
 
@@ -341,12 +405,14 @@
   <div class="tix-sport-pills mb-3">
     <a href="<?= base_url('jadwal?date=' . $selectedDate . ($selectedCourt ? '&court=' . $selectedCourt : '')) ?>" 
        class="tix-sport-pill <?= empty($selectedCategory) ? 'active' : '' ?>">
-      <i class="bi bi-trophy me-1"></i>Semua (<?= $totalAllCourts ?? count($courts) ?>)
+      <i class="bi bi-trophy"></i>
+      <span>Semua (<?= $totalAllCourts ?? count($courts) ?>)</span>
     </a>
     <?php foreach ($categories as $cat): ?>
       <a href="<?= base_url('jadwal?date=' . $selectedDate . '&category=' . $cat['id']) ?>" 
          class="tix-sport-pill <?= $selectedCategory == $cat['id'] ? 'active' : '' ?>">
-        <?= esc($cat['name']) ?> (<?= $cat['courts_count'] ?>)
+        <i class="bi <?= esc($cat['icon']) ?>"></i>
+        <span><?= esc($cat['name']) ?> (<?= $cat['courts_count'] ?>)</span>
       </a>
     <?php endforeach; ?>
   </div>
@@ -370,14 +436,14 @@
           <!-- Card Header (Venue Info) -->
           <div class="tix-court-header">
             <div class="d-flex justify-content-between align-items-center gap-2">
-              <div class="d-flex align-items-center gap-2.5">
-                <div style="width:38px;height:38px;flex-shrink:0;" class="rounded-3 overflow-hidden bg-dark position-relative">
-                  <img src="<?= base_url('assets/images/courts/' . esc($court['image'])) ?>" alt="<?= esc($court['name']) ?>" style="width:100%;height:100%;object-fit:cover;">
+              <div class="d-flex align-items-center">
+                <div class="tix-court-icon-badge cat-<?= esc($court['category_slug'] ?? 'default') ?>">
+                  <i class="bi <?= esc($court['category_icon'] ?? 'bi-trophy') ?>"></i>
                 </div>
                 <div>
+                  <h5 class="fw-bold mb-1 text-dark fs-6" style="line-height:1.2;"><?= esc($court['name']) ?></h5>
                   <div class="d-flex align-items-center gap-1.5 flex-wrap">
-                    <h5 class="fw-bold mb-0 text-dark fs-6"><?= esc($court['name']) ?></h5>
-                    <span class="badge" style="background:#ffedd5;color:var(--sport-primary);font-size:0.72rem;">
+                    <span class="badge" style="background:#ffedd5;color:var(--sport-primary);font-size:0.72rem;font-weight:600;">
                       <?= esc($court['category_name']) ?>
                     </span>
                     <span class="badge bg-light text-secondary border" style="font-size:0.7rem;">
@@ -388,8 +454,8 @@
               </div>
 
               <!-- Price Tag -->
-              <div class="text-end">
-                <div class="fw-bold fs-6 text-dark" style="color:var(--sport-primary-dark) !important;">
+              <div class="text-end" style="flex-shrink:0;">
+                <div class="fw-bold fs-6 text-dark" style="color:var(--sport-primary-dark) !important; white-space:nowrap;">
                   <?= rupiah($court['price_per_hour']) ?><span class="text-secondary fw-normal small">/jam</span>
                 </div>
               </div>
