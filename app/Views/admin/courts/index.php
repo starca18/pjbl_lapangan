@@ -84,16 +84,22 @@
               </td>
 
               <td class="text-end pe-3">
-                <div class="btn-group btn-group-sm">
-                  <a href="<?= base_url('admin/courts/toggle/' . $court['id']) ?>" class="btn btn-outline-secondary" title="<?= $court['is_active'] ? 'Set Maintenance' : 'Aktifkan' ?>">
-                    <i class="bi <?= $court['is_active'] ? 'bi-toggle-on text-success' : 'bi-toggle-off text-muted' ?>"></i>
-                  </a>
-                  <a href="<?= base_url('admin/courts/edit/' . $court['id']) ?>" class="btn btn-outline-secondary" title="Edit">
+                <div class="d-inline-flex align-items-center gap-1">
+                  <form action="<?= base_url('admin/courts/toggle/' . $court['id']) ?>" method="post" class="d-inline m-0">
+                    <?= csrf_field() ?>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary" title="<?= $court['is_active'] ? 'Set Maintenance' : 'Aktifkan' ?>">
+                      <i class="bi <?= $court['is_active'] ? 'bi-toggle-on text-success' : 'bi-toggle-off text-muted' ?>"></i>
+                    </button>
+                  </form>
+                  <a href="<?= base_url('admin/courts/edit/' . $court['id']) ?>" class="btn btn-sm btn-outline-secondary" title="Edit">
                     <i class="bi bi-pencil"></i>
                   </a>
-                  <a href="<?= base_url('admin/courts/delete/' . $court['id']) ?>" class="btn btn-outline-danger" title="Hapus" onclick="return confirm('Apakah Anda yakin ingin menghapus lapangan ini?')">
-                    <i class="bi bi-trash"></i>
-                  </a>
+                  <form action="<?= base_url('admin/courts/delete/' . $court['id']) ?>" method="post" class="d-inline m-0" onsubmit="return confirm('Apakah Anda yakin ingin menghapus lapangan ini?')">
+                    <?= csrf_field() ?>
+                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
                 </div>
               </td>
             </tr>

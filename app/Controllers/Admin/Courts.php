@@ -69,6 +69,15 @@ class Courts extends BaseController
 
         $imgFile = $this->request->getFile('image');
         if ($imgFile && $imgFile->isValid() && !$imgFile->hasMoved()) {
+            $validationRule = [
+                'image' => [
+                    'label' => 'Gambar Lapangan',
+                    'rules' => 'uploaded[image]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png,image/webp]|max_size[image,2048]',
+                ],
+            ];
+            if (! $this->validate($validationRule)) {
+                return redirect()->back()->withInput()->with('error', 'Format gambar tidak valid. Gunakan file JPG, PNG, atau WEBP dengan ukuran maksimal 2MB.');
+            }
             $newName = $imgFile->getRandomName();
             $imgFile->move(FCPATH . 'assets/images/courts', $newName);
             $imageName = $newName;
@@ -137,6 +146,15 @@ class Courts extends BaseController
         $imageName = $court['image'];
         $imgFile = $this->request->getFile('image');
         if ($imgFile && $imgFile->isValid() && !$imgFile->hasMoved()) {
+            $validationRule = [
+                'image' => [
+                    'label' => 'Gambar Lapangan',
+                    'rules' => 'uploaded[image]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png,image/webp]|max_size[image,2048]',
+                ],
+            ];
+            if (! $this->validate($validationRule)) {
+                return redirect()->back()->withInput()->with('error', 'Format gambar tidak valid. Gunakan file JPG, PNG, atau WEBP dengan ukuran maksimal 2MB.');
+            }
             $newName = $imgFile->getRandomName();
             $imgFile->move(FCPATH . 'assets/images/courts', $newName);
             $imageName = $newName;

@@ -19,6 +19,13 @@ class Auth extends BaseController
 
     public function processLogin()
     {
+        // Rate limiting: maks 5 percobaan per menit per IP
+        $throttler = \Config\Services::throttler();
+        $ip = $this->request->getIPAddress();
+        if ($throttler->check(md5('login_attempt_' . $ip), 5, MINUTE) === false) {
+            return redirect()->back()->withInput()->with('error', 'Terlalu banyak percobaan masuk yang gagal. Harap tunggu 1 menit sebelum mencoba kembali.');
+        }
+
         $username = trim($this->request->getPost('username') ?? '');
         $password = $this->request->getPost('password') ?? '';
 
@@ -32,6 +39,9 @@ class Auth extends BaseController
         if (!$user || !password_verify($password, $user['password'])) {
             return redirect()->back()->withInput()->with('error', 'Username atau kata sandi tidak valid.');
         }
+
+        // Cegah session fixation
+        session()->regenerate(true);
 
         // Set session
         session()->set([

@@ -1,10 +1,10 @@
-# 🏆 ArenaSport - Aplikasi Reservasi Lapangan Olahraga (CodeIgniter 4)
+# ðŸ† ArenaSport - Aplikasi Reservasi Lapangan Olahraga (CodeIgniter 4)
 
 Aplikasi web sistem reservasi dan pengecekan jadwal lapangan olahraga berbasis **CodeIgniter 4** dan **MySQL/MariaDB**. Dilengkapi dengan visual timetable matrix yang memperlihatkan status ketersediaan jam (slot kosong vs penuh) secara real-time.
 
 ---
 
-## ⚽ Cabang Olahraga yang Didukung
+## âš½ Cabang Olahraga yang Didukung
 
 Aplikasi ini mencakup 6 jenis cabang olahraga lengkap:
 1. **Futsal**: Lapangan Vinyl Taraflex & Lapangan Rumput Sintetis.
@@ -16,14 +16,14 @@ Aplikasi ini mencakup 6 jenis cabang olahraga lengkap:
 
 ---
 
-## ✨ Fitur Utama
+## âœ¨ Fitur Utama
 
 ### 1. Papan Jadwal Ketersediaan Real-Time (Jadwal Penuh vs Kosong)
 - **Tampilan Matriks Interaktif**: Kolom jam operasional (07:00 - 23:00) vs baris lapangan.
 - **Warna Indikator Ketersediaan**:
-  - 🟢 **Hijau (Tersedia / Kosong)**: Slot siap dipesan. Klik slot untuk langsung reservasi.
-  - 🔴 **Merah (Penuh / Terisi)**: Sudah dipesan oleh pengguna lain.
-  - 🟡 **Kuning (Proses / Pending)**: Menunggu konfirmasi verifikasi.
+  - ðŸŸ¢ **Hijau (Tersedia / Kosong)**: Slot siap dipesan. Klik slot untuk langsung reservasi.
+  - ðŸ”´ **Merah (Penuh / Terisi)**: Sudah dipesan oleh pengguna lain.
+  - ðŸŸ¡ **Kuning (Proses / Pending)**: Menunggu konfirmasi verifikasi.
 - **Filter Tanggal & Olahraga**: Pilih tanggal main (Hari Ini, Besok, Lusa, atau kalender) dan cabang olahraga.
 - **Pencegahan Double-Booking (Atomic Slot Lock)**: Sistem database mencegah pemesanan ganda pada jam dan lapangan yang sama.
 
@@ -47,7 +47,7 @@ Aplikasi ini mencakup 6 jenis cabang olahraga lengkap:
 
 ---
 
-## 🚀 Panduan Akses & Penggunaan
+## ðŸš€ Panduan Akses & Penggunaan
 
 ### 1. URL Akses Aplikasi
 - **Halaman Utama / Publik**:
@@ -62,13 +62,13 @@ Aplikasi ini mencakup 6 jenis cabang olahraga lengkap:
 - **Login Admin / Staff**:
   - `http://localhost/pjbl_lapangan/public/login`
 
-### 2. Akun Administrator Demo
+### 2. Akun Administrator Demo (Ubah saat Produksi)
 - **Username**: `admin`
 - **Password**: `admin123`
 
 ---
 
-## 🛠️ Konfigurasi & Struktur Database
+## ðŸ› ï¸ Konfigurasi & Struktur Database
 
 - **Nama Database**: `pjbl_lapangan`
 - **File Konfigurasi**: `.env`

@@ -56,6 +56,15 @@ class Cookie extends BaseConfig
      */
     public bool $secure = false;
 
+    public function __construct()
+    {
+        parent::__construct();
+        if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ||
+            (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
+            $this->secure = true;
+        }
+    }
+
     /**
      * --------------------------------------------------------------------------
      * Cookie HTTPOnly

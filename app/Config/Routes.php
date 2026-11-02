@@ -39,6 +39,6 @@ $routes->group('admin', ['filter' => 'adminAuth'], static function ($routes) {
     $routes->post('courts/store', 'Admin\Courts::store');
     $routes->get('courts/edit/(:num)', 'Admin\Courts::edit/$1');
     $routes->post('courts/update/(:num)', 'Admin\Courts::update/$1');
-    $routes->get('courts/toggle/(:num)', 'Admin\Courts::toggleStatus/$1');
-    $routes->get('courts/delete/(:num)', 'Admin\Courts::delete/$1');
+    $routes->post('courts/toggle/(:num)', 'Admin\Courts::toggleStatus/$1');
+    $routes->post('courts/delete/(:num)', 'Admin\Courts::delete/$1');
 });

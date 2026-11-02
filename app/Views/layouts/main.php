@@ -81,7 +81,7 @@
     <div class="container mt-3">
       <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
         <i class="bi bi-check-circle-fill me-2 fs-5"></i>
-        <div><?= session()->getFlashdata('success') ?></div>
+        <div><?= esc(session()->getFlashdata('success')) ?></div>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       </div>
     </div>
@@ -91,7 +91,7 @@
     <div class="container mt-3">
       <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
         <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
-        <div><?= session()->getFlashdata('error') ?></div>
+        <div><?= esc(session()->getFlashdata('error')) ?></div>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       </div>
     </div>

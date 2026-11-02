@@ -135,8 +135,8 @@ class Booking extends BaseController
             'total_hours'    => $totalHours,
             'total_price'    => $totalPrice,
             'payment_method' => $paymentMethod,
-            'payment_status' => ($paymentMethod === 'Tunai / On-site') ? 'unpaid' : 'paid',
-            'status'         => 'confirmed',
+            'payment_status' => 'unpaid',
+            'status'         => 'pending',
             'notes'          => $notes,
         ];
 
@@ -151,7 +151,7 @@ class Booking extends BaseController
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan sistem saat memproses reservasi. Silakan coba kembali.');
         }
 
-        return redirect()->to(base_url('booking/success/' . $bookingCode))->with('success', 'Reservasi berhasil dibuat! Silakan simpan kode booking Anda.');
+        return redirect()->to(base_url('booking/success/' . $bookingCode))->with('success', 'Reservasi berhasil dibuat! Silakan simpan kode booking Anda dan selesaikan konfirmasi pembayaran.');
     }
 
     public function success($bookingCode)
@@ -172,11 +172,16 @@ class Booking extends BaseController
     public function lacak()
     {
         $bookingModel = new BookingModel();
-        $keyword = trim($this->request->getGet('q') ?? '');
+        $keyword = strtoupper(trim($this->request->getGet('q') ?? ''));
         $results = [];
 
         if (!empty($keyword)) {
-            $results = $bookingModel->getBookingsWithCourt(['search' => $keyword]);
+            // Wajib kode booking spesifik (minimal 8 karakter) untuk melindungi privasi data
+            if (strlen($keyword) >= 8 && preg_match('/^[A-Z0-9\-]+$/', $keyword)) {
+                $results = $bookingModel->getBookingsWithCourt(['booking_code' => $keyword]);
+            } else {
+                session()->setFlashdata('error', 'Format kode booking tidak sesuai. Harap masukkan kode booking lengkap (contoh: BK-' . date('Ymd') . '-XXXX).');
+            }
         }
 
         return view('frontend/lacak', [

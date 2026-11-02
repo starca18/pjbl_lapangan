@@ -55,6 +55,10 @@ class BookingModel extends Model
             $builder->where('bookings.payment_status', $filters['payment_status']);
         }
 
+        if (!empty($filters['booking_code'])) {
+            $builder->where('bookings.booking_code', trim($filters['booking_code']));
+        }
+
         if (!empty($filters['search'])) {
             $search = $filters['search'];
             $builder->groupStart()
@@ -80,18 +84,13 @@ class BookingModel extends Model
 
     public function generateBookingCode(): string
     {
-        $prefix = 'BK-' . date('Ymd') . '-';
-        $last = $this->like('booking_code', $prefix, 'after')
-                     ->orderBy('id', 'DESC')
-                     ->first();
+        $datePrefix = 'BK-' . date('Ymd') . '-';
+        do {
+            $randomPart = strtoupper(substr(bin2hex(random_bytes(3)), 0, 4));
+            $code       = $datePrefix . $randomPart;
+            $exists     = $this->where('booking_code', $code)->first();
+        } while ($exists);
 
-        if ($last) {
-            $lastNumber = (int) substr($last['booking_code'], -3);
-            $nextNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
-        } else {
-            $nextNumber = '001';
-        }
-
-        return $prefix . $nextNumber;
+        return $code;
     }
 }
