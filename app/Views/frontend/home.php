@@ -7,22 +7,21 @@
   <div class="container">
     <div class="row align-items-center g-4">
       <div class="col-lg-7">
-        <div class="hero-badge">
-          <i class="bi bi-patch-check-fill me-1.5 text-warning"></i>
-          Sistem Reservasi Lapangan Terintegrasi
-        </div>
         <h1 class="hero-title mb-3">
           Sewa Lapangan Olahraga Favorit Tanpa Ribet
         </h1>
         <p class="hero-subtitle mb-4">
           Cek ketersediaan jadwal secara langsung (real-time). Pilih dari 6 cabang olahraga: Futsal, Mini Soccer, Badminton, Bola Voli, Tenis, hingga Padel dengan fasilitas premium.
         </p>
-        <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+        <div class="d-flex flex-wrap gap-2.5 gap-md-3 justify-content-center justify-content-lg-start">
           <a href="<?= base_url('jadwal') ?>" class="btn btn-sport">
-            <i class="bi bi-calendar3 me-2"></i>Cek Jadwal Lapangan
+            <i class="bi bi-calendar3 me-1.5"></i>Cek Jadwal Lapangan
           </a>
-          <a href="<?= base_url('booking') ?>" class="btn btn-outline-light px-4 py-2.5 fw-semibold rounded-3">
-            <i class="bi bi-grid me-2"></i>Daftar Lapangan
+          <a href="<?= base_url('booking') ?>" class="btn btn-outline-light px-3.5 py-2.5 fw-semibold rounded-3">
+            <i class="bi bi-grid me-1.5"></i>Daftar Lapangan
+          </a>
+          <a href="<?= base_url('lacak') ?>" class="btn btn-outline-light px-3.5 py-2.5 fw-semibold rounded-3">
+            <i class="bi bi-ticket-perforated me-1.5"></i>Lacak Kode Booking
           </a>
         </div>
       </div>
@@ -57,6 +56,11 @@
               <i class="bi bi-calendar-check me-1"></i>Tampilkan Ketersediaan Jadwal
             </button>
           </form>
+          <div class="text-center mt-3 pt-2 border-top">
+            <a href="<?= base_url('lacak') ?>" class="text-secondary small text-decoration-none">
+              <i class="bi bi-ticket-perforated me-1 text-warning"></i>Sudah punya kode booking? <strong class="text-dark">Lacak di sini &rarr;</strong>
+            </a>
+          </div>
         </div>
       </div>
     </div>

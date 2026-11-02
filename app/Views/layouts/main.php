@@ -57,7 +57,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link <?= uri_string() === 'lacak' ? 'active' : '' ?>" href="<?= base_url('lacak') ?>">
-              <i class="bi bi-search me-1"></i>Cek Booking
+              <i class="bi bi-ticket-perforated me-1"></i>Lacak Booking
             </a>
           </li>
         </ul>
