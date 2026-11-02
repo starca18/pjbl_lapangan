@@ -6,6 +6,12 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title><?= esc($title ?? 'ArenaSport - Reservasi Lapangan Olahraga') ?></title>
   
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="<?= base_url('favicon.svg?v=2.0') ?>">
+  <link rel="alternate icon" type="image/png" href="<?= base_url('favicon.png?v=2.0') ?>">
+  <link rel="shortcut icon" href="<?= base_url('favicon.ico?v=2.0') ?>">
+  <link rel="apple-touch-icon" href="<?= base_url('apple-touch-icon.png?v=2.0') ?>">
+  
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

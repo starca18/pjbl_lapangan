@@ -6,6 +6,12 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title><?= esc($title ?? 'Masuk Administrator - ArenaSport') ?></title>
   
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="<?= base_url('favicon.svg?v=2.0') ?>">
+  <link rel="alternate icon" type="image/png" href="<?= base_url('favicon.png?v=2.0') ?>">
+  <link rel="shortcut icon" href="<?= base_url('favicon.ico?v=2.0') ?>">
+  <link rel="apple-touch-icon" href="<?= base_url('apple-touch-icon.png?v=2.0') ?>">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,10 +28,10 @@
         
         <div class="text-center mb-4">
           <a href="<?= base_url() ?>" class="d-inline-flex align-items-center gap-2 text-decoration-none mb-2">
-            <span class="d-inline-flex align-items-center justify-content-center bg-success text-white rounded-3 p-2" style="width:40px;height:40px;">
-              <i class="bi bi-shield-lock-fill fs-5"></i>
+            <span class="d-inline-flex align-items-center justify-content-center text-white rounded-3 p-2" style="width:40px;height:40px;background:linear-gradient(135deg, #ea580c, #f97316);box-shadow:0 2px 8px rgba(234,88,12,0.3);">
+              <i class="bi bi-trophy-fill fs-5"></i>
             </span>
-            <span class="fs-4 fw-bold text-dark">Arena<span class="text-success">Sport</span></span>
+            <span class="fs-4 fw-bold text-dark">Arena<span style="color:var(--sport-primary);">Sport</span></span>
           </a>
           <p class="text-secondary small">Panel Masuk Pengelola Gelanggang & Staff</p>
         </div>
