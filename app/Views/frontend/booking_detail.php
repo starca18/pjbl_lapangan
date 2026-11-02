@@ -105,7 +105,7 @@
               <?php 
                 $isOccupied = isset($occupiedMap[$time]);
                 $status     = $isOccupied ? $occupiedMap[$time] : 'available';
-                $isPreselected = ($preselected === $time && !$isOccupied);
+                $isPreselected = ((!empty($preselectedSlots) ? in_array($time, $preselectedSlots, true) : ($preselected === $time)) && !$isOccupied);
               ?>
               <div class="col-md-6 col-12">
                 <label class="slot-select-card w-100 <?= $isOccupied ? 'disabled' : '' ?> <?= $isPreselected ? 'selected' : '' ?>">

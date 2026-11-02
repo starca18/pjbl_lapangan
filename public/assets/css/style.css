@@ -676,3 +676,381 @@ footer a:hover {
     font-size: 0.78rem;
   }
 }
+
+/* =====================================================================
+   TIX ID STYLE - MODERN CARD & SHOWTIME SLOTS LAYOUT
+   ===================================================================== */
+
+/* Date Ribbon (Horizontal Scrollable Tabs like TIX ID) */
+.tix-date-ribbon-wrapper {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.tix-date-ribbon {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.25rem 0.15rem 0.65rem 0.15rem;
+  scrollbar-width: none;
+}
+
+.tix-date-ribbon::-webkit-scrollbar {
+  display: none;
+}
+
+.tix-date-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 82px;
+  padding: 0.6rem 0.85rem;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  background-color: #ffffff;
+  text-decoration: none;
+  color: #334155;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.tix-date-pill:hover {
+  border-color: var(--sport-primary);
+  color: var(--sport-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.tix-date-pill.active {
+  background-color: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+  transform: translateY(-1px);
+}
+
+.tix-date-pill .tix-date-num {
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.2px;
+}
+
+.tix-date-pill .tix-date-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+  opacity: 0.8;
+}
+
+.tix-date-pill.active .tix-date-label {
+  opacity: 0.95;
+  color: #fdba74;
+}
+
+/* Sport Category Quick Pills */
+.tix-sport-pills {
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+  margin-bottom: 1.25rem;
+}
+
+.tix-sport-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.tix-sport-pill {
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #475569;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.tix-sport-pill:hover {
+  border-color: var(--sport-primary);
+  color: var(--sport-primary-dark);
+  background-color: #fff7ed;
+}
+
+.tix-sport-pill.active {
+  background-color: var(--sport-primary);
+  color: #ffffff;
+  border-color: var(--sport-primary);
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
+}
+
+/* Court Card (Cinema-style in TIX ID) */
+.tix-court-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tix-court-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.tix-court-header {
+  padding: 1.15rem 1.25rem 0.75rem 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.tix-court-body {
+  padding: 1rem 1.25rem 1.25rem 1.25rem;
+}
+
+/* Showtime / Slots Grid */
+.tix-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .tix-slots-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.65rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .tix-slots-grid {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+/* Time Slot Chip (Showtime Button) */
+.tix-slot-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0.45rem 0.25rem;
+  border-radius: 10px;
+  border: 1.5px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #0f172a;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  position: relative;
+  width: 100%;
+}
+
+.tix-slot-chip .slot-time {
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.2px;
+}
+
+.tix-slot-chip .slot-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-top: 3px;
+  color: #16a34a;
+}
+
+/* Hover Available */
+.tix-slot-chip.slot-free:hover {
+  border-color: var(--sport-primary);
+  background-color: #fff7ed;
+  color: var(--sport-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(249, 115, 22, 0.18);
+}
+
+/* Selected State (When clicked by user) */
+.tix-slot-chip.selected {
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #f97316 100%) !important;
+  border-color: #c2410c !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4) !important;
+  transform: scale(1.03);
+}
+
+.tix-slot-chip.selected .slot-time {
+  color: #ffffff !important;
+}
+
+.tix-slot-chip.selected .slot-label {
+  color: #ffedd5 !important;
+  font-weight: 700;
+}
+
+/* Booked / Full State */
+.tix-slot-chip.slot-disabled-booked {
+  background-color: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.tix-slot-chip.slot-disabled-booked .slot-time {
+  color: #94a3b8;
+}
+
+.tix-slot-chip.slot-disabled-booked .slot-label {
+  color: #ef4444;
+}
+
+/* Pending State */
+.tix-slot-chip.slot-disabled-pending {
+  background-color: #fffbeb;
+  border-color: #fde68a;
+  color: #b45309;
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.tix-slot-chip.slot-disabled-pending .slot-time {
+  color: #b45309;
+}
+
+.tix-slot-chip.slot-disabled-pending .slot-label {
+  color: #d97706;
+}
+
+/* Past Hour State (Today, already passed) */
+.tix-slot-chip.slot-disabled-past {
+  background-color: #f8fafc;
+  border-color: #f1f5f9;
+  color: #cbd5e1;
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.tix-slot-chip.slot-disabled-past .slot-time {
+  color: #cbd5e1;
+}
+
+.tix-slot-chip.slot-disabled-past .slot-label {
+  color: #94a3b8;
+}
+
+/* Sticky Bottom Action Drawer (like TIX ID "BELI TIKET") */
+.tix-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1040;
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.12);
+  padding: 0.85rem 1rem;
+  transform: translateY(115%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tix-bottom-bar.show {
+  transform: translateY(0);
+}
+
+.tix-bottom-bar-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.tix-bottom-summary {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tix-bottom-title {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tix-bottom-meta {
+  font-size: 0.8rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tix-bottom-price {
+  font-weight: 800;
+  color: var(--sport-primary-dark);
+  font-size: 1.05rem;
+}
+
+.tix-btn-order {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #f97316 100%);
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.tix-btn-order:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.45);
+}
+
+@media (max-width: 576px) {
+  .tix-bottom-bar {
+    padding: 0.75rem 0.85rem;
+  }
+  .tix-bottom-title {
+    font-size: 0.85rem;
+  }
+  .tix-bottom-price {
+    font-size: 0.95rem;
+  }
+  .tix-btn-order {
+    padding: 0.65rem 1.15rem;
+    font-size: 0.85rem;
+  }
+}

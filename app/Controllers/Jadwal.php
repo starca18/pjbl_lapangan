@@ -48,6 +48,26 @@ class Jadwal extends BaseController
         $totalCapacity = count($courts) * count($allTimeSlots);
         $totalAvailable = max(0, $totalCapacity - $totalBookedCount - $totalPendingCount);
 
+        // Date ribbon for TIX ID layout (Next 14 days)
+        $dateList = [];
+        $todayTs = strtotime(date("Y-m-d"));
+        $daysIndo = ["MIN", "SEN", "SEL", "RAB", "KAM", "JUM", "SAB"];
+        $monthsIndo = [1 => "Jan", 2 => "Feb", 3 => "Mar", 4 => "Apr", 5 => "Mei", 6 => "Jun", 7 => "Jul", 8 => "Agu", 9 => "Sep", 10 => "Okt", 11 => "Nov", 12 => "Des"];
+        for ($d = 0; $d < 14; $d++) {
+            $ts = strtotime("+{$d} days", $todayTs);
+            $ymd = date("Y-m-d", $ts);
+            $dateList[] = [
+                "date"        => $ymd,
+                "day_num"     => date("d", $ts),
+                "month"       => $monthsIndo[(int) date("n", $ts)],
+                "day_name"    => $d === 0 ? "HARI INI" : ($d === 1 ? "BESOK" : $daysIndo[(int) date("w", $ts)]),
+                "is_today"    => $d === 0,
+                "is_selected" => $ymd === $selectedDate,
+            ];
+        }
+
+        $currentTime = date("H:i:s");
+
         return view('frontend/jadwal', [
             'title'             => 'Papan Jadwal Ketersediaan Lapangan - ArenaSport',
             'categories'        => $categories,

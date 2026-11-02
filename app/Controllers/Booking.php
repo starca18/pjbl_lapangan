@@ -69,7 +69,8 @@ class Booking extends BaseController
             'selectedDate' => $selectedDate,
             'timeSlots'    => $allTimeSlots,
             'occupiedMap'  => $occupiedMap,
-            'preselected'  => $this->request->getGet('slot') ?: '',
+            'preselected'      => $this->request->getGet('slot') ?: '',
+            'preselectedSlots' => !empty($this->request->getGet('slots')) ? array_filter(array_map('trim', explode(',', $this->request->getGet('slots')))) : (!empty($this->request->getGet('slot')) ? [$this->request->getGet('slot')] : []),
         ]);
     }
 
