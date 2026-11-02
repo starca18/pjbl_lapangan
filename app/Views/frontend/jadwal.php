@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 <style>
-/* Guaranteed TIX ID Core Styles (Inlined for instant render without cache delays) */
+/* Guaranteed Schedule Layout Styles (Inlined for instant render without cache delays) */
 .tix-date-ribbon-wrapper {
   position: relative;
   margin-bottom: 1.25rem;
@@ -263,45 +263,29 @@
 <!-- Header & Breadcrumb -->
 <div class="bg-white border-bottom py-3 py-md-4">
   <div class="container">
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-      <div>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb mb-1 small">
-            <li class="breadcrumb-item"><a href="<?= base_url() ?>">Beranda</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Jadwal Lapangan</li>
-          </ol>
-        </nav>
-        <h2 class="fw-bold mb-1 fs-3 fs-md-2">Jadwal Ketersediaan Lapangan</h2>
-        <p class="text-secondary small mb-0">
-          Pilih tanggal dan jam bermain favorit Anda secara real-time seperti pesan tiket bioskop.
-        </p>
-      </div>
-
-      <!-- View Switcher (TIX ID Cards vs Table Matrix) -->
-      <div class="d-flex align-items-center gap-2">
-        <div class="btn-group p-1 bg-light rounded-pill border" role="group" aria-label="Tampilan Jadwal">
-          <button type="button" class="btn btn-sm rounded-pill fw-semibold px-3 active" id="btnViewTix" style="font-size:0.82rem;">
-            <i class="bi bi-grid-fill me-1"></i>Mode Kartu (TIX ID)
-          </button>
-          <button type="button" class="btn btn-sm rounded-pill fw-semibold px-3 text-secondary" id="btnViewTable" style="font-size:0.82rem;">
-            <i class="bi bi-table me-1"></i>Mode Tabel
-          </button>
-        </div>
-      </div>
-    </div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-1 small">
+        <li class="breadcrumb-item"><a href="<?= base_url() ?>">Beranda</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Jadwal Lapangan</li>
+      </ol>
+    </nav>
+    <h2 class="fw-bold mb-1 fs-3 fs-md-2">Jadwal Ketersediaan Lapangan</h2>
+    <p class="text-secondary small mb-0">
+      Pilih tanggal dan jam bermain favorit Anda secara langsung dan praktis.
+    </p>
   </div>
 </div>
 
 <div class="container py-4 pb-5">
   
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- 1. TIX ID DATE RIBBON (Pill Tanggal Horizontal Scrollable)       -->
+  <!-- 1. DATE RIBBON (Pill Tanggal Horizontal Scrollable)             -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="d-flex justify-content-between align-items-center mb-2">
     <span class="text-secondary small fw-bold text-uppercase" style="letter-spacing:0.5px;">
       <i class="bi bi-calendar3 me-1 text-primary"></i>Pilih Tanggal Bermain:
     </span>
-    <!-- Custom date picker modal trigger / mini input -->
+    <!-- Custom date picker mini input -->
     <div class="d-flex align-items-center gap-1.5">
       <label for="customDatePicker" class="small text-secondary fw-semibold mb-0" style="cursor:pointer;" title="Pilih tanggal kalender">
         <i class="bi bi-calendar-event me-1"></i>Pilih Tanggal Lain:
@@ -380,9 +364,9 @@
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- VIEW 1: TIX ID CARDS VIEW (DEFAULT & MOBILE-FIRST)             -->
+  <!-- CARDS VIEW (CLEAN & MOBILE-FIRST)                              -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div id="tixScheduleView">
+  <div id="scheduleCardsView">
     <?php if (empty($courts)): ?>
       <div class="card border-0 shadow-sm rounded-4 text-center py-5">
         <div class="card-body">
@@ -454,7 +438,7 @@
             </div>
           </div>
 
-          <!-- Card Body (Grid of Showtimes like TIX ID) -->
+          <!-- Card Body (Grid of Showtimes) -->
           <div class="tix-court-body">
             <div class="tix-slots-grid">
               <?php foreach ($timeSlots as $time => $label): ?>
@@ -486,7 +470,7 @@
                     </div>
                   <?php endif; ?>
                 <?php else: ?>
-                  <!-- Slot Tersedia (Clickable TIX ID Style) -->
+                  <!-- Slot Tersedia -->
                   <button type="button" 
                           class="tix-slot-chip slot-free js-tix-slot" 
                           data-court-id="<?= $court['id'] ?>"
@@ -511,90 +495,6 @@
     <?php endif; ?>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- VIEW 2: CLASSIC MATRIX TABLE VIEW (OPTIONAL FOR DESKTOP)       -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div id="matrixScheduleView" style="display:none;">
-    <div class="text-secondary small mb-2 d-md-none">
-      <i class="bi bi-arrows-expand me-1"></i>Geser tabel ke samping untuk melihat jam lainnya &rarr;
-    </div>
-    <div class="schedule-table-wrapper mb-4">
-      <table class="table table-schedule align-middle">
-        <thead>
-          <tr>
-            <th class="sticky-col">Nama Lapangan</th>
-            <?php foreach ($timeSlots as $time => $label): ?>
-              <th><?= substr($time, 0, 5) ?></th>
-            <?php endforeach; ?>
-          </tr>
-        </thead>
-        <tbody>
-          <?php if (empty($courts)): ?>
-            <tr>
-              <td colspan="<?= count($timeSlots) + 1 ?>" class="text-center py-5 text-muted">
-                Tidak ada data lapangan untuk filter yang dipilih.
-              </td>
-            </tr>
-          <?php else: ?>
-            <?php foreach ($courts as $court): ?>
-              <tr>
-                <td class="sticky-col">
-                  <div class="d-flex align-items-center gap-2">
-                    <div style="width:36px;height:36px;flex-shrink:0;" class="rounded overflow-hidden bg-dark">
-                      <img src="<?= base_url('assets/images/courts/' . esc($court['image'])) ?>" alt="" style="width:100%;height:100%;object-fit:cover;">
-                    </div>
-                    <div>
-                      <a href="<?= base_url('booking/detail/' . $court['id']) ?>" class="fw-bold text-dark text-decoration-none hover-underline">
-                        <?= esc($court['name']) ?>
-                      </a>
-                      <div class="text-muted small">
-                        <span class="badge bg-secondary-subtle text-secondary py-0.5 px-1.5"><?= esc($court['category_name']) ?></span>
-                        <span><?= rupiah($court['price_per_hour']) ?></span>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-
-                <?php foreach ($timeSlots as $time => $label): ?>
-                  <?php 
-                    $isOccupied = isset($slotsByCourt[$court['id']][$time]);
-                    $slotData   = $isOccupied ? $slotsByCourt[$court['id']][$time] : null;
-                    $isPast     = ($selectedDate === date('Y-m-d') && $time < $currentTime);
-                  ?>
-                  <td>
-                    <?php if ($isPast): ?>
-                      <div class="slot-badge" style="background:#f8fafc;border:1px solid #f1f5f9;color:#cbd5e1;cursor:not-allowed;" title="Lewat">
-                        <i class="bi bi-dash-circle small mb-0.5"></i>
-                        <span>Lewat</span>
-                      </div>
-                    <?php elseif (!$isOccupied): ?>
-                      <a href="<?= base_url('booking/detail/' . $court['id'] . '?date=' . $selectedDate . '&slot=' . $time) ?>" 
-                         class="slot-badge slot-available" 
-                         title="Pukul <?= substr($time,0,5) ?>: Tersedia. Klik untuk reservasi!">
-                        <i class="bi bi-plus-lg small mb-0.5"></i>
-                        <span>Kosong</span>
-                      </a>
-                    <?php elseif ($slotData['booking_status'] === 'pending'): ?>
-                      <div class="slot-badge slot-pending" title="Pukul <?= substr($time,0,5) ?>: Menunggu konfirmasi pembayaran">
-                        <i class="bi bi-hourglass small mb-0.5"></i>
-                        <span>Proses</span>
-                      </div>
-                    <?php else: ?>
-                      <div class="slot-badge slot-booked" title="Pukul <?= substr($time,0,5) ?>: Sudah terisi">
-                        <i class="bi bi-lock-fill small mb-0.5"></i>
-                        <span>Penuh</span>
-                      </div>
-                    <?php endif; ?>
-                  </td>
-                <?php endforeach; ?>
-              </tr>
-            <?php endforeach; ?>
-          <?php endif; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
   <!-- Help Callout -->
   <div class="card bg-light border rounded-4 p-3 mt-4">
     <div class="d-flex align-items-center gap-3">
@@ -602,7 +502,7 @@
         <i class="bi bi-lightbulb fs-5"></i>
       </div>
       <div class="small">
-        <strong class="text-dark">Tips Reservasi Ala TIX ID:</strong>
+        <strong class="text-dark">Tips Pemesanan:</strong>
         Sentuh kotak jam yang bertuliskan <strong>"Tersedia"</strong>. Anda bisa memilih 1 jam atau beberapa jam berurutan pada lapangan yang sama. Setelah memilih, tombol <strong>"PESAN SEKARANG"</strong> di bagian bawah layar akan otomatis muncul!
       </div>
     </div>
@@ -611,7 +511,7 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- 4. TIX ID STICKY BOTTOM BAR (Floating Drawer "BELI TIKET")      -->
+<!-- STICKY BOTTOM BAR (Floating Drawer "PESAN SEKARANG")           -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <div class="tix-bottom-bar" id="tixBottomBar">
   <div class="tix-bottom-bar-inner">
@@ -746,46 +646,6 @@ document.addEventListener('DOMContentLoaded', function() {
       updateBottomBar();
     });
   });
-
-  // ═══════════════════════════════════════════════════════════════
-  // View Switcher (TIX ID Cards vs Table Matrix)
-  // ═══════════════════════════════════════════════════════════════
-  const btnViewTix = document.getElementById('btnViewTix');
-  const btnViewTable = document.getElementById('btnViewTable');
-  const tixView = document.getElementById('tixScheduleView');
-  const matrixView = document.getElementById('matrixScheduleView');
-
-  function setViewMode(mode) {
-    if (mode === 'table') {
-      tixView.style.display = 'none';
-      matrixView.style.display = 'block';
-      btnViewTable.classList.add('active', 'btn-light');
-      btnViewTable.classList.remove('text-secondary');
-      btnViewTix.classList.remove('active', 'btn-light');
-      btnViewTix.classList.add('text-secondary');
-      localStorage.setItem('arena_schedule_view', 'table');
-      // Hide TIX bottom bar if switching to table
-      bottomBar.classList.remove('show');
-    } else {
-      matrixView.style.display = 'none';
-      tixView.style.display = 'block';
-      btnViewTix.classList.add('active', 'btn-light');
-      btnViewTix.classList.remove('text-secondary');
-      btnViewTable.classList.remove('active', 'btn-light');
-      btnViewTable.classList.add('text-secondary');
-      localStorage.setItem('arena_schedule_view', 'tix');
-      if (selectedSlots.length > 0) {
-        bottomBar.classList.add('show');
-      }
-    }
-  }
-
-  btnViewTix.addEventListener('click', () => setViewMode('tix'));
-  btnViewTable.addEventListener('click', () => setViewMode('table'));
-
-  // Restore user's view preference (default to TIX)
-  const savedView = localStorage.getItem('arena_schedule_view') || 'tix';
-  setViewMode(savedView);
 });
 </script>
 
