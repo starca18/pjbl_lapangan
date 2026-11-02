@@ -25,7 +25,7 @@ class CategoryModel extends Model
 
     public function getWithCourtsCount()
     {
-        return $this->select('categories.*, COUNT(courts.id) as courts_count')
+        return $this->select('categories.*, COUNT(courts.id) as courts_count, MIN(courts.price_per_hour) as min_price')
                     ->join('courts', 'courts.category_id = categories.id AND courts.is_active = 1', 'left')
                     ->groupBy('categories.id')
                     ->orderBy('categories.id', 'ASC')

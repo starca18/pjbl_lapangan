@@ -173,7 +173,12 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Sport Animations -->
-  <script src="<?= base_url('assets/js/sport-animations.js?v=' . (@filemtime(FCPATH . 'assets/js/sport-animations.js') ?: '20261102_1825')) ?>"></script>
+  <?php if (!empty($categories)): ?>
+    <script>
+      window.ARENA_CATEGORIES = <?= json_encode($categories) ?>;
+    </script>
+  <?php endif; ?>
+  <script src="<?= base_url('assets/js/sport-animations.js?v=' . (@filemtime(FCPATH . 'assets/js/sport-animations.js') ?: '20261102_1900') . '&t=20261102_1900') ?>"></script>
   <?= $this->renderSection('scripts') ?>
 </body>
 </html>

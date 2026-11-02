@@ -365,7 +365,7 @@
   <div class="tix-sport-pills">
     <a href="<?= base_url('jadwal?date=' . $selectedDate . ($selectedCourt ? '&court=' . $selectedCourt : '')) ?>" 
        class="tix-sport-pill <?= empty($selectedCategory) ? 'active' : '' ?>">
-      <i class="bi bi-trophy me-1"></i>Semua Olahraga (<?= count($courts) ?> Lapangan)
+      <i class="bi bi-trophy me-1"></i>Semua Olahraga (<?= $totalAllCourts ?? count($courts) ?> Lapangan)
     </a>
     <?php foreach ($categories as $cat): ?>
       <a href="<?= base_url('jadwal?date=' . $selectedDate . '&category=' . $cat['id']) ?>" 

@@ -327,7 +327,8 @@
 document.addEventListener('DOMContentLoaded', function () {
   if (window.ArenaSportAnimations) {
     ArenaSportAnimations.renderSportCards('#sportSelectionGrid', {
-      baseUrl: '<?= base_url() ?>'
+      baseUrl: '<?= base_url() ?>',
+      categories: <?= json_encode($categories) ?>
     });
   }
 });

@@ -19,6 +19,7 @@ class Jadwal extends BaseController
         $selectedCourt = $this->request->getGet('court') ?: '';
 
         $categories = $categoryModel->getWithCourtsCount();
+        $totalAllCourts = array_sum(array_column($categories, 'courts_count'));
         $courts     = $courtModel->getCourtsWithCategory(
             $selectedCategory ? (int) $selectedCategory : null
         );
@@ -82,6 +83,7 @@ class Jadwal extends BaseController
             'totalAvailable'    => $totalAvailable,
             'totalCapacity'     => $totalCapacity,
             'dateList'          => $dateList,
+            'totalAllCourts'    => $totalAllCourts,
             'currentTime'       => $currentTime,
         ]);
     }

@@ -379,6 +379,31 @@
     const el = typeof target === 'string' ? document.querySelector(target) : target;
     if (!el) return;
 
+    // Dynamically sync court counts and prices from database categories
+    const catList = options.categories || window.ARENA_CATEGORIES || null;
+    if (Array.isArray(catList) && catList.length > 0) {
+      catList.forEach(cat => {
+        const catId = parseInt(cat.id, 10);
+        const catSlug = String(cat.slug || '').toLowerCase().trim();
+        const catName = String(cat.name || '').toLowerCase().trim();
+
+        const s = SPORTS.find(sp => 
+          sp.categoryId === catId || 
+          sp.slug.toLowerCase().trim() === catSlug ||
+          sp.n.toLowerCase().trim() === catName
+        );
+
+        if (s) {
+          if (cat.courts_count !== undefined && cat.courts_count !== null) {
+            s.courts = parseInt(cat.courts_count, 10);
+          }
+          if (cat.min_price && parseInt(cat.min_price, 10) > 0) {
+            s.p = parseInt(cat.min_price, 10);
+          }
+        }
+      });
+    }
+
     const currentSlug = options.currentSlug || '';
     const baseUrl = (options.baseUrl || '').replace(/\/$/, '');
 

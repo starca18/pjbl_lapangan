@@ -144,7 +144,8 @@ document.addEventListener('DOMContentLoaded', function () {
   if (window.ArenaSportAnimations) {
     ArenaSportAnimations.renderSportCards('#bookingSportSelectionGrid', {
       currentSlug: '<?= esc($selectedCategory ?? '') ?>',
-      baseUrl: '<?= base_url() ?>'
+      baseUrl: '<?= base_url() ?>',
+      categories: <?= json_encode($categories) ?>
     });
   }
 });
