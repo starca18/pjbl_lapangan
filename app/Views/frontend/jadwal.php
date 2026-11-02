@@ -108,11 +108,11 @@
   overflow: hidden;
 }
 .tix-court-header {
-  padding: 1.15rem 1.25rem 0.75rem 1.25rem;
+  padding: 0.85rem 1.15rem;
   border-bottom: 1px solid #f1f5f9;
 }
 .tix-court-body {
-  padding: 1rem 1.25rem 1.25rem 1.25rem;
+  padding: 0.85rem 1.15rem 1.15rem 1.15rem;
 }
 
 /* Showtime / Slots Grid (Responsive 2-4 cols) */
@@ -310,44 +310,22 @@
 }
 </style>
 
-<!-- Header & Breadcrumb -->
-<div class="bg-white border-bottom py-3 py-md-4">
-  <div class="container">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-1 small">
-        <li class="breadcrumb-item"><a href="<?= base_url() ?>">Beranda</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Jadwal Lapangan</li>
-      </ol>
-    </nav>
-    <h2 class="fw-bold mb-1 fs-3 fs-md-2">Jadwal Ketersediaan Lapangan</h2>
-    <p class="text-secondary small mb-0">
-      Pilih tanggal dan jam bermain favorit Anda secara langsung dan praktis.
-    </p>
+<!-- Header (Clean & Compact) -->
+<div class="bg-white border-bottom py-2.5">
+  <div class="container d-flex align-items-center justify-content-between">
+    <h2 class="fw-bold mb-0 fs-4 text-dark">Jadwal Lapangan</h2>
+    <input type="date" id="customDatePicker" class="form-control form-control-sm border-secondary-subtle px-2 py-1" 
+           style="width:auto; font-size:0.85rem;" 
+           value="<?= esc($selectedDate) ?>" min="<?= date('Y-m-d') ?>" 
+           title="Pilih tanggal bermain"
+           onchange="window.location.href='<?= base_url('jadwal?date=') ?>' + this.value + '<?= $selectedCategory ? '&category=' . $selectedCategory : '' ?>'">
   </div>
 </div>
 
-<div class="container py-4 pb-5">
+<div class="container py-3 pb-5">
   
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- 1. DATE RIBBON (Pill Tanggal Horizontal Scrollable)             -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="d-flex justify-content-between align-items-center mb-2">
-    <span class="text-secondary small fw-bold text-uppercase" style="letter-spacing:0.5px;">
-      <i class="bi bi-calendar3 me-1 text-primary"></i>Pilih Tanggal Bermain:
-    </span>
-    <!-- Custom date picker mini input -->
-    <div class="d-flex align-items-center gap-1.5">
-      <label for="customDatePicker" class="small text-secondary fw-semibold mb-0" style="cursor:pointer;" title="Pilih tanggal kalender">
-        <i class="bi bi-calendar-event me-1"></i>Pilih Tanggal Lain:
-      </label>
-      <input type="date" id="customDatePicker" class="form-control form-control-sm border-secondary-subtle px-2 py-0.5" 
-             style="width:auto; font-size:0.8rem;" 
-             value="<?= esc($selectedDate) ?>" min="<?= date('Y-m-d') ?>" 
-             onchange="window.location.href='<?= base_url('jadwal?date=') ?>' + this.value + '<?= $selectedCategory ? '&category=' . $selectedCategory : '' ?>'">
-    </div>
-  </div>
-
-  <div class="tix-date-ribbon-wrapper">
+  <!-- 1. DATE RIBBON -->
+  <div class="tix-date-ribbon-wrapper mb-2">
     <div class="tix-date-ribbon">
       <?php foreach ($dateList as $dItem): ?>
         <a href="<?= base_url('jadwal?date=' . $dItem['date'] . ($selectedCategory ? '&category=' . $selectedCategory : '') . ($selectedCourt ? '&court=' . $selectedCourt : '')) ?>" 
@@ -359,13 +337,11 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- 2. QUICK SPORT FILTER PILLS (Cabang Olahraga Filter)            -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="tix-sport-pills">
+  <!-- 2. QUICK SPORT FILTER PILLS -->
+  <div class="tix-sport-pills mb-3">
     <a href="<?= base_url('jadwal?date=' . $selectedDate . ($selectedCourt ? '&court=' . $selectedCourt : '')) ?>" 
        class="tix-sport-pill <?= empty($selectedCategory) ? 'active' : '' ?>">
-      <i class="bi bi-trophy me-1"></i>Semua Olahraga (<?= $totalAllCourts ?? count($courts) ?> Lapangan)
+      <i class="bi bi-trophy me-1"></i>Semua (<?= $totalAllCourts ?? count($courts) ?>)
     </a>
     <?php foreach ($categories as $cat): ?>
       <a href="<?= base_url('jadwal?date=' . $selectedDate . '&category=' . $cat['id']) ?>" 
@@ -375,47 +351,7 @@
     <?php endforeach; ?>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- 3. REALTIME STATS & LEGEND                                      -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="row g-2 mb-3 align-items-center">
-    <div class="col-md-7">
-      <div class="d-flex flex-wrap align-items-center gap-2 small">
-        <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 rounded-pill">
-          <i class="bi bi-check-circle-fill me-1"></i><?= $totalAvailable ?> Jam Tersedia
-        </span>
-        <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2.5 py-1.5 rounded-pill">
-          <i class="bi bi-lock-fill me-1"></i><?= $totalBookedCount ?> Jam Penuh
-        </span>
-        <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-2.5 py-1.5 rounded-pill">
-          <i class="bi bi-hourglass-split me-1"></i><?= $totalPendingCount ?> Menunggu
-        </span>
-        <span class="text-secondary small ms-1">
-          • <?= tanggal_indonesia($selectedDate) ?>
-        </span>
-      </div>
-    </div>
-    <div class="col-md-5 text-md-end">
-      <div class="small text-secondary d-flex align-items-center justify-content-md-end gap-3">
-        <span class="d-inline-flex align-items-center gap-1">
-          <span style="display:inline-block;width:12px;height:12px;background:#fff;border:1.5px solid #fed7aa;border-radius:3px;"></span>
-          Tersedia
-        </span>
-        <span class="d-inline-flex align-items-center gap-1">
-          <span style="display:inline-block;width:12px;height:12px;background:#ea580c;border-radius:3px;"></span>
-          Dipilih
-        </span>
-        <span class="d-inline-flex align-items-center gap-1">
-          <span style="display:inline-block;width:12px;height:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:3px;"></span>
-          Penuh
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- CARDS VIEW (CLEAN & MOBILE-FIRST)                              -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- CARDS VIEW (CLEAN & MOBILE-FIRST) -->
   <div id="scheduleCardsView">
     <?php if (empty($courts)): ?>
       <div class="card border-0 shadow-sm rounded-4 text-center py-5">
@@ -430,59 +366,31 @@
       </div>
     <?php else: ?>
       <?php foreach ($courts as $court): ?>
-        <?php 
-          // Hitung ketersediaan slot untuk lapangan ini
-          $courtAvailableCount = 0;
-          $courtTotalSlots = count($timeSlots);
-          foreach ($timeSlots as $timeKey => $timeLbl) {
-            $isOcc = isset($slotsByCourt[$court['id']][$timeKey]);
-            $isPast = ($selectedDate === date('Y-m-d') && $timeKey < $currentTime);
-            if (!$isOcc && !$isPast) {
-              $courtAvailableCount++;
-            }
-          }
-        ?>
         <div class="tix-court-card">
           <!-- Card Header (Venue Info) -->
           <div class="tix-court-header">
-            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2">
-              <div class="d-flex align-items-center gap-3">
-                <div style="width:48px;height:48px;flex-shrink:0;" class="rounded-3 overflow-hidden bg-dark position-relative">
+            <div class="d-flex justify-content-between align-items-center gap-2">
+              <div class="d-flex align-items-center gap-2.5">
+                <div style="width:38px;height:38px;flex-shrink:0;" class="rounded-3 overflow-hidden bg-dark position-relative">
                   <img src="<?= base_url('assets/images/courts/' . esc($court['image'])) ?>" alt="<?= esc($court['name']) ?>" style="width:100%;height:100%;object-fit:cover;">
                 </div>
                 <div>
-                  <div class="d-flex align-items-center gap-2 flex-wrap">
-                    <h5 class="fw-bold mb-0 text-dark"><?= esc($court['name']) ?></h5>
-                    <span class="badge" style="background:#ffedd5;color:var(--sport-primary);font-size:0.75rem;">
+                  <div class="d-flex align-items-center gap-1.5 flex-wrap">
+                    <h5 class="fw-bold mb-0 text-dark fs-6"><?= esc($court['name']) ?></h5>
+                    <span class="badge" style="background:#ffedd5;color:var(--sport-primary);font-size:0.72rem;">
                       <?= esc($court['category_name']) ?>
                     </span>
-                    <span class="badge bg-light text-secondary border font-monospace" style="font-size:0.72rem;">
-                      <?= esc($court['code']) ?>
+                    <span class="badge bg-light text-secondary border" style="font-size:0.7rem;">
+                      <?= esc($court['court_type']) ?>
                     </span>
-                  </div>
-                  <div class="text-secondary small d-flex align-items-center gap-2 flex-wrap mt-0.5">
-                    <span><i class="bi bi-geo-alt me-0.5 text-primary"></i><?= esc($court['court_type']) ?></span>
-                    <span>•</span>
-                    <span><i class="bi bi-layers me-0.5 text-success"></i><?= esc($court['floor_type'] ?? 'Standar') ?></span>
-                    <span>•</span>
-                    <?php if ($courtAvailableCount > 0): ?>
-                      <span class="text-success fw-bold">
-                        <i class="bi bi-check-circle-fill me-0.5"></i><?= $courtAvailableCount ?> Slot Tersedia
-                      </span>
-                    <?php else: ?>
-                      <span class="text-danger fw-bold">
-                        <i class="bi bi-lock-fill me-0.5"></i>Penuh Hari Ini
-                      </span>
-                    <?php endif; ?>
                   </div>
                 </div>
               </div>
 
               <!-- Price Tag -->
-              <div class="text-sm-end mt-1 mt-sm-0">
-                <div class="fw-bold fs-5 text-dark" style="color:var(--sport-primary-dark) !important;">
-                  <?= rupiah($court['price_per_hour']) ?>
-                  <span class="text-secondary fw-normal fs-6">/ jam</span>
+              <div class="text-end">
+                <div class="fw-bold fs-6 text-dark" style="color:var(--sport-primary-dark) !important;">
+                  <?= rupiah($court['price_per_hour']) ?><span class="text-secondary fw-normal small">/jam</span>
                 </div>
               </div>
             </div>
@@ -554,19 +462,6 @@
         </div>
       <?php endforeach; ?>
     <?php endif; ?>
-  </div>
-
-  <!-- Help Callout -->
-  <div class="card bg-light border rounded-4 p-3 mt-4">
-    <div class="d-flex align-items-center gap-3">
-      <div class="p-2.5 rounded-circle bg-white text-primary border shadow-sm">
-        <i class="bi bi-lightbulb fs-5"></i>
-      </div>
-      <div class="small">
-        <strong class="text-dark">Tips Pemesanan:</strong>
-        Sentuh kotak jam yang tersedia untuk memilih. Anda bisa memilih 1 jam atau beberapa jam berurutan pada lapangan yang sama. Setelah memilih, tombol <strong>"RESERVASI"</strong> di bagian bawah layar akan otomatis muncul!
-      </div>
-    </div>
   </div>
 
 </div>

@@ -2,40 +2,28 @@
 
 <?= $this->section('content') ?>
 
-<div class="bg-white border-bottom py-4">
+<div class="bg-white border-bottom py-3">
   <div class="container">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-1 small">
-        <li class="breadcrumb-item"><a href="<?= base_url() ?>">Beranda</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Pilih Lapangan</li>
-      </ol>
-    </nav>
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
       <div>
-        <h2 class="fw-bold mb-1">Daftar Lapangan Olahraga</h2>
-        <p class="text-secondary small mb-0">
-          Temukan lapangan standar kompetisi dengan berbagai pilihan spesifikasi lantai dan fasilitas.
-        </p>
+        <h2 class="fw-bold mb-0 fs-4">Daftar Lapangan Olahraga</h2>
       </div>
-      <a href="<?= base_url('jadwal') ?>" class="btn btn-sport-primary">
+      <a href="<?= base_url('jadwal') ?>" class="btn btn-sport-primary btn-sm">
         <i class="bi bi-calendar3 me-1.5"></i>Lihat Jadwal Lengkap
       </a>
     </div>
   </div>
 </div>
 
-<div class="container py-4">
+<div class="container py-3">
 
   <!-- Interactive Animated Sport Selection Cards -->
   <div class="mb-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div>
-        <h4 class="fw-bold mb-1">
+        <h4 class="fw-bold mb-0 fs-5">
           <i class="bi bi-controller me-2" style="color:var(--sport-primary);"></i>Pilih Cabang Olahraga
         </h4>
-        <p class="text-secondary small mb-0">
-          Klik olahraga di bawah untuk memfilter lapangan. Animasi aksi bergerak saat kursor didekatkan atau disentuh!
-        </p>
       </div>
       <?php if (!empty($selectedCategory)): ?>
         <a href="<?= base_url('booking' . ($selectedType ? '?type=' . $selectedType : '')) ?>" class="btn btn-sm btn-outline-secondary">

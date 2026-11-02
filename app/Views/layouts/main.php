@@ -178,7 +178,7 @@
       window.ARENA_CATEGORIES = <?= json_encode($categories) ?>;
     </script>
   <?php endif; ?>
-  <script src="<?= base_url('assets/js/sport-animations.js?v=' . (@filemtime(FCPATH . 'assets/js/sport-animations.js') ?: '20261102_1900') . '&t=20261102_1900') ?>"></script>
+  <script src="<?= base_url('assets/js/sport-animations.js?v=' . (@filemtime(FCPATH . 'assets/js/sport-animations.js') ?: '20261102_1915') . '&t=20261102_1915') ?>"></script>
   <?= $this->renderSection('scripts') ?>
 </body>
 </html>

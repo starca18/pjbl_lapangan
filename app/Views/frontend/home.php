@@ -68,13 +68,7 @@
   <div class="container">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
       <div>
-        <span class="badge px-3 py-1.5 mb-2" style="background-color:#ffedd5;color:var(--sport-primary-dark);border:1px solid #fed7aa;">
-          <i class="bi bi-controller me-1"></i>Pilih Cabang Olahraga
-        </span>
-        <h2 class="fw-bold mb-1">Arahkan Kursor & Pilih Olahraga</h2>
-        <p class="text-secondary mb-0">
-          Sentuh kartu (di HP) atau arahkan kursor (di laptop) untuk melihat simulasi animasi aksi di lapangan!
-        </p>
+        <h2 class="fw-bold mb-0">Pilihan Cabang Olahraga</h2>
       </div>
       <div class="mt-3 mt-md-0 d-flex gap-2">
         <a href="<?= base_url('jadwal') ?>" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1.5">
@@ -139,9 +133,7 @@
   <div class="container">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
       <div>
-        <span style="color:var(--sport-primary);font-weight:700;text-transform:uppercase;font-size:0.85rem;letter-spacing:1px;">Pilihan Arena</span>
-        <h2 class="fw-bold mb-1">Lapangan Olahraga Berkualitas</h2>
-        <p class="text-secondary mb-0">Semua lapangan dirawat intensif dengan lantai standar federasi.</p>
+        <h2 class="fw-bold mb-0">Daftar Lapangan Olahraga</h2>
       </div>
       <a href="<?= base_url('booking') ?>" class="btn btn-sport-outline mt-3 mt-md-0">
         Lihat Semua Lapangan (<?= count($courts) ?>)<i class="bi bi-arrow-right ms-2"></i>
@@ -192,27 +184,10 @@
 <section class="py-5 bg-white border-top border-bottom">
   <div class="container">
     <div class="text-center max-w-xl mx-auto mb-4">
-      <span class="badge px-3 py-1.5 mb-2" style="background-color:#ffedd5;color:var(--sport-primary-dark);border:1px solid #fed7aa;">Jadwal Terkini</span>
-      <h2 class="fw-bold">Intip Ketersediaan Hari Ini</h2>
-      <p class="text-secondary">
-        <?= tanggal_indonesia($today) ?>. Klik slot hijau untuk reservasi langsung.
+      <h2 class="fw-bold mb-1">Jadwal Hari Ini</h2>
+      <p class="text-secondary small mb-0">
+        <?= tanggal_indonesia($today) ?>
       </p>
-    </div>
-
-    <!-- Status Legend -->
-    <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-3 small">
-      <div class="d-flex align-items-center gap-1.5">
-        <span class="badge bg-success text-white px-2 py-1"><i class="bi bi-check-lg"></i></span>
-        <span><strong>Hijau:</strong> Tersedia / Kosong</span>
-      </div>
-      <div class="d-flex align-items-center gap-1.5">
-        <span class="badge bg-danger text-white px-2 py-1"><i class="bi bi-x-lg"></i></span>
-        <span><strong>Merah:</strong> Sudah Penuh / Terisi</span>
-      </div>
-      <div class="d-flex align-items-center gap-1.5">
-        <span class="badge bg-warning text-dark px-2 py-1"><i class="bi bi-clock"></i></span>
-        <span><strong>Kuning:</strong> Menunggu Verifikasi</span>
-      </div>
     </div>
 
     <div class="schedule-table-wrapper">

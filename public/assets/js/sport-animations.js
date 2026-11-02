@@ -432,12 +432,9 @@
                 <span class="sport-card-price">Mulai ${rp(s.p)}/jam</span>
               </div>
               <p class="sport-card-desc mb-2">${s.d}</p>
-              <div class="d-flex align-items-center justify-content-between pt-1 border-top">
-                <span class="sport-card-action">
-                  <i class="bi bi-play-circle me-1"></i>Arahkan kursor / tap untuk animasi
-                </span>
+              <div class="d-flex align-items-center justify-content-end pt-1 border-top">
                 <span class="badge ${isSelected ? 'bg-warning text-dark' : 'bg-light text-secondary border'}">
-                  ${isSelected ? 'Dipilih' : 'Pilih'} <i class="bi bi-chevron-right ms-1"></i>
+                  ${isSelected ? 'Dipilih' : 'Pilih Lapangan'} <i class="bi bi-chevron-right ms-1"></i>
                 </span>
               </div>
             </div>
