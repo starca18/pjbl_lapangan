@@ -13,15 +13,15 @@
         <p class="hero-subtitle mb-4">
           Cek ketersediaan jadwal secara langsung (real-time). Pilih dari 6 cabang olahraga: Futsal, Mini Soccer, Badminton, Bola Voli, Tenis, hingga Padel dengan fasilitas premium.
         </p>
-        <div class="d-flex flex-wrap gap-2.5 gap-md-3 justify-content-center justify-content-lg-start">
-          <a href="<?= base_url('jadwal') ?>" class="btn btn-sport">
-            <i class="bi bi-calendar3 me-1.5"></i>Cek Jadwal Lapangan
+        <div class="d-flex flex-wrap gap-2 gap-md-3 justify-content-center justify-content-lg-start">
+          <a href="<?= base_url('jadwal') ?>" class="btn btn-sport d-inline-flex align-items-center">
+            <i class="bi bi-calendar3 me-2"></i>Cek Jadwal Lapangan
           </a>
-          <a href="<?= base_url('booking') ?>" class="btn btn-outline-light px-3.5 py-2.5 fw-semibold rounded-3">
-            <i class="bi bi-grid me-1.5"></i>Daftar Lapangan
+          <a href="<?= base_url('booking') ?>" class="btn btn-outline-light px-3 px-md-4 py-2 fw-semibold rounded-3 d-inline-flex align-items-center">
+            <i class="bi bi-grid me-2"></i>Daftar Lapangan
           </a>
-          <a href="<?= base_url('lacak') ?>" class="btn btn-outline-light px-3.5 py-2.5 fw-semibold rounded-3">
-            <i class="bi bi-ticket-perforated me-1.5"></i>Lacak Kode Booking
+          <a href="<?= base_url('lacak') ?>" class="btn btn-outline-light px-3 px-md-4 py-2 fw-semibold rounded-3 d-inline-flex align-items-center">
+            <i class="bi bi-ticket-perforated me-2"></i>Lacak Kode Booking
           </a>
         </div>
       </div>
