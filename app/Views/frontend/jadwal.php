@@ -25,7 +25,7 @@
   min-width: 82px !important;
   padding: 0.6rem 0.85rem !important;
   border-radius: 12px !important;
-  border: 1.5px solid #e2e8f0 !important;
+  border: 1.5px solid #fed7aa !important;
   background-color: #ffffff !important;
   text-decoration: none !important;
   color: #334155 !important;
@@ -40,11 +40,11 @@
   transform: translateY(-2px);
 }
 .tix-date-pill.active {
-  background-color: #0f172a !important;
-  border-color: #0f172a !important;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #f97316 100%) !important;
+  border-color: #c2410c !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25) !important;
-  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35) !important;
+  transform: translateY(-2px);
 }
 .tix-date-pill .tix-date-num {
   font-size: 0.95rem;
@@ -60,8 +60,9 @@
   opacity: 0.8;
 }
 .tix-date-pill.active .tix-date-label {
-  color: #fdba74 !important;
-  opacity: 0.95;
+  color: #fff7ed !important;
+  opacity: 1 !important;
+  font-weight: 800 !important;
 }
 .tix-sport-pills {
   display: flex !important;
@@ -79,7 +80,7 @@
   font-size: 0.82rem !important;
   font-weight: 600 !important;
   text-decoration: none !important;
-  border: 1.5px solid #e2e8f0 !important;
+  border: 1.5px solid #fed7aa !important;
   background-color: #ffffff !important;
   color: #475569 !important;
   white-space: nowrap !important;
@@ -503,7 +504,7 @@
       </div>
       <div class="small">
         <strong class="text-dark">Tips Pemesanan:</strong>
-        Sentuh kotak jam yang bertuliskan <strong>"Tersedia"</strong>. Anda bisa memilih 1 jam atau beberapa jam berurutan pada lapangan yang sama. Setelah memilih, tombol <strong>"PESAN SEKARANG"</strong> di bagian bawah layar akan otomatis muncul!
+        Sentuh kotak jam yang bertuliskan <strong>"Tersedia"</strong>. Anda bisa memilih 1 jam atau beberapa jam berurutan pada lapangan yang sama. Setelah memilih, tombol <strong>"RESERVASI"</strong> di bagian bawah layar akan otomatis muncul!
       </div>
     </div>
   </div>
@@ -530,8 +531,8 @@
         Batal
       </button>
       <a href="#" class="tix-btn-order" id="tixBtnOrder">
-        <i class="bi bi-ticket-perforated-fill"></i>
-        <span>PESAN SEKARANG</span>
+        <i class="bi bi-calendar-check-fill"></i>
+        <span>RESERVASI</span>
         <i class="bi bi-arrow-right ms-1"></i>
       </a>
     </div>
