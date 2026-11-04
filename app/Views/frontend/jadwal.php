@@ -405,13 +405,13 @@
   <div class="tix-sport-pills mb-3">
     <a href="<?= base_url('jadwal?date=' . $selectedDate . ($selectedCourt ? '&court=' . $selectedCourt : '')) ?>" 
        class="tix-sport-pill <?= empty($selectedCategory) ? 'active' : '' ?>">
-      <i class="bi bi-trophy"></i>
+
       <span>Semua (<?= $totalAllCourts ?? count($courts) ?>)</span>
     </a>
     <?php foreach ($categories as $cat): ?>
       <a href="<?= base_url('jadwal?date=' . $selectedDate . '&category=' . $cat['id']) ?>" 
          class="tix-sport-pill <?= $selectedCategory == $cat['id'] ? 'active' : '' ?>">
-        <i class="bi <?= esc($cat['icon']) ?>"></i>
+
         <span><?= esc($cat['name']) ?> (<?= $cat['courts_count'] ?>)</span>
       </a>
     <?php endforeach; ?>

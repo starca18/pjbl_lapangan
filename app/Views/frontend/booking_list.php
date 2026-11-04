@@ -50,7 +50,7 @@
       <?php foreach ($categories as $cat): ?>
         <a href="<?= base_url('booking?category=' . $cat['slug'] . ($selectedType ? '&type=' . $selectedType : '')) ?>#daftar-lapangan" 
            class="btn btn-sm rounded-pill <?= $selectedCategory === $cat['slug'] ? 'btn-sport-primary' : 'btn-outline-secondary' ?>">
-          <i class="bi <?= esc($cat['icon']) ?> me-1"></i><?= esc($cat['name']) ?>
+          <?= esc($cat['name']) ?>
         </a>
       <?php endforeach; ?>
     </div>
