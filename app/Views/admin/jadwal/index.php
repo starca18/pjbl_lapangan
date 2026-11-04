@@ -21,14 +21,14 @@
   <form action="<?= base_url('admin/jadwal') ?>" method="get" class="row g-3 align-items-end">
     <div class="col-md-4 col-sm-6">
       <label class="form-label small fw-bold text-secondary">
-        <i class="bi bi-calendar3 text-success me-1"></i>Pilih Tanggal:
+        <i class="bi bi-calendar3 me-1" style="color:var(--sport-primary);"></i>Pilih Tanggal:
       </label>
       <input type="date" name="date" class="form-control" value="<?= esc($selectedDate) ?>" onchange="this.form.submit()">
     </div>
 
     <div class="col-md-4 col-sm-6">
       <label class="form-label small fw-bold text-secondary">
-        <i class="bi bi-filter text-success me-1"></i>Filter Cabang Olahraga:
+        <i class="bi bi-filter me-1" style="color:var(--sport-primary);"></i>Filter Cabang Olahraga:
       </label>
       <select name="category" class="form-select" onchange="this.form.submit()">
         <option value="">Semua Cabang Olahraga</option>

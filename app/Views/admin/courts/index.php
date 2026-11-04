@@ -14,11 +14,11 @@
 
 <!-- Category Filter -->
 <div class="d-flex flex-wrap gap-2 mb-4">
-  <a href="<?= base_url('admin/courts') ?>" class="btn btn-sm rounded-pill <?= empty($selectedCategory) ? 'btn-success' : 'btn-outline-secondary' ?>">
+  <a href="<?= base_url('admin/courts') ?>" class="btn btn-sm rounded-pill <?= empty($selectedCategory) ? 'btn-sport-primary' : 'btn-outline-secondary' ?>">
     Semua Olahraga
   </a>
   <?php foreach ($categories as $cat): ?>
-    <a href="<?= base_url('admin/courts?category=' . $cat['id']) ?>" class="btn btn-sm rounded-pill <?= $selectedCategory == $cat['id'] ? 'btn-success' : 'btn-outline-secondary' ?>">
+    <a href="<?= base_url('admin/courts?category=' . $cat['id']) ?>" class="btn btn-sm rounded-pill <?= $selectedCategory == $cat['id'] ? 'btn-sport-primary' : 'btn-outline-secondary' ?>">
       <?= esc($cat['name']) ?>
     </a>
   <?php endforeach; ?>

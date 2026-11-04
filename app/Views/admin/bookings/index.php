@@ -85,11 +85,11 @@
         <?php else: ?>
           <?php foreach ($bookings as $b): ?>
             <tr>
-              <td class="ps-3">
-                <a href="<?= base_url('admin/bookings/detail/' . $b['id']) ?>" class="font-monospace fw-bold text-success text-decoration-none">
+              <td class="ps-3 text-nowrap" style="min-width:160px;">
+                <a href="<?= base_url('admin/bookings/detail/' . $b['id']) ?>" class="badge bg-light text-dark font-monospace border px-2 py-1 text-decoration-none" style="font-size:0.8rem;">
                   <?= esc($b['booking_code']) ?>
                 </a>
-                <div class="small text-muted"><?= date('d/m/Y H:i', strtotime($b['created_at'])) ?></div>
+                <div class="small text-muted mt-0.5" style="font-size:0.75rem;"><i class="bi bi-clock-history me-1"></i><?= date('d/m/Y H:i', strtotime($b['created_at'])) ?></div>
               </td>
 
               <td>
@@ -107,8 +107,17 @@
               </td>
 
               <td>
-                <div class="fw-semibold text-dark"><?= esc($b['customer_name']) ?></div>
-                <div class="small text-muted"><?= esc($b['customer_phone']) ?></div>
+                <div class="fw-semibold text-dark text-nowrap"><?= esc($b['customer_name']) ?></div>
+                <?php 
+                  $rawPhone = preg_replace('/[^0-9]/', '', $b['customer_phone'] ?? '');
+                  if (str_starts_with($rawPhone, '0')) {
+                    $rawPhone = '62' . substr($rawPhone, 1);
+                  }
+                ?>
+                <a href="https://wa.me/<?= $rawPhone ?>" target="_blank" class="text-secondary small text-decoration-none d-inline-flex align-items-center gap-1" title="Kirim Pesan WhatsApp">
+                  <i class="bi bi-whatsapp text-success" style="font-size:0.75rem;"></i>
+                  <span style="font-size:0.78rem;"><?= esc($b['customer_phone']) ?></span>
+                </a>
               </td>
 
               <td>

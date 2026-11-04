@@ -6,14 +6,16 @@ use App\Controllers\BaseController;
 use App\Models\BookingModel;
 use App\Models\CourtModel;
 use App\Models\BookingSlotModel;
+use App\Models\CategoryModel;
 
 class Dashboard extends BaseController
 {
     public function index()
     {
-        $bookingModel = new BookingModel();
+        $bookingModel  = new BookingModel();
         $courtModel    = new CourtModel();
         $slotModel     = new BookingSlotModel();
+        $categoryModel = new CategoryModel();
 
         $today = date('Y-m-d');
 
@@ -42,12 +44,17 @@ class Dashboard extends BaseController
         $recentBookings = $bookingModel->getBookingsWithCourt([]);
         $recentBookings = array_slice($recentBookings, 0, 8);
 
-        // Today's slots summary
+        // Today's slots summary & capacity
         $occupiedSlots = $slotModel->getAllOccupiedSlotsByDate($today);
-        $allCourts = $courtModel->getCourtsWithCategory();
+        $allCourts     = $courtModel->getCourtsWithCategory();
+        $categories    = $categoryModel->getWithCourtsCount();
+
+        $occupiedCount = count($occupiedSlots);
+        $totalCapacity = $totalCourts * 16; // 07:00 to 23:00 (16 slots/court)
+        $occupancyRate = $totalCapacity > 0 ? min(100, round(($occupiedCount / $totalCapacity) * 100)) : 0;
 
         return view('admin/dashboard', [
-            'title'           => 'Dashboard Admin - ArenaSport',
+            'title'           => 'Dashboard Pengelola - ArenaSport',
             'totalCourts'     => $totalCourts,
             'todayBookings'   => $todayBookings,
             'pendingBookings' => $pendingBookings,
@@ -56,7 +63,10 @@ class Dashboard extends BaseController
             'recentBookings'  => $recentBookings,
             'today'           => $today,
             'courts'          => $allCourts,
-            'occupiedCount'   => count($occupiedSlots),
+            'categories'      => $categories,
+            'occupiedCount'   => $occupiedCount,
+            'totalCapacity'   => $totalCapacity,
+            'occupancyRate'   => $occupancyRate,
         ]);
     }
 }
