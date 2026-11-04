@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Struk Reservasi <?= esc($booking['booking_code']) ?></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
       margin: 20px;
       color: #111;
       font-size: 14px;
@@ -25,7 +28,12 @@
     }
     .header h2 {
       margin: 0 0 4px 0;
-      color: #047857;
+      font-family: 'Kanit', sans-serif;
+      font-style: italic;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-size: 26px;
+      color: #0f172a;
     }
     .meta-row {
       display: flex;
@@ -65,11 +73,11 @@
     }
     .btn {
       padding: 8px 16px;
-      background: #047857;
+      background: #ea580c;
       color: #fff;
       border: none;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 6px;
       font-weight: bold;
     }
     @media print {
@@ -92,7 +100,7 @@
 
   <div class="receipt-box">
     <div class="header">
-      <h2>ARENASPORT CENTER</h2>
+      <h2>Arena<span style="color:#ea580c;">Sport</span></h2>
       <div>Pusat Gelanggang Olahraga Modern</div>
       <div style="font-size:12px; color:#555;">Jl. Gelanggang Olahraga No. 88 &bull; Telp: 0812-3456-7890</div>
     </div>

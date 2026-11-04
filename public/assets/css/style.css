@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,800;1,900&display=swap');
+
 /* =====================================================
    ArenaSport — Custom Stylesheet
    Palette: Vibrant Orange primary, Electric Blue accent
@@ -1167,4 +1169,21 @@ button i.bi:last-child:not(:only-child),
   align-items: center;
   vertical-align: -0.1em;
 }
+
+/* ── Brand Logo Typography: Kanit 800 Italic ───────── */
+.brand-sport-title {
+  font-family: 'Kanit', sans-serif !important;
+  font-weight: 800 !important;
+  font-style: italic !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1 !important;
+  display: inline-block;
+}
+.brand-sport-title .sport-text-accent {
+  color: var(--sport-primary-dark, #ea580c) !important;
+}
+.admin-sidebar .brand-sport-title .sport-text-accent {
+  color: #f97316 !important;
+}
+
 

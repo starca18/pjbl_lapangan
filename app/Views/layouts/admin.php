@@ -15,7 +15,7 @@
   <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,800;1,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   
   <!-- Bootstrap 5.3 & Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -82,10 +82,13 @@
       flex-shrink: 0;
     }
     .admin-brand-text {
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      font-family: 'Kanit', sans-serif !important;
+      font-weight: 800 !important;
+      font-style: italic !important;
+      font-size: 1.35rem;
+      letter-spacing: -0.025em;
       color: #ffffff;
+      line-height: 1;
     }
     .admin-nav-section-title {
       font-size: 0.68rem;
@@ -252,9 +255,7 @@
           <span class="admin-brand-icon">
             <i class="bi bi-trophy-fill"></i>
           </span>
-          <span class="admin-brand-text">
-            Arena<span style="color:#f97316;">Sport</span>
-          </span>
+          <span class="brand-sport-title admin-brand-text">Arena<span style="color:#f97316;">Sport</span></span>
         </a>
       </div>
 

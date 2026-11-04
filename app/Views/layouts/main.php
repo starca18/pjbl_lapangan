@@ -15,7 +15,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,800;1,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Bootstrap 5.3 & Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -33,7 +33,7 @@
         <span class="d-inline-flex align-items-center justify-content-center text-white rounded-3" style="width:36px;height:36px;background:linear-gradient(135deg, #ea580c, #f97316);box-shadow:0 2px 8px rgba(234,88,12,0.3);margin-right:10px;">
           <i class="bi bi-trophy-fill" style="font-size:1.1rem;"></i>
         </span>
-        <span>Arena<span style="color:var(--sport-primary);">Sport</span></span>
+        <span class="brand-sport-title fs-4" style="color:#0f172a;">Arena<span class="sport-text-accent">Sport</span></span>
       </a>
       
       <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
@@ -118,7 +118,7 @@
             <span class="d-inline-flex align-items-center justify-content-center text-white rounded-3 p-1.5" style="width:32px;height:32px;background-color:var(--sport-primary);">
               <i class="bi bi-trophy-fill"></i>
             </span>
-            <span class="text-white fw-bold fs-5">ArenaSport Center</span>
+            <span class="brand-sport-title fs-4 text-white">Arena<span style="color:#f97316;">Sport</span></span>
           </div>
           <p class="small text-secondary mb-3">
             Gelanggang olahraga modern dengan cek jadwal langsung dan reservasi mudah untuk 6 cabang olahraga.

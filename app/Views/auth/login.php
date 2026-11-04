@@ -14,7 +14,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,800;1,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -31,7 +31,7 @@
             <span class="d-inline-flex align-items-center justify-content-center text-white rounded-3 p-2" style="width:40px;height:40px;background:linear-gradient(135deg, #ea580c, #f97316);box-shadow:0 2px 8px rgba(234,88,12,0.3);">
               <i class="bi bi-trophy-fill fs-5"></i>
             </span>
-            <span class="fs-4 fw-bold text-dark">Arena<span style="color:var(--sport-primary);">Sport</span></span>
+            <span class="brand-sport-title fs-3 text-dark">Arena<span class="sport-text-accent">Sport</span></span>
           </a>
           <p class="text-secondary small">Masuk ke Panel Admin & Kasir</p>
         </div>
