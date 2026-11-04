@@ -9,11 +9,13 @@
     <p class="text-secondary small mb-0">Monitoring ketersediaan slot lapangan, verifikasi pembayaran, dan reservasi hari ini.</p>
   </div>
   <div class="d-flex flex-wrap gap-2">
-    <a href="<?= base_url('admin/jadwal') ?>" class="btn btn-outline-secondary btn-sm px-3 rounded-pill fw-medium">
-      <i class="bi bi-calendar3-week me-2"></i>Master Jadwal
+    <a href="<?= base_url('admin/jadwal') ?>" class="btn btn-outline-secondary btn-sm px-3.5 py-1.5 rounded-pill fw-medium d-inline-flex align-items-center" style="gap: 8px;">
+      <i class="bi bi-calendar3-week"></i>
+      <span>Master Jadwal</span>
     </a>
-    <a href="<?= base_url('admin/bookings/create') ?>" class="btn btn-sport-primary btn-sm px-3.5 rounded-pill shadow-sm fw-medium">
-      <i class="bi bi-plus-lg me-2"></i>Reservasi Walk-in
+    <a href="<?= base_url('admin/bookings/create') ?>" class="btn btn-sport-primary btn-sm px-4 py-1.5 rounded-pill shadow-sm fw-semibold d-inline-flex align-items-center" style="gap: 8px;">
+      <i class="bi bi-plus-lg"></i>
+      <span>Reservasi Walk-in</span>
     </a>
   </div>
 </div>
@@ -21,8 +23,8 @@
 <!-- Pending Verification Alert Banner (Actionable Alert) -->
 <?php if (!empty($pendingBookings) && $pendingBookings > 0): ?>
   <div class="card border-0 mb-4 rounded-3 shadow-sm" style="background: linear-gradient(90deg, #fffbeb 0%, #fef3c7 100%); border-left: 4px solid #f59e0b !important;">
-    <div class="card-body p-3 d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
-      <div class="d-flex align-items-center gap-3">
+    <div class="card-body p-3 d-flex flex-column flex-sm-row justify-content-between align-items-sm-center" style="gap: 16px;">
+      <div class="d-flex align-items-center" style="gap: 14px;">
         <div class="d-inline-flex align-items-center justify-content-center rounded-circle text-amber-700 bg-white shadow-xs" style="width:42px;height:42px;min-width:42px;color:#d97706;">
           <i class="bi bi-hourglass-split fs-5"></i>
         </div>
@@ -31,8 +33,9 @@
           <div class="text-secondary small">Segera periksa bukti transfer pelanggan untuk mengunci slot lapangan.</div>
         </div>
       </div>
-      <a href="<?= base_url('admin/bookings') ?>" class="btn btn-sm btn-dark text-nowrap rounded-pill px-3.5 fw-semibold align-self-start align-self-sm-center">
-        Periksa Sekarang <i class="bi bi-arrow-right ms-1"></i>
+      <a href="<?= base_url('admin/bookings') ?>" class="btn btn-sm btn-dark text-nowrap rounded-pill px-3.5 fw-semibold align-self-start align-self-sm-center d-inline-flex align-items-center" style="gap: 6px;">
+        <span>Periksa Sekarang</span>
+        <i class="bi bi-arrow-right"></i>
       </a>
     </div>
   </div>
@@ -132,12 +135,13 @@
   <div class="col-xl-8 col-lg-7">
     <div class="card border-0 shadow-sm rounded-3 bg-white overflow-hidden">
       <div class="card-header bg-white border-bottom py-3 px-3 px-md-4 d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center" style="gap: 10px;">
           <h5 class="fw-bold mb-0 text-dark">Reservasi Terbaru Masuk</h5>
           <span class="badge bg-secondary-subtle text-secondary rounded-pill"><?= count($recentBookings) ?> Data</span>
         </div>
-        <a href="<?= base_url('admin/bookings') ?>" class="text-secondary small fw-semibold text-decoration-none d-flex align-items-center gap-1 hover-primary">
-          Lihat Semua <i class="bi bi-arrow-right"></i>
+        <a href="<?= base_url('admin/bookings') ?>" class="text-secondary small fw-semibold text-decoration-none d-flex align-items-center hover-primary" style="gap: 6px;">
+          <span>Lihat Semua</span>
+          <i class="bi bi-arrow-right"></i>
         </a>
       </div>
 
@@ -170,8 +174,9 @@
                       <span class="badge bg-light text-dark font-monospace border px-2 py-1 text-nowrap" style="font-size:0.78rem;">
                         <?= esc($bk['booking_code']) ?>
                       </span>
-                      <div class="text-muted small mt-1" style="font-size:0.75rem; white-space:nowrap;">
-                        <i class="bi bi-calendar-event me-1"></i><?= esc($bk['booking_date']) ?>
+                      <div class="text-muted small mt-1 d-flex align-items-center" style="font-size:0.75rem; white-space:nowrap; gap:5px;">
+                        <i class="bi bi-calendar-event"></i>
+                        <span><?= esc($bk['booking_date']) ?></span>
                       </div>
                     </td>
                     <td class="py-3">
@@ -188,14 +193,15 @@
                           $rawPhone = '62' . substr($rawPhone, 1);
                         }
                       ?>
-                      <a href="https://wa.me/<?= $rawPhone ?>" target="_blank" class="text-secondary small text-decoration-none d-inline-flex align-items-center gap-1" title="Kirim Pesan WhatsApp">
-                        <i class="bi bi-whatsapp text-success" style="font-size:0.75rem;"></i>
+                      <a href="https://wa.me/<?= $rawPhone ?>" target="_blank" class="text-secondary small text-decoration-none d-inline-flex align-items-center" style="gap: 6px;" title="Kirim Pesan WhatsApp">
+                        <i class="bi bi-whatsapp text-success" style="font-size:0.8rem;"></i>
                         <span style="font-size:0.78rem;"><?= esc($bk['customer_phone']) ?></span>
                       </a>
                     </td>
                     <td class="py-3" style="white-space:nowrap;">
-                      <span class="badge bg-light text-dark border px-2 py-1 font-monospace" style="font-size:0.78rem;">
-                        <i class="bi bi-clock me-1 text-secondary"></i><?= substr($bk['start_time'], 0, 5) ?> - <?= substr($bk['end_time'], 0, 5) ?>
+                      <span class="badge bg-light text-dark border px-2.5 py-1 font-monospace d-inline-flex align-items-center" style="font-size:0.78rem; gap:6px;">
+                        <i class="bi bi-clock text-secondary"></i>
+                        <span><?= substr($bk['start_time'], 0, 5) ?> - <?= substr($bk['end_time'], 0, 5) ?></span>
                       </span>
                     </td>
                     <td class="py-3 text-nowrap fw-bold text-dark font-monospace">
@@ -225,8 +231,9 @@
     <!-- Widget 1: Today Occupancy & Fast Actions -->
     <div class="card border-0 shadow-sm rounded-3 bg-white mb-4 p-3.5">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h6 class="fw-bold mb-0 text-dark d-flex align-items-center">
-          <i class="bi bi-bar-chart-line text-primary me-2"></i>Okupansi Gelanggang
+        <h6 class="fw-bold mb-0 text-dark d-flex align-items-center" style="gap: 8px;">
+          <i class="bi bi-bar-chart-line text-primary"></i>
+          <span>Okupansi Gelanggang</span>
         </h6>
         <span class="badge bg-light text-secondary border small">Hari Ini</span>
       </div>
@@ -240,18 +247,20 @@
           <div class="progress-bar" style="width: <?= $occupancyRate ?>%; background-color: var(--sport-primary);"></div>
         </div>
         <div class="d-flex justify-content-between text-muted small" style="font-size:0.75rem;">
-          <span><i class="bi bi-circle-fill text-danger me-1" style="font-size:0.5rem;"></i>Terisi: <?= $occupiedCount ?></span>
-          <span><i class="bi bi-circle-fill text-success me-1" style="font-size:0.5rem;"></i>Tersedia: <?= max(0, $totalCapacity - $occupiedCount) ?></span>
-          <span><i class="bi bi-circle-fill text-secondary me-1" style="font-size:0.5rem;"></i>Lapangan: <?= $totalCourts ?></span>
+          <span class="d-inline-flex align-items-center" style="gap:4px;"><i class="bi bi-circle-fill text-danger" style="font-size:0.45rem;"></i>Terisi: <?= $occupiedCount ?></span>
+          <span class="d-inline-flex align-items-center" style="gap:4px;"><i class="bi bi-circle-fill text-success" style="font-size:0.45rem;"></i>Tersedia: <?= max(0, $totalCapacity - $occupiedCount) ?></span>
+          <span class="d-inline-flex align-items-center" style="gap:4px;"><i class="bi bi-circle-fill text-secondary" style="font-size:0.45rem;"></i>Lapangan: <?= $totalCourts ?></span>
         </div>
       </div>
 
       <div class="d-grid gap-2">
-        <a href="<?= base_url('admin/jadwal?date=' . $today) ?>" class="btn btn-outline-dark btn-sm py-2 rounded-2 fw-medium">
-          <i class="bi bi-calendar3 me-2"></i>Buka Papan Jadwal Hari Ini
+        <a href="<?= base_url('admin/jadwal?date=' . $today) ?>" class="btn btn-outline-dark btn-sm py-2 rounded-2 fw-medium d-inline-flex align-items-center justify-content-center" style="gap: 8px;">
+          <i class="bi bi-calendar3"></i>
+          <span>Buka Papan Jadwal Hari Ini</span>
         </a>
-        <a href="<?= base_url('admin/bookings/create') ?>" class="btn btn-sport-primary btn-sm py-2 rounded-2 fw-medium">
-          <i class="bi bi-person-plus me-2"></i>Input Booking Walk-in
+        <a href="<?= base_url('admin/bookings/create') ?>" class="btn btn-sport-primary btn-sm py-2 rounded-2 fw-medium d-inline-flex align-items-center justify-content-center" style="gap: 8px;">
+          <i class="bi bi-person-plus"></i>
+          <span>Input Booking Walk-in</span>
         </a>
       </div>
     </div>
@@ -259,8 +268,9 @@
     <!-- Widget 2: Dynamic Facility Summary -->
     <div class="card border-0 shadow-sm rounded-3 bg-white p-3.5">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h6 class="fw-bold mb-0 text-dark d-flex align-items-center">
-          <i class="bi bi-grid-fill text-secondary me-2"></i>Fasilitas Gelanggang
+        <h6 class="fw-bold mb-0 text-dark d-flex align-items-center" style="gap: 8px;">
+          <i class="bi bi-grid-fill text-secondary"></i>
+          <span>Fasilitas Gelanggang</span>
         </h6>
         <a href="<?= base_url('admin/courts') ?>" class="small text-secondary text-decoration-none fw-semibold">Kelola &rarr;</a>
       </div>
@@ -268,8 +278,8 @@
       <div class="d-flex flex-column gap-2">
         <?php foreach ($categories as $cat): ?>
           <div class="d-flex justify-content-between align-items-center p-2 rounded-2 bg-light hover-bg-subtle">
-            <div class="d-flex align-items-center gap-2">
-              <span class="d-inline-flex align-items-center justify-content-center rounded-2 bg-white border text-secondary" style="width:28px;height:28px;font-size:0.85rem;">
+            <div class="d-flex align-items-center" style="gap: 10px;">
+              <span class="d-inline-flex align-items-center justify-content-center rounded-2 bg-white border text-secondary" style="width:30px;height:30px;font-size:0.85rem;">
                 <i class="bi <?= esc($cat['icon']) ?>"></i>
               </span>
               <div>

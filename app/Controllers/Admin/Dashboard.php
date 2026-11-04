@@ -54,7 +54,7 @@ class Dashboard extends BaseController
         $occupancyRate = $totalCapacity > 0 ? min(100, round(($occupiedCount / $totalCapacity) * 100)) : 0;
 
         return view('admin/dashboard', [
-            'title'           => 'Dashboard Pengelola - ArenaSport',
+            'title'           => 'Dashboard Admin - ArenaSport',
             'totalCourts'     => $totalCourts,
             'todayBookings'   => $todayBookings,
             'pendingBookings' => $pendingBookings,

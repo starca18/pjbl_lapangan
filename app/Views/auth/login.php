@@ -33,7 +33,7 @@
             </span>
             <span class="fs-4 fw-bold text-dark">Arena<span style="color:var(--sport-primary);">Sport</span></span>
           </a>
-          <p class="text-secondary small">Panel Masuk Pengelola Gelanggang & Staff</p>
+          <p class="text-secondary small">Masuk ke Panel Admin & Kasir</p>
         </div>
 
         <?php if (session()->getFlashdata('error')): ?>

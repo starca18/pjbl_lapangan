@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title><?= esc($title ?? 'Panel Pengelola - ArenaSport') ?></title>
+  <title><?= esc($title ?? 'Dashboard Admin - ArenaSport') ?></title>
   
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="<?= base_url('favicon.svg?v=2.0') ?>">
@@ -12,7 +12,7 @@
   <link rel="shortcut icon" href="<?= base_url('favicon.ico?v=2.0') ?>">
   <link rel="apple-touch-icon" href="<?= base_url('apple-touch-icon.png?v=2.0') ?>">
   
-  <!-- Google Fonts: Plus Jakarta Sans -->
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
   <!-- Bootstrap 5.3 & Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=' . (@filemtime(FCPATH . 'assets/css/style.css') ?: '20261102_1900')) ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=' . (@filemtime(FCPATH . 'assets/css/style.css') ?: '20261102_1930')) ?>">
 
   <style>
     :root {
@@ -41,8 +41,8 @@
     }
     /* Modern Sidebar */
     .admin-sidebar {
-      width: 270px;
-      min-width: 270px;
+      width: 280px;
+      min-width: 280px;
       background: var(--admin-sidebar-bg);
       border-right: 1px solid var(--admin-sidebar-border);
       display: flex;
@@ -55,13 +55,13 @@
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .admin-sidebar-header {
-      padding: 1.25rem 1.25rem 1rem;
+      padding: 1.35rem 1.25rem 1.15rem;
       border-bottom: 1px solid var(--admin-sidebar-border);
     }
     .admin-sidebar-brand {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.85rem;
       text-decoration: none;
       color: #ffffff;
     }
@@ -69,17 +69,23 @@
       color: #ffffff;
     }
     .admin-brand-icon {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
       background: linear-gradient(135deg, #ea580c, #f97316);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
+      font-size: 1.25rem;
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4);
       flex-shrink: 0;
+    }
+    .admin-brand-text {
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
     }
     .admin-nav-section-title {
       font-size: 0.68rem;
@@ -87,14 +93,14 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #64748b;
-      padding: 0.85rem 1.25rem 0.35rem;
+      padding: 0.95rem 1.25rem 0.35rem;
     }
     .admin-nav-link {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.68rem 1rem;
-      margin: 2px 10px;
+      padding: 0.72rem 1.05rem;
+      margin: 3px 12px;
       border-radius: 9px;
       color: #94a3b8;
       font-size: 0.88rem;
@@ -106,13 +112,15 @@
     .admin-nav-link-content {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.85rem;
     }
     .admin-nav-link i {
       font-size: 1.15rem;
       color: #64748b;
       transition: color 0.15s ease;
       flex-shrink: 0;
+      width: 20px;
+      text-align: center;
     }
     .admin-nav-link:hover {
       color: #ffffff;
@@ -132,29 +140,56 @@
     }
     .admin-sidebar-footer {
       margin-top: auto;
-      padding: 1rem;
+      padding: 1.15rem 1rem;
       border-top: 1px solid var(--admin-sidebar-border);
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.25);
     }
     .admin-user-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.75rem;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 0.65rem 0.85rem;
+      border-radius: 10px;
     }
     .admin-user-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: rgba(234, 88, 12, 0.2);
-      border: 1px solid rgba(234, 88, 12, 0.4);
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      border-radius: 9px;
+      background: rgba(234, 88, 12, 0.22);
+      border: 1.5px solid rgba(234, 88, 12, 0.5);
       color: #fb923c;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .admin-user-info {
+      flex: 1;
+      min-width: 0;
+      margin-left: 4px;
+    }
+    .admin-user-name {
+      color: #ffffff;
       font-weight: 700;
       font-size: 0.85rem;
-      flex-shrink: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.25;
+    }
+    .admin-user-role {
+      color: #94a3b8;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
     }
     /* Main Content Wrapper */
     .admin-main-wrap {
@@ -192,7 +227,7 @@
     @media (max-width: 991.98px) {
       .admin-sidebar {
         position: fixed;
-        left: -270px;
+        left: -280px;
         top: 0;
         bottom: 0;
       }
@@ -211,20 +246,15 @@
   <div class="admin-wrapper">
     <!-- Sidebar Navigation -->
     <aside class="admin-sidebar" id="adminSidebar">
+      <!-- Clean Brand Header -->
       <div class="admin-sidebar-header">
         <a href="<?= base_url('admin/dashboard') ?>" class="admin-sidebar-brand">
           <span class="admin-brand-icon">
             <i class="bi bi-trophy-fill"></i>
           </span>
-          <div>
-            <div class="fw-bold fs-6 lh-1">Arena<span style="color:#f97316;">Sport</span></div>
-            <div class="d-flex align-items-center gap-1.5 mt-1">
-              <span class="badge rounded-pill" style="font-size:0.62rem; font-weight:700; background:rgba(234, 88, 12, 0.2); color:#fb923c; border:1px solid rgba(234, 88, 12, 0.3); letter-spacing:0.04em; padding:2px 7px;">
-                PENGELOLA
-              </span>
-              <span class="text-white-50 small" style="font-size:0.65rem;">v2.1</span>
-            </div>
-          </div>
+          <span class="admin-brand-text">
+            Arena<span style="color:#f97316;">Sport</span>
+          </span>
         </a>
       </div>
 
@@ -268,21 +298,22 @@
         </a>
       </div>
 
-      <!-- User Profile & Logout -->
+      <!-- User Profile & Logout (Spacious and Unclipped) -->
       <div class="admin-sidebar-footer">
         <div class="admin-user-card">
-          <div class="d-flex align-items-center gap-2.5 overflow-hidden">
-            <div class="admin-user-avatar">
-              <?= strtoupper(substr(session()->get('full_name') ?? 'Admin', 0, 2)) ?>
+          <div class="admin-user-avatar">
+            <?= strtoupper(substr(session()->get('username') ?? 'AD', 0, 2)) ?>
+          </div>
+          <div class="admin-user-info">
+            <div class="admin-user-name" title="<?= esc(session()->get('full_name') ?? 'Administrator') ?>">
+              <?= esc(session()->get('full_name') ?? 'Administrator') ?>
             </div>
-            <div class="overflow-hidden">
-              <div class="text-white fw-bold small text-truncate" style="max-width:130px;">
-                <?= esc(session()->get('full_name') ?? 'Administrator') ?>
-              </div>
-              <div class="text-secondary small" style="font-size:0.7rem;">@<?= esc(session()->get('username') ?? 'admin') ?></div>
+            <div class="admin-user-role">
+              <span class="badge bg-success-subtle text-success border-0 px-1 py-0" style="font-size:0.62rem; font-weight:700;">ONLINE</span>
+              <span>@<?= esc(session()->get('username') ?? 'admin') ?></span>
             </div>
           </div>
-          <a href="<?= base_url('logout') ?>" class="btn btn-sm btn-outline-danger border-0 p-1.5 rounded-2" title="Keluar / Logout">
+          <a href="<?= base_url('logout') ?>" class="btn btn-sm btn-outline-danger border-0 p-1 rounded-2" style="color:#f87171;" title="Keluar / Logout">
             <i class="bi bi-box-arrow-right fs-5"></i>
           </a>
         </div>
@@ -291,7 +322,7 @@
 
     <!-- Main Content Area -->
     <div class="admin-main-wrap">
-      <!-- Topbar Header -->
+      <!-- Topbar Header (Clean, No Duplicate Walk-in) -->
       <header class="admin-topbar">
         <div class="d-flex align-items-center gap-3">
           <button class="btn btn-sm btn-light border d-lg-none" type="button" id="sidebarToggleBtn" aria-label="Toggle Sidebar">
@@ -303,16 +334,14 @@
           </div>
         </div>
 
-        <div class="d-flex align-items-center gap-2 gap-sm-3">
-          <div class="d-none d-md-flex align-items-center gap-1 text-secondary small bg-light px-3 py-1.5 rounded-pill border">
-            <i class="bi bi-calendar3 text-primary me-2"></i>
-            <span class="fw-semibold text-dark"><?= esc(tanggal_indonesia(date('Y-m-d'))) ?></span>
+        <div class="d-flex align-items-center gap-3">
+          <div class="d-none d-md-flex align-items-center bg-light px-3 py-1.5 rounded-pill border" style="gap: 8px;">
+            <i class="bi bi-calendar3 text-primary"></i>
+            <span class="fw-semibold text-dark small"><?= esc(tanggal_indonesia(date('Y-m-d'))) ?></span>
           </div>
-          <a href="<?= base_url() ?>" target="_blank" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
-            <i class="bi bi-box-arrow-up-right me-1.5"></i>Web Publik
-          </a>
-          <a href="<?= base_url('admin/bookings/create') ?>" class="btn btn-sm btn-sport-primary rounded-pill px-3">
-            <i class="bi bi-plus-lg me-1"></i>Walk-in
+          <a href="<?= base_url() ?>" target="_blank" class="btn btn-sm btn-outline-secondary rounded-pill px-3.5 d-inline-flex align-items-center" style="gap: 8px;">
+            <i class="bi bi-box-arrow-up-right"></i>
+            <span>Lihat Website</span>
           </a>
         </div>
       </header>
@@ -320,18 +349,18 @@
       <!-- Content Container -->
       <main class="p-3 p-md-4 flex-grow-1">
         <?php if (session()->getFlashdata('success')): ?>
-          <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mb-4 rounded-3 border-0 shadow-sm" role="alert">
-            <i class="bi bi-check-circle-fill me-2 fs-5 text-success"></i>
+          <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mb-4 rounded-3 border-0 shadow-sm" role="alert" style="gap: 10px;">
+            <i class="bi bi-check-circle-fill fs-5 text-success"></i>
             <div class="fw-medium"><?= esc(session()->getFlashdata('success')) ?></div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
           </div>
         <?php endif; ?>
 
         <?php if (session()->getFlashdata('error')): ?>
-          <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center mb-4 rounded-3 border-0 shadow-sm" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2 fs-5 text-danger"></i>
+          <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center mb-4 rounded-3 border-0 shadow-sm" role="alert" style="gap: 10px;">
+            <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
             <div class="fw-medium"><?= esc(session()->getFlashdata('error')) ?></div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
           </div>
         <?php endif; ?>
 

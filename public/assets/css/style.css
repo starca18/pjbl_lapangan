@@ -1149,3 +1149,22 @@ footer a:hover {
   color: #b91c1c !important;
   border: 1px solid #fecaca !important;
 }
+
+/* Universal icon spacing guarantee */
+.btn i.bi:first-child:not(:only-child),
+button i.bi:first-child:not(:only-child),
+.badge i.bi:first-child:not(:only-child) {
+  margin-right: 7px !important;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: -0.1em;
+}
+.btn i.bi:last-child:not(:only-child),
+button i.bi:last-child:not(:only-child),
+.badge i.bi:last-child:not(:only-child) {
+  margin-left: 7px !important;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: -0.1em;
+}
+
