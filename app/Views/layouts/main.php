@@ -121,7 +121,7 @@
             <span class="text-white fw-bold fs-5">ArenaSport Center</span>
           </div>
           <p class="small text-secondary mb-3">
-            Pusat gelanggang olahraga modern dengan sistem reservasi jadwal real-time. Nikmati fasilitas lapangan futsal, mini soccer, badminton, bola voli, tenis, dan padel berstandar internasional.
+            Gelanggang olahraga modern dengan cek jadwal langsung dan reservasi mudah untuk 6 cabang olahraga.
           </p>
           <div class="d-flex gap-3 text-secondary">
             <span><i class="bi bi-geo-alt me-1" style="color:var(--sport-primary);"></i>Jl. Gelanggang Olahraga No. 88</span>
@@ -152,7 +152,7 @@
               <strong class="text-white">06:00 - 23:00</strong>
             </li>
             <li class="mt-2 text-warning small">
-              <i class="bi bi-info-circle me-1"></i>Pemesanan dapat dilakukan online 24 jam.
+              <i class="bi bi-info-circle me-1"></i>Reservasi online buka 24 jam.
             </li>
           </ul>
         </div>
@@ -171,7 +171,7 @@
 
       <div class="border-top border-secondary pt-3 d-flex flex-column flex-sm-row justify-content-between align-items-center text-secondary small">
         <p class="mb-0">&copy; <?= date('Y') ?> ArenaSport Reservation System. CodeIgniter 4 Project.</p>
-        <p class="mb-0">Dibuat untuk kemudahan pencarian jadwal lapangan olahraga.</p>
+        <p class="mb-0">Reservasi lapangan olahraga cepat dan praktis.</p>
       </div>
     </div>
   </footer>

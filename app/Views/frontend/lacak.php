@@ -12,7 +12,7 @@
     </nav>
     <h2 class="fw-bold mb-1">Cek Status Reservasi</h2>
     <p class="text-secondary small mb-0">
-      Masukkan kode booking atau nomor telepon Anda untuk melihat detail dan status pemesanan.
+      Masukkan kode booking atau nomor HP untuk cek status pemesanan.
     </p>
   </div>
 </div>
@@ -42,7 +42,7 @@
         </form>
 
         <div class="small text-muted">
-          Punya kendala pemesanan? Hubungi admin via WhatsApp di <strong>0812-3456-7890</strong>.
+          Butuh bantuan? Hubungi WhatsApp <strong>0812-3456-7890</strong>.
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@
             <i class="bi bi-emoji-neutral text-secondary display-4 d-block mb-2"></i>
             <h5 class="fw-bold">Tidak Menemukan Data Reservasi</h5>
             <p class="text-secondary small mb-3">
-              Pastikan kode booking atau nomor telepon yang Anda masukkan sudah benar dan sesuai saat pendaftaran.
+              Periksa kembali kode booking atau nomor HP yang Anda masukkan.
             </p>
             <div>
               <a href="<?= base_url('lacak') ?>" class="btn btn-outline-secondary btn-sm">Cari Ulang</a>

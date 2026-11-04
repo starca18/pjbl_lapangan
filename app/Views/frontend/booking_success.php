@@ -13,7 +13,7 @@
         </div>
         <h2 class="fw-bold mb-1">Reservasi Anda Berhasil Dibuat!</h2>
         <p class="text-secondary">
-          Slot lapangan Anda telah dikunci dan diamankan. Simpan kode booking ini untuk proses check-in di lokasi gelanggang.
+          Slot lapangan sudah diamankan. Tunjukkan kode booking ini saat tiba di lokasi.
         </p>
       </div>
 
@@ -109,7 +109,7 @@
         </div>
 
         <div class="card-footer bg-light p-3 text-center border-top small text-muted">
-          ArenaSport Reservation System &bull; Bukti reservasi ini sah sebagai voucher lapangan.
+          Simpan bukti reservasi ini sebagai tanda masuk lapangan.
         </div>
       </div>
 

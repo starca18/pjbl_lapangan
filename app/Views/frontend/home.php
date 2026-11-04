@@ -11,7 +11,7 @@
           Sewa Lapangan Olahraga Favorit Tanpa Ribet
         </h1>
         <p class="hero-subtitle mb-4">
-          Cek ketersediaan jadwal secara langsung (real-time). Pilih dari 6 cabang olahraga: Futsal, Mini Soccer, Badminton, Bola Voli, Tenis, hingga Padel dengan fasilitas premium.
+          Cek jadwal langsung dan sewa lapangan olahraga favorit Anda tanpa ribet.
         </p>
         <div class="d-flex flex-wrap gap-2 gap-md-3 justify-content-center justify-content-lg-start">
           <a href="<?= base_url('jadwal') ?>" class="btn btn-sport d-inline-flex align-items-center">
@@ -35,7 +35,7 @@
             <span class="badge px-2.5 py-1" style="background-color:#ffedd5;color:var(--sport-primary-dark);border:1px solid #fed7aa;">Hari Ini</span>
           </div>
           <p class="text-secondary small mb-3">
-            Pilih tanggal dan cabang olahraga untuk melihat slot jam yang masih kosong atau sudah penuh.
+            Pilih tanggal dan jenis olahraga untuk cek jam kosong.
           </p>
 
           <form action="<?= base_url('jadwal') ?>" method="get">
@@ -53,7 +53,7 @@
               </select>
             </div>
             <button type="submit" class="btn btn-sport-primary w-100 py-2.5">
-              <i class="bi bi-calendar-check me-1"></i>Tampilkan Ketersediaan Jadwal
+              <i class="bi bi-calendar-check me-1"></i>Cek Jadwal Lapangan
             </button>
           </form>
           <div class="text-center mt-3 pt-2 border-top">
@@ -101,8 +101,8 @@
             <i class="bi bi-calendar-check fs-4"></i>
           </div>
           <div>
-            <h6 class="fw-bold mb-1">Status Jadwal Transparan</h6>
-            <p class="small text-muted mb-0">Ketahui slot kosong vs slot penuh tanpa perlu chat manual.</p>
+            <h6 class="fw-bold mb-1">Jadwal Real-Time</h6>
+            <p class="small text-muted mb-0">Pantau jam kosong langsung tanpa perlu chat admin.</p>
           </div>
         </div>
       </div>
@@ -113,7 +113,7 @@
           </div>
           <div>
             <h6 class="fw-bold mb-1">Konfirmasi Cepat</h6>
-            <p class="small text-muted mb-0">Sistem otomatis mengunci slot waktu begitu Anda reservasi.</p>
+            <p class="small text-muted mb-0">Slot jam otomatis terkunci begitu reservasi selesai.</p>
           </div>
         </div>
       </div>
@@ -123,8 +123,8 @@
             <i class="bi bi-ticket-detailed fs-4"></i>
           </div>
           <div>
-            <h6 class="fw-bold mb-1">E-Tiket & Bukti Booking</h6>
-            <p class="small text-muted mb-0">Dapatkan kode booking dan bukti reservasi siap tunjuk di kasir.</p>
+            <h6 class="fw-bold mb-1">E-Tiket Digital</h6>
+            <p class="small text-muted mb-0">Cukup tunjukkan kode booking saat tiba di lokasi.</p>
           </div>
         </div>
       </div>
@@ -244,7 +244,7 @@
 
     <div class="text-center mt-4">
       <a href="<?= base_url('jadwal') ?>" class="btn btn-sport-primary px-4 py-2">
-        <i class="bi bi-calendar2-range me-2"></i>Buka Papan Jadwal Lengkap dengan Filter Tanggal
+        <i class="bi bi-calendar2-range me-2"></i>Lihat Jadwal Selengkapnya
       </a>
     </div>
   </div>
@@ -255,7 +255,7 @@
   <div class="container">
     <div class="text-center mb-5">
       <h3 class="fw-bold">4 Langkah Mudah Reservasi Lapangan</h3>
-      <p class="text-secondary">Pesan lapangan olahraga impian Anda dalam waktu kurang dari 2 menit.</p>
+      <p class="text-secondary">Pesan lapangan favorit dalam hitungan detik.</p>
     </div>
 
     <div class="row g-4 text-center">
@@ -265,7 +265,7 @@
             <strong class="fs-5">1</strong>
           </div>
           <h6 class="fw-bold mb-2">Pilih Lapangan</h6>
-          <p class="small text-secondary mb-0">Tentukan jenis olahraga: Futsal, Mini Soccer, Badminton, Voli, Tenis, atau Padel.</p>
+          <p class="small text-secondary mb-0">Pilih cabang olahraga yang ingin dimainkan.</p>
         </div>
       </div>
       <div class="col-md-3 how-to-step">
@@ -273,8 +273,8 @@
           <div class="d-inline-flex align-items-center justify-content-center text-white rounded-circle mb-3" style="width:48px;height:48px;background-color:var(--sport-primary);">
             <strong class="fs-5">2</strong>
           </div>
-          <h6 class="fw-bold mb-2">Cek Jadwal & Slot</h6>
-          <p class="small text-secondary mb-0">Lihat ketersediaan jam kosong (warna hijau) pada tanggal yang Anda inginkan.</p>
+          <h6 class="fw-bold mb-2">Cek Jam Main</h6>
+          <p class="small text-secondary mb-0">Pilih tanggal dan slot jam yang masih kosong.</p>
         </div>
       </div>
       <div class="col-md-3 how-to-step">
@@ -282,8 +282,8 @@
           <div class="d-inline-flex align-items-center justify-content-center text-white rounded-circle mb-3" style="width:48px;height:48px;background-color:var(--sport-primary);">
             <strong class="fs-5">3</strong>
           </div>
-          <h6 class="fw-bold mb-2">Isi Data Pemesan</h6>
-          <p class="small text-secondary mb-0">Masukkan nama, nomor WhatsApp aktif, dan pilih metode pembayaran favorit Anda.</p>
+          <h6 class="fw-bold mb-2">Isi Data Diri</h6>
+          <p class="small text-secondary mb-0">Ketik nama, nomor WhatsApp, dan cara bayar.</p>
         </div>
       </div>
       <div class="col-md-3 how-to-step">
@@ -291,8 +291,8 @@
           <div class="d-inline-flex align-items-center justify-content-center text-white rounded-circle mb-3" style="width:48px;height:48px;background-color:var(--sport-primary);">
             <strong class="fs-5">4</strong>
           </div>
-          <h6 class="fw-bold mb-2">Dapatkan E-Tiket</h6>
-          <p class="small text-secondary mb-0">Simpan struk / bukti booking dengan kode reservasi untuk check-in di lokasi.</p>
+          <h6 class="fw-bold mb-2">Terima E-Tiket</h6>
+          <p class="small text-secondary mb-0">Simpan kode booking untuk tunjukkan di lokasi.</p>
         </div>
       </div>
     </div>

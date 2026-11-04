@@ -75,7 +75,7 @@
             </div>
             <div class="col-sm-6 text-secondary small">
               <i class="bi bi-info-circle me-1 text-success"></i>
-              Jadwal slot jam di bawah otomatis menyesuaikan tanggal yang Anda pilih.
+              Slot jam otomatis menyesuaikan tanggal pilihan Anda.
             </div>
           </div>
         </div>
@@ -97,7 +97,7 @@
           </div>
 
           <p class="text-secondary small mb-3">
-            Klik pada kotak slot jam untuk memilih. Anda dapat memilih lebih dari satu jam beruntun (misal 2 atau 3 jam).
+            Pilih satu atau beberapa jam bermain yang tersedia.
           </p>
 
           <div class="row g-2" id="slotsContainer">
@@ -150,7 +150,7 @@
             <div class="col-md-6">
               <label class="form-label small fw-bold text-secondary">Nomor WhatsApp Aktif <span class="text-danger">*</span></label>
               <input type="tel" name="customer_phone" class="form-control" placeholder="Contoh: 081234567890" required value="<?= old('customer_phone') ?>">
-              <div class="form-text small">Konfirmasi reservasi dan tiket digital dikirimkan ke nomor ini.</div>
+              <div class="form-text small">Kode booking dan tiket akan dikirim ke nomor ini.</div>
             </div>
 
             <div class="col-md-6">
@@ -170,14 +170,14 @@
 
             <div class="col-12">
               <label class="form-label small fw-bold text-secondary">Catatan Khusus (Opsional)</label>
-              <textarea name="notes" class="form-control" rows="2" placeholder="Catatan tambahan seperti pinjam rompi, sewa bola, atau lainnya..."><?= old('notes') ?></textarea>
+              <textarea name="notes" class="form-control" rows="2" placeholder="Contoh: pinjam rompi atau sewa bola..."><?= old('notes') ?></textarea>
             </div>
           </div>
         </div>
 
         <div class="d-none d-lg-block mb-4">
           <button type="submit" class="btn btn-sport-primary btn-lg w-100 py-3 fw-bold" id="submitBtn">
-            <i class="bi bi-check-circle-fill me-2"></i>Konfirmasi Reservasi Sekarang
+            <i class="bi bi-check-circle-fill me-2"></i>Konfirmasi Reservasi
           </button>
         </div>
       </form>

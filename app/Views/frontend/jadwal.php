@@ -424,7 +424,7 @@
         <div class="card-body">
           <i class="bi bi-calendar-x fs-1 text-muted d-block mb-3"></i>
           <h5 class="fw-bold text-dark">Tidak ada lapangan yang cocok</h5>
-          <p class="text-secondary small mb-3">Silakan ganti tanggal atau filter cabang olahraga yang dipilih.</p>
+          <p class="text-secondary small mb-3">Pilih tanggal atau cabang olahraga lain.</p>
           <a href="<?= base_url('jadwal') ?>" class="btn btn-outline-secondary rounded-pill px-4">
             <i class="bi bi-arrow-clockwise me-1"></i>Reset Filter
           </a>
