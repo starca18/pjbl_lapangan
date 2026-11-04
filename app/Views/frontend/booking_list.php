@@ -43,12 +43,12 @@
     <!-- Sport Category Pills -->
     <div class="d-flex flex-wrap gap-1.5 align-items-center">
       <span class="small fw-bold text-secondary me-1">Filter Cepat:</span>
-      <a href="<?= base_url('booking' . ($selectedType ? '?type=' . $selectedType : '')) ?>" 
+      <a href="<?= base_url('booking' . ($selectedType ? '?type=' . $selectedType : '')) ?>#daftar-lapangan" 
          class="btn btn-sm rounded-pill <?= empty($selectedCategory) ? 'btn-sport-primary' : 'btn-outline-secondary' ?>">
         Semua Cabang
       </a>
       <?php foreach ($categories as $cat): ?>
-        <a href="<?= base_url('booking?category=' . $cat['slug'] . ($selectedType ? '&type=' . $selectedType : '')) ?>" 
+        <a href="<?= base_url('booking?category=' . $cat['slug'] . ($selectedType ? '&type=' . $selectedType : '')) ?>#daftar-lapangan" 
            class="btn btn-sm rounded-pill <?= $selectedCategory === $cat['slug'] ? 'btn-sport-primary' : 'btn-outline-secondary' ?>">
           <i class="bi <?= esc($cat['icon']) ?> me-1"></i><?= esc($cat['name']) ?>
         </a>
@@ -57,15 +57,15 @@
 
     <!-- Indoor / Outdoor Filter -->
     <div class="btn-group btn-group-sm">
-      <a href="<?= base_url('booking' . ($selectedCategory ? '?category=' . $selectedCategory : '')) ?>" 
+      <a href="<?= base_url('booking' . ($selectedCategory ? '?category=' . $selectedCategory : '')) ?>#daftar-lapangan" 
          class="btn <?= empty($selectedType) ? 'btn-secondary text-white' : 'btn-outline-secondary' ?>">
         Semua Tipe
       </a>
-      <a href="<?= base_url('booking?type=Indoor' . ($selectedCategory ? '&category=' . $selectedCategory : '')) ?>" 
+      <a href="<?= base_url('booking?type=Indoor' . ($selectedCategory ? '&category=' . $selectedCategory : '')) ?>#daftar-lapangan" 
          class="btn <?= $selectedType === 'Indoor' ? 'btn-secondary text-white' : 'btn-outline-secondary' ?>">
         Indoor
       </a>
-      <a href="<?= base_url('booking?type=Outdoor' . ($selectedCategory ? '&category=' . $selectedCategory : '')) ?>" 
+      <a href="<?= base_url('booking?type=Outdoor' . ($selectedCategory ? '&category=' . $selectedCategory : '')) ?>#daftar-lapangan" 
          class="btn <?= $selectedType === 'Outdoor' ? 'btn-secondary text-white' : 'btn-outline-secondary' ?>">
         Outdoor
       </a>
@@ -73,7 +73,7 @@
   </div>
 
   <!-- Courts Grid -->
-  <div class="row g-4">
+  <div class="row g-4" id="daftar-lapangan">
     <?php if (empty($courts)): ?>
       <div class="col-12 py-5 text-center">
         <div class="py-5">
@@ -133,8 +133,25 @@ document.addEventListener('DOMContentLoaded', function () {
     ArenaSportAnimations.renderSportCards('#bookingSportSelectionGrid', {
       currentSlug: '<?= esc($selectedCategory ?? '') ?>',
       baseUrl: '<?= base_url() ?>',
-      categories: <?= json_encode($categories) ?>
+      categories: <?= json_encode($categories) ?>,
+      onSelect: function (slug) {
+        if (slug) {
+          window.location.href = '<?= base_url('booking') ?>?category=' + encodeURIComponent(slug) + '<?= $selectedType ? '&type=' . urlencode($selectedType) : '' ?>#daftar-lapangan';
+        } else {
+          window.location.href = '<?= base_url('booking' . ($selectedType ? '?type=' . urlencode($selectedType) : '')) ?>#daftar-lapangan';
+        }
+      }
     });
+  }
+
+  // Smooth scroll to courts list if hash is present
+  if (window.location.hash === '#daftar-lapangan') {
+    const courtsEl = document.getElementById('daftar-lapangan');
+    if (courtsEl) {
+      setTimeout(function () {
+        courtsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
   }
 });
 </script>

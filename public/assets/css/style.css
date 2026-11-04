@@ -29,6 +29,15 @@
   --slot-pending-text:  #92400e;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+#daftar-lapangan,
+#pilih-olahraga {
+  scroll-margin-top: 85px;
+}
+
 body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   color: var(--sport-dark);

@@ -410,7 +410,7 @@
     let html = '';
     SPORTS.forEach(s => {
       const isSelected = currentSlug === s.slug;
-      const targetUrl = baseUrl ? `${baseUrl}/booking?category=${s.slug}` : `javascript:void(0)`;
+      const targetUrl = baseUrl ? `${baseUrl}/booking?category=${s.slug}#daftar-lapangan` : `javascript:void(0)`;
       const svgArt = generateArt(s);
 
       html += `
@@ -457,13 +457,18 @@
       if (typeof options.onSelect === 'function') {
         card.addEventListener('click', function (e) {
           e.preventDefault();
+          const wasActive = this.classList.contains('active');
           cards.forEach(c => {
             c.classList.remove('on', 'active');
             c.setAttribute('aria-pressed', 'false');
           });
-          this.classList.add('on', 'active');
-          this.setAttribute('aria-pressed', 'true');
-          options.onSelect(this.dataset.slug, this.dataset.categoryId, this);
+          if (!wasActive) {
+            this.classList.add('on', 'active');
+            this.setAttribute('aria-pressed', 'true');
+            options.onSelect(this.dataset.slug, this.dataset.categoryId, this);
+          } else {
+            options.onSelect('', '', null);
+          }
         });
       }
     });

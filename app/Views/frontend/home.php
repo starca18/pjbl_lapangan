@@ -17,8 +17,8 @@
           <a href="<?= base_url('jadwal') ?>" class="btn btn-sport d-inline-flex align-items-center">
             <i class="bi bi-calendar3 me-2"></i>Cek Jadwal Lapangan
           </a>
-          <a href="<?= base_url('booking') ?>" class="btn btn-outline-light px-3 px-md-4 py-2 fw-semibold rounded-3 d-inline-flex align-items-center">
-            <i class="bi bi-grid me-2"></i>Daftar Lapangan
+          <a href="#pilih-olahraga" class="btn btn-outline-light px-3 px-md-4 py-2 fw-semibold rounded-3 d-inline-flex align-items-center">
+            <i class="bi bi-grid me-2"></i>Pilih Lapangan
           </a>
           <a href="<?= base_url('lacak') ?>" class="btn btn-outline-light px-3 px-md-4 py-2 fw-semibold rounded-3 d-inline-flex align-items-center">
             <i class="bi bi-ticket-perforated me-2"></i>Lacak Kode Booking
@@ -78,8 +78,8 @@
         <a href="<?= base_url('jadwal') ?>" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1.5">
           <i class="bi bi-calendar3 me-1"></i>Cek Jadwal Semua
         </a>
-        <a href="<?= base_url('booking') ?>" class="btn btn-sm rounded-pill px-3 py-1.5 text-white" style="background-color:var(--sport-primary);">
-          Semua Lapangan (<?= count($courts) ?>)<i class="bi bi-arrow-right ms-1"></i>
+        <a href="#daftar-lapangan" class="btn btn-sm rounded-pill px-3 py-1.5 text-white" style="background-color:var(--sport-primary);">
+          Semua Lapangan (<?= count($courts) ?>)<i class="bi bi-arrow-down ms-1"></i>
         </a>
       </div>
     </div>
@@ -133,20 +133,20 @@
 </section>
 
 <!-- Courts Catalog Section -->
-<section class="py-5">
+<section class="py-5" id="daftar-lapangan">
   <div class="container">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
       <div>
         <h2 class="fw-bold mb-0">Daftar Lapangan Olahraga</h2>
       </div>
-      <a href="<?= base_url('booking') ?>" class="btn btn-sport-outline mt-3 mt-md-0">
+      <a href="<?= base_url('booking#daftar-lapangan') ?>" class="btn btn-sport-outline mt-3 mt-md-0">
         Lihat Semua Lapangan (<?= count($courts) ?>)<i class="bi bi-arrow-right ms-2"></i>
       </a>
     </div>
 
-    <div class="row g-4">
+    <div class="row g-4" id="homeCourtsGrid">
       <?php foreach ($courts as $court): ?>
-        <div class="col-lg-4 col-md-6">
+        <div class="col-lg-4 col-md-6 court-col-item" data-category-slug="<?= esc($court['category_slug'] ?? '') ?>">
           <div class="card card-court h-100">
             <div class="court-img-wrapper">
               <span class="court-type-pill"><?= esc($court['court_type']) ?></span>
@@ -307,7 +307,21 @@ document.addEventListener('DOMContentLoaded', function () {
   if (window.ArenaSportAnimations) {
     ArenaSportAnimations.renderSportCards('#sportSelectionGrid', {
       baseUrl: '<?= base_url() ?>',
-      categories: <?= json_encode($categories) ?>
+      categories: <?= json_encode($categories) ?>,
+      onSelect: function (slug, categoryId, cardEl) {
+        const courtItems = document.querySelectorAll('.court-col-item');
+        courtItems.forEach(item => {
+          const itemSlug = (item.dataset.categorySlug || '').toLowerCase();
+          const match = !slug || itemSlug === slug.toLowerCase();
+          item.style.display = match ? '' : 'none';
+        });
+
+        // Smooth scroll straight down to the courts list
+        const targetSection = document.getElementById('daftar-lapangan');
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
     });
   }
 });

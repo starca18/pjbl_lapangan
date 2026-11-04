@@ -51,7 +51,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?= strpos(uri_string(), 'booking') === 0 ? 'active' : '' ?>" href="<?= base_url('booking') ?>">
+            <a class="nav-link <?= strpos(uri_string(), 'booking') === 0 ? 'active' : '' ?>" href="<?= (uri_string() === '' || uri_string() === '/') ? '#pilih-olahraga' : base_url('booking#daftar-lapangan') ?>">
               <i class="bi bi-grid me-1"></i>Pilih Lapangan
             </a>
           </li>
