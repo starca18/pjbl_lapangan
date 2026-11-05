@@ -341,13 +341,6 @@
       dur = '2.6s',
       kineticTelemetry = '';
 
-    let actionWord = '';
-    if (id === 'futsal' || id === 'minisoccer') actionWord = '⚡ GOAL! ⚡';
-    else if (id === 'badminton') actionWord = '💥 SMASH! 💥';
-    else if (id === 'voli') actionWord = '🔥 SPIKE! 🔥';
-    else if (id === 'tenis') actionWord = '🎾 ACE! 🎾';
-    else if (id === 'padel') actionWord = '⚡ VOLLEY! ⚡';
-
     // Physics Models & Trajectories
     if (id === 'tenis' || id === 'padel') {
       fn = τ => {
@@ -643,20 +636,13 @@
       `;
     }
 
-    const txt = actionWord
-      ? `<g class="pop anim" style="animation-name:pop;transform-origin:150px 76px;">
-           <rect x="86" y="59" width="128" height="32" rx="10" fill="rgba(11,18,34,0.95)" stroke="#facc15" stroke-width="2.2" filter="drop-shadow(0 0 16px rgba(250,204,21,0.75))"/>
-           <text x="150" y="81" text-anchor="middle" font-family="'Kanit', sans-serif" font-style="italic" font-size="15.5" font-weight="900" fill="#facc15" letter-spacing="1.5">${actionWord}</text>
-         </g>`
-      : '';
-
     if (typeof document !== 'undefined') {
       const styleTag = document.createElement('style');
       styleTag.textContent = css;
       document.head.appendChild(styleTag);
     }
 
-    return `<svg viewBox="0 0 300 180" aria-hidden="true" style="--d:${dur}">${g}${trajectoryGuideline}${kineticTelemetry}${ballShadow}${back}${front}${ballElement}${txt}</svg>`;
+    return `<svg viewBox="0 0 300 180" aria-hidden="true" style="--d:${dur}">${g}${trajectoryGuideline}${kineticTelemetry}${ballShadow}${back}${front}${ballElement}</svg>`;
   }
 
   // Sports Catalog with authentic metadata
