@@ -79,8 +79,18 @@ class Courts extends BaseController
                 return redirect()->back()->withInput()->with('error', 'Format gambar tidak valid. Gunakan file JPG, PNG, atau WEBP dengan ukuran maksimal 2MB.');
             }
             $newName = $imgFile->getRandomName();
-            $imgFile->move(FCPATH . 'assets/images/courts', $newName);
+            $targetDir = FCPATH . 'assets/images/courts';
+            if (!is_dir($targetDir)) {
+                @mkdir($targetDir, 0755, true);
+            }
+            $imgFile->move($targetDir, $newName);
             $imageName = $newName;
+
+            // Sinkronkan ke folder root assets jika ada (lingkungan InfinityFree / shared hosting)
+            $rootTargetDir = ROOTPATH . 'assets/images/courts';
+            if (is_dir($rootTargetDir) && realpath($rootTargetDir) !== realpath($targetDir)) {
+                @copy($targetDir . DIRECTORY_SEPARATOR . $newName, $rootTargetDir . DIRECTORY_SEPARATOR . $newName);
+            }
         }
 
         $courtModel->insert([
@@ -156,8 +166,18 @@ class Courts extends BaseController
                 return redirect()->back()->withInput()->with('error', 'Format gambar tidak valid. Gunakan file JPG, PNG, atau WEBP dengan ukuran maksimal 2MB.');
             }
             $newName = $imgFile->getRandomName();
-            $imgFile->move(FCPATH . 'assets/images/courts', $newName);
+            $targetDir = FCPATH . 'assets/images/courts';
+            if (!is_dir($targetDir)) {
+                @mkdir($targetDir, 0755, true);
+            }
+            $imgFile->move($targetDir, $newName);
             $imageName = $newName;
+
+            // Sinkronkan ke folder root assets jika ada (lingkungan InfinityFree / shared hosting)
+            $rootTargetDir = ROOTPATH . 'assets/images/courts';
+            if (is_dir($rootTargetDir) && realpath($rootTargetDir) !== realpath($targetDir)) {
+                @copy($targetDir . DIRECTORY_SEPARATOR . $newName, $rootTargetDir . DIRECTORY_SEPARATOR . $newName);
+            }
         }
 
         $courtModel->update($id, [

@@ -16,9 +16,6 @@ Options -Indexes
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Don't touch static assets folder
-    RewriteRule ^assets/ - [L]
-
     # Don't touch existing files
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
