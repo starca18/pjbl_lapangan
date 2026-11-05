@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=' . (@filemtime(FCPATH . 'assets/css/style.css') ?: '20261105_v4pro') . '&v4=pro') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=' . (@filemtime(FCPATH . 'assets/css/style.css') ?: '20261105_v5motion') . '&v5=promotion') ?>">
 </head>
 <body>
 
@@ -184,7 +184,7 @@
       window.ARENA_CATEGORIES = <?= json_encode($categories) ?>;
     </script>
   <?php endif; ?>
-  <script src="<?= base_url('assets/js/sport-animations.js?v=' . (@filemtime(FCPATH . 'assets/js/sport-animations.js') ?: '20261105_v4pro') . '&v4=pro') ?>"></script>
+  <script src="<?= base_url('assets/js/sport-animations.js?v=' . (@filemtime(FCPATH . 'assets/js/sport-animations.js') ?: '20261105_v5motion') . '&v5=promotion') ?>"></script>
   <?= $this->renderSection('scripts') ?>
 </body>
 </html>

@@ -1,15 +1,20 @@
 /**
- * ArenaSport — Interactive 3D Isometric Sport Animations (V4 Pro)
- * Pure SVG + Dynamic Physics-Driven Keyframe Generator
- * Upgrades: Broadcast Action Badges (SMASH, GOAL, ACE, SPIKE, VOLLEY),
- * Feature Tags, Stadium Lights, Authentic Balls & 60FPS Auto-Play.
+ * ArenaSport — Interactive 3D Isometric Sport Animations (V5 Pro Motion Engine)
+ * Pure SVG + Real-Time Physics Trajectories & Fluid Athletic Character Mechanics
+ * Features:
+ * - Alternating running & shuffle footwork (no sliding/skating!)
+ * - Authentic ground bounce physics in Tennis & Padel
+ * - Aerodynamic smash flight & steep drop in Badminton
+ * - Dribble, power kick, diving save, celebration & reset in Soccer/Futsal
+ * - True Set-and-Spike volleyball cycle
+ * - Broadcast climax badges (GOAL, SMASH, ACE, SPIKE, VOLLEY)
  */
 
 (function () {
   'use strict';
 
   const INK = '#0f172a';
-  // Perspective mapping: u [-1, 1], t [0, 1]
+  // Perspective projection factor
   const SC = t => 1 / (1 + 1.45 * t);
   const P = (u, t) => {
     const k = SC(t);
@@ -32,7 +37,6 @@
 
   const BOX = [[-1, 0], [-1, 1], [1, 1], [1, 0], [-1, 0]];
 
-  // Generate fine net or wire mesh
   const mesh = (x1, x2, top, h, gap = 3.5, color = 'rgba(255,255,255,.4)') => {
     let m = '';
     for (let x = x1 + gap; x < x2; x += gap) m += `M${f1(x)} ${f1(top)}v${f1(h)}`;
@@ -41,10 +45,9 @@
   };
 
   const an = (n, x = '') => `class="anim" style="animation-name:${n};${x}"`;
-  const HALF = 'animation-delay:calc(var(--d,2.5s) / -2)';
-  const QTR = 'animation-delay:calc(var(--d,2.5s) / -4)';
+  const HALF = 'animation-delay:calc(var(--d,2.6s) / -2)';
+  const QTR = 'animation-delay:calc(var(--d,2.6s) / -4)';
 
-  // Court Markings
   function lines(s) {
     const i = s.id;
     let g = ln(BOX, 1.8);
@@ -79,7 +82,7 @@
   }
 
   /**
-   * Render Proportional Athletic Player Figure
+   * Render Athletic Character with Active Footwork & Torso Mechanics
    */
   function person(o) {
     const k = SC(o.t);
@@ -89,44 +92,62 @@
     const ST = `fill="none" stroke="${sk}" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"`;
     let arms = '';
 
-    if (o.arms) {
+    if (o.strikerAction) {
+      // Striker kicking wind-up and celebration arms
+      arms = `
+        <g class="anim" style="transform-origin:0px -54px;animation-name:strikerArms;${D}">
+          <path d="M-8 -54 L-14 -44 L-18 -36 M8 -54 L14 -44 L18 -36" ${ST}/>
+        </g>
+      `;
+    } else if (o.arms) {
       arms = `<g class="anim" style="transform-origin:0px -56px;animation-name:${o.arms[1]};${D}"><path d="${o.arms[0]}" ${ST}/></g>`;
-    }
-
-    if (o.volleySpike) {
-      arms = `<path d="M-8 -54 L-14 -72 L-10 -84 M8 -54 L14 -72 L10 -84" ${ST}/>`;
-    }
-
-    if (o.volleyReady) {
-      arms = `<path d="M-8 -52 L-3 -40 L0 -35 M8 -52 L3 -40 L0 -35" ${ST}/>`;
-    }
-
-    if (o.gkGloves) {
-      arms = `<path d="M-8 -52 L-16 -58 L-22 -66" ${ST}/><ellipse cx="-23" cy="-68" rx="4" ry="4" fill="#d9f828" stroke="#0f172a" stroke-width="1.2"/><path d="M8 -52 L16 -58 L22 -66" ${ST}/><ellipse cx="23" cy="-68" rx="4" ry="4" fill="#d9f828" stroke="#0f172a" stroke-width="1.2"/>`;
-    }
-
-    if (o.rk) {
+    } else if (o.volleySpike) {
+      arms = `
+        <g class="anim" style="transform-origin:0px -54px;animation-name:spikeArms;${D}">
+          <path d="M-8 -54 L-14 -72 L-10 -84 M8 -54 L14 -72 L10 -84" ${ST}/>
+        </g>
+      `;
+    } else if (o.volleyReady) {
+      arms = `
+        <g class="anim" style="transform-origin:0px -52px;animation-name:bumpArms;${D}">
+          <path d="M-8 -52 L-3 -40 L0 -35 M8 -52 L3 -40 L0 -35" ${ST}/>
+        </g>
+      `;
+    } else if (o.gkGloves) {
+      arms = `
+        <g class="anim" style="transform-origin:0px -54px;animation-name:gkArms;${D}">
+          <path d="M-8 -52 L-16 -58 L-22 -66" ${ST}/>
+          <ellipse cx="-23" cy="-68" rx="4" ry="4" fill="#d9f828" stroke="#0f172a" stroke-width="1.2"/>
+          <path d="M8 -52 L16 -58 L22 -66" ${ST}/>
+          <ellipse cx="23" cy="-68" rx="4" ry="4" fill="#d9f828" stroke="#0f172a" stroke-width="1.2"/>
+        </g>
+      `;
+    } else if (o.rk) {
       const [rx, ry, isPadel] = o.rk;
       const cy = -46 - ry;
       if (isPadel) {
-        arms = `<path d="M-8 -54 L-13 -44 L-10 -36" ${ST}/>
-          <g class="anim" style="transform-origin:7px -54px;animation-name:arm;${D}">
-            <path d="M8 -54 L13 -44 L16 -39" ${ST}/>
-            <path d="M16.5 -39 L18.5 -46" stroke="#0f172a" stroke-width="2.5"/>
+        arms = `
+          <path d="M-8 -54 L-14 -44 L-12 -36" ${ST}/>
+          <g class="anim" style="transform-origin:8px -54px;animation-name:racketSwing;${D}">
+            <path d="M8 -54 L14 -44 L17 -39" ${ST}/>
+            <path d="M17 -39 L19 -46" stroke="#0f172a" stroke-width="2.5"/>
             <ellipse cx="20" cy="${cy}" rx="${rx}" ry="${ry}" transform="rotate(15 20 ${cy})" fill="#1e293b" stroke="#0f172a" stroke-width="1.8"/>
             <circle cx="20" cy="${cy}" r="1.2" fill="#0f172a"/>
             <circle cx="18" cy="${cy-2}" r="0.8" fill="#ffffff" opacity=".7"/>
             <circle cx="22" cy="${cy+2}" r="0.8" fill="#ffffff" opacity=".7"/>
-          </g>`;
+          </g>
+        `;
       } else {
-        arms = `<path d="M-8 -54 L-13 -44 L-10 -36" ${ST}/>
-          <g class="anim" style="transform-origin:7px -54px;animation-name:arm;${D}">
-            <path d="M8 -54 L13 -44 L16 -39" ${ST}/>
-            <path d="M16.5 -39 L19 -47" stroke="#0f172a" stroke-width="2"/>
+        arms = `
+          <path d="M-8 -54 L-14 -44 L-12 -36" ${ST}/>
+          <g class="anim" style="transform-origin:8px -54px;animation-name:racketSwing;${D}">
+            <path d="M8 -54 L14 -44 L17 -39" ${ST}/>
+            <path d="M17 -39 L19 -47" stroke="#0f172a" stroke-width="2"/>
             <ellipse cx="21" cy="${cy}" rx="${rx}" ry="${ry}" transform="rotate(14 21 ${cy})" fill="rgba(255,255,255,.25)" stroke="#0f172a" stroke-width="1.8"/>
             <line x1="21" y1="${cy-ry+1}" x2="21" y2="${cy+ry-1}" stroke="#94a3b8" stroke-width="0.8"/>
             <line x1="${21-rx+1}" y1="${cy}" x2="${21+rx-1}" y2="${cy}" stroke="#94a3b8" stroke-width="0.8"/>
-          </g>`;
+          </g>
+        `;
       }
     }
 
@@ -137,9 +158,7 @@
       : `<circle cy="-65" r="5.8" fill="${o.hair}"/>
          <rect x="-5.6" y="-66.5" width="11.2" height="2.2" rx="1" fill="${o.band || '#ffffff'}"/>`;
 
-    const lk = o.kick ? an('legk', 'transform-origin:3px -28px') : '';
     const lw = `stroke="${sk}" stroke-width="4.2" fill="none" stroke-linecap="round" stroke-linejoin="round"`;
-    
     const num = o.num || '7';
     const jerseyGraphic = `
       <path d="M-8.5 -57 L8.5 -57 L7 -36 L-7 -36 Z" fill="${o.shirt}" stroke="rgba(15,23,42,.3)" stroke-width=".8"/>
@@ -147,23 +166,36 @@
       <text x="0" y="-43" font-size="7.5" font-weight="900" fill="#ffffff" text-anchor="middle" font-family="'Kanit', sans-serif" opacity=".95">${num}</text>
     `;
 
+    // Active footwork leg animations (running/stepping instead of sliding!)
+    const legL = o.kick 
+      ? `<path d="M-4 -28 L-10 -14 L-11 -1" ${lw}/><ellipse cx="-11.5" cy="0" rx="4.8" ry="2.4" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>`
+      : `<g class="anim" style="animation-name:footworkL;transform-origin:-4px -28px;${D}">
+           <path d="M-4 -28 L-10 -14 L-11 -1" ${lw}/>
+           <ellipse cx="-11.5" cy="0" rx="4.8" ry="2.4" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
+           <path d="M-13 -0.5 L-8 -0.5" stroke="${o.shorts}" stroke-width="1.2"/>
+         </g>`;
+
+    const legR = o.kick
+      ? `<g class="anim" style="animation-name:kickLeg;transform-origin:4px -28px;${D}">
+           <path d="M4 -28 L10 -14 L11 -1" ${lw}/>
+           <ellipse cx="11.5" cy="0" rx="4.8" ry="2.4" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
+           <path d="M8 -0.5 L13 -0.5" stroke="${o.shorts}" stroke-width="1.2"/>
+         </g>`
+      : `<g class="anim" style="animation-name:footworkR;transform-origin:4px -28px;${D}">
+           <path d="M4 -28 L10 -14 L11 -1" ${lw}/>
+           <ellipse cx="11.5" cy="0" rx="4.8" ry="2.4" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
+           <path d="M8 -0.5 L13 -0.5" stroke="${o.shorts}" stroke-width="1.2"/>
+         </g>`;
+
     return `<g ${o.lat ? an(o.lat) : ''}>
       <g transform="translate(${f1(x)} ${f1(y)}) scale(${o.flip ? -k : k} ${k})">
-        <ellipse rx="15" ry="3.5" fill="rgba(0,0,0,.35)"/>
-        <g ${an(o.body || 'bob', D)}>
-          <path d="M-4 -28 L-10 -14 L-11 -1" ${lw}/>
-          <ellipse cx="-11.5" cy="0" rx="4.8" ry="2.4" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
-          <path d="M-13 -0.5 L-8 -0.5" stroke="${o.shorts}" stroke-width="1.2"/>
-          
-          <g ${lk}>
-            <path d="M4 -28 L10 -14 L11 -1" ${lw}/>
-            <ellipse cx="11.5" cy="0" rx="4.8" ry="2.4" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
-            <path d="M8 -0.5 L13 -0.5" stroke="${o.shorts}" stroke-width="1.2"/>
-          </g>
-
+        <!-- Dynamic Ground Shadow that expands/contracts with jump -->
+        <ellipse class="anim" style="animation-name:${o.shadowAnim || 'shadowPulse'};${D}" rx="15" ry="3.5" fill="rgba(0,0,0,.35)"/>
+        <g ${an(o.body || 'athleticTorso', D)}>
+          ${legL}
+          ${legR}
           <path d="M-8 -37 L8 -37 L10 -24 L2 -26 L-2 -26 L-10 -24 Z" fill="${o.shorts}"/>
           <path d="M-8 -36 L-10 -24 M8 -36 L10 -24" stroke="#ffffff" stroke-width="1" opacity=".6"/>
-
           ${jerseyGraphic}
           ${arms}
           ${head}
@@ -172,7 +204,6 @@
     </g>`;
   }
 
-  // Padel Glass Walls
   const wall = (a, type = 'side') => {
     const ptsStr = a.map(([u, t, h]) => {
       const [x, y] = P(u, t);
@@ -187,7 +218,7 @@
   const FAR = { shirt: '#0284c7', shorts: '#0f172a', hair: '#29180b', band: '#38bdf8', front: 1, num: '10' };
 
   /**
-   * Main Artwork & Physics Generator for Sport Cards
+   * Main Artwork & Physics Trajectory Generator (V5)
    */
   function generateArt(s) {
     const id = s.id;
@@ -212,7 +243,7 @@
     const smk = p => {
       const [x, y] = P(p.u, p.t);
       const k = SC(p.t);
-      return `translate:${f1(x)}px ${f1(y)}px;scale:${(k * R).toFixed(3)};opacity:${(((p.a ?? 1) * 0.45) / (1 + p.h / 40)).toFixed(2)}`;
+      return `translate:${f1(x)}px ${f1(y)}px;scale:${(k * R).toFixed(3)};opacity:${(((p.a ?? 1) * 0.45) / (1 + p.h / 35)).toFixed(2)}`;
     };
 
     // Defs: Gradients, Shading & Stadium Floodlights
@@ -262,7 +293,7 @@
       <polygon points="${pts([[-1.25, -0.12], [1.25, -0.12], [1.25, 1.06], [-1.25, 1.06]])}" fill="${s.o}"/>
     `;
 
-    // Specific Court Textures
+    // Court Textures
     if (id === 'minisoccer') {
       g += `<polygon points="${pts(BOX)}" fill="${s.c}"/>`;
       for (let u = -1; u < 1; u += 0.333) {
@@ -278,16 +309,14 @@
       g += `<polygon points="${pts(BOX)}" fill="${s.c}"/>`;
     }
 
-    // Court Depth Shadow & Lines
     g += `<polygon points="${pts(BOX)}" fill="url(#court-depth-${id})"/>` + lines(s);
 
     let fn,
       front = '',
       back = '',
       ballShadow = '',
-      dur = '2.5s';
+      dur = '2.6s';
 
-    // Broadcast Action Badges for each sport
     let actionWord = '';
     if (id === 'futsal' || id === 'minisoccer') actionWord = 'GOAL!';
     else if (id === 'badminton') actionWord = 'SMASH!';
@@ -295,33 +324,33 @@
     else if (id === 'tenis') actionWord = 'ACE!';
     else if (id === 'padel') actionWord = 'VOLLEY!';
 
-    // Sports Mechanics
-    if (s.m === 'net') {
-      const T1 = 0.38;
+    // Physics Models
+    if (id === 'tenis' || id === 'padel') {
+      // Real Tennis / Padel Ground-Bounce Rally Physics
       fn = τ => {
         const ret = τ >= 0.5;
         const x = ret ? τ - 0.5 : τ;
+        // x from 0 to 0.5
+        const T_BOUNCE = 0.34;
         let t, h;
-        if (s.bz) {
-          if (x < T1) {
-            const q = x / T1;
-            t = 0.1 + 0.62 * q;
-            h = s.hit * (1 - q) + 4 * s.A * q * (1 - q);
-          } else {
-            const q = (x - T1) / (0.5 - T1);
-            t = 0.72 + 0.18 * q;
-            h = s.hit * q + 48 * q * (1 - q);
-          }
+        if (x < T_BOUNCE) {
+          const q = x / T_BOUNCE;
+          t = 0.08 + 0.70 * q;
+          // Arcing high over net, then dropping to ground
+          h = 32 * (1 - q) + 52 * Math.sin(q * Math.PI);
         } else {
-          const q = x / 0.5;
-          t = 0.1 + 0.8 * q;
-          h = s.hit + 4 * s.A * q * (1 - q);
+          // Bounce off court surface popping up to opponent racket
+          const q = (x - T_BOUNCE) / (0.5 - T_BOUNCE);
+          t = 0.78 + 0.16 * q;
+          h = 34 * Math.sin(q * Math.PI * 0.5);
         }
-        return { u: 0.32 * Math.cos(2 * Math.PI * τ), t: ret ? 1 - t : t, h };
+        const u = 0.28 * Math.cos(2 * Math.PI * τ);
+        return { u, t: ret ? 1 - t : t, h: Math.max(0, h) };
       };
 
-      kf(id + 'n', τ => 0.32 * Math.cos(2 * Math.PI * τ) - 0.12, 24, u => `translate:${f1(P(u, 0.04)[0] - 150)}px 0`);
-      kf(id + 'f', τ => 0.32 * Math.cos(2 * Math.PI * τ) + 0.12, 24, u => `translate:${f1(P(u, 0.96)[0] - 150)}px 0`);
+      // Player sway with active footwork
+      kf(id + 'n', τ => 0.28 * Math.cos(2 * Math.PI * τ) - 0.14, 24, u => `translate:${f1(P(u, 0.05)[0] - 150)}px 0`);
+      kf(id + 'f', τ => 0.28 * Math.cos(2 * Math.PI * τ) + 0.14, 24, u => `translate:${f1(P(u, 0.95)[0] - 150)}px 0`);
 
       if (s.walls) {
         g += wall([[-1, 0, 0], [-1, 1, 0], [-1, 1, 115], [-1, 0, 115]], 'left') +
@@ -336,48 +365,147 @@
       const top = gy - nt * k;
       const h = (nt - nb) * k;
 
-      let antennas = '';
-      if (id === 'voli') {
-        antennas = `
-          <line x1="${f1(x1 + 18)}" y1="${f1(top - 16)}" x2="${f1(x1 + 18)}" y2="${f1(top + h)}" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="3,3"/>
-          <line x1="${f1(x2 - 18)}" y1="${f1(top - 16)}" x2="${f1(x2 - 18)}" y2="${f1(top + h)}" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="3,3"/>
-        `;
-      }
+      const netHtml = `
+        <rect x="${f1(x1)}" y="${f1(top)}" width="${f1(x2 - x1)}" height="${f1(h)}" fill="rgba(255,255,255,.2)"/>
+        ${mesh(x1, x2, top, h, 3.2, 'rgba(255,255,255,.45)')}
+        <rect x="${f1(x1)}" y="${f1(top)}" width="${f1(x2 - x1)}" height="2.2" fill="#ffffff"/>
+        <path d="M${f1(x1)} ${f1(gy)}V${f1(top - 2)}M${f1(x2)} ${f1(gy)}V${f1(top - 2)}" stroke="#cbd5e1" stroke-width="2.2"/>
+      `;
+
+      const tool = { rk: s.rk };
+      back = person({ ...FAR, ...tool, t: 0.95, flip: 1, lat: id + 'f', d: HALF });
+      if (s.dbl) back += person({ ...FAR, ...tool, t: 0.92, u: 0.58, flip: 1, d: QTR, shirt: '#38bdf8' });
+      front = netHtml + person({ ...NEAR, ...tool, t: 0.05, lat: id + 'n' });
+      if (s.dbl) front += person({ ...NEAR, ...tool, t: 0.08, u: -0.58, d: QTR, shirt: '#f97316' });
+      dur = '2.6s';
+
+    } else if (id === 'badminton') {
+      // True Badminton Smash-and-Dig Rally Physics
+      fn = τ => {
+        const ret = τ >= 0.5;
+        const x = ret ? τ - 0.5 : τ;
+        let t, h;
+        if (x < 0.22) {
+          // Explosive downward smash from near jump
+          const q = x / 0.22;
+          t = 0.06 + 0.86 * q;
+          h = 72 * (1 - q) + 24 * q;
+        } else {
+          // High defensive lob returning over net
+          const q = (x - 0.22) / 0.28;
+          t = 0.92 - 0.84 * q;
+          h = 24 * (1 - q) + 68 * Math.sin(q * Math.PI) + 72 * q;
+        }
+        const u = 0.28 * Math.cos(2 * Math.PI * τ);
+        return { u, t: ret ? 1 - t : t, h };
+      };
+
+      kf(id + 'n', τ => 0.28 * Math.cos(2 * Math.PI * τ) - 0.14, 24, u => `translate:${f1(P(u, 0.05)[0] - 150)}px 0`);
+      kf(id + 'f', τ => 0.28 * Math.cos(2 * Math.PI * τ) + 0.14, 24, u => `translate:${f1(P(u, 0.95)[0] - 150)}px 0`);
+
+      const [nb, nt] = s.net;
+      const k = SC(0.5);
+      const [x1, gy] = P(-1.06, 0.5);
+      const [x2] = P(1.06, 0.5);
+      const top = gy - nt * k;
+      const h = (nt - nb) * k;
 
       const netHtml = `
         <rect x="${f1(x1)}" y="${f1(top)}" width="${f1(x2 - x1)}" height="${f1(h)}" fill="rgba(255,255,255,.2)"/>
-        ${mesh(x1, x2, top, h, 3.2, id === 'badminton' ? 'rgba(15,23,42,.6)' : 'rgba(255,255,255,.45)')}
+        ${mesh(x1, x2, top, h, 3.2, 'rgba(15,23,42,.6)')}
+        <rect x="${f1(x1)}" y="${f1(top)}" width="${f1(x2 - x1)}" height="2.2" fill="#ffffff"/>
+        <path d="M${f1(x1)} ${f1(gy)}V${f1(top - 2)}M${f1(x2)} ${f1(gy)}V${f1(top - 2)}" stroke="#cbd5e1" stroke-width="2.2"/>
+      `;
+
+      const tool = { rk: s.rk };
+      back = person({ ...FAR, ...tool, t: 0.95, flip: 1, lat: id + 'f', d: HALF, body: 'athleticLunge' });
+      front = netHtml + person({ ...NEAR, ...tool, t: 0.05, lat: id + 'n', body: 'smashJump', shadowAnim: 'jumpShadow' });
+      dur = '2.4s';
+
+    } else if (id === 'voli') {
+      // True Volleyball Set & Spike Flow
+      fn = τ => {
+        let t, h, u;
+        if (τ < 0.45) {
+          // Near setter sets the ball high above the net
+          const q = τ / 0.45;
+          t = 0.10 + 0.65 * q;
+          u = 0.10 * q;
+          h = 24 + 68 * Math.sin(q * Math.PI * 0.85);
+        } else if (τ < 0.72) {
+          // Far spiker smashes ball downward into near court
+          const q = (τ - 0.45) / 0.27;
+          t = 0.75 - 0.65 * q;
+          u = 0.10 - 0.22 * q;
+          h = 78 * (1 - q) + 12 * q;
+        } else {
+          // Near receiver digs ball back up
+          const q = (τ - 0.72) / 0.28;
+          t = 0.10 + 0.02 * Math.sin(q * Math.PI);
+          u = -0.12 + 0.12 * q;
+          h = 12 + 16 * Math.sin(q * Math.PI);
+        }
+        return { u, t, h };
+      };
+
+      kf(id + 'n', τ => 0.18 * Math.sin(2 * Math.PI * τ) - 0.10, 24, u => `translate:${f1(P(u, 0.05)[0] - 150)}px 0`);
+      kf(id + 'f', τ => 0.14 * Math.cos(2 * Math.PI * τ) + 0.08, 24, u => `translate:${f1(P(u, 0.95)[0] - 150)}px 0`);
+
+      const [nb, nt] = s.net;
+      const k = SC(0.5);
+      const [x1, gy] = P(-1.06, 0.5);
+      const [x2] = P(1.06, 0.5);
+      const top = gy - nt * k;
+      const h = (nt - nb) * k;
+
+      const antennas = `
+        <line x1="${f1(x1 + 18)}" y1="${f1(top - 16)}" x2="${f1(x1 + 18)}" y2="${f1(top + h)}" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="3,3"/>
+        <line x1="${f1(x2 - 18)}" y1="${f1(top - 16)}" x2="${f1(x2 - 18)}" y2="${f1(top + h)}" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="3,3"/>
+      `;
+
+      const netHtml = `
+        <rect x="${f1(x1)}" y="${f1(top)}" width="${f1(x2 - x1)}" height="${f1(h)}" fill="rgba(255,255,255,.2)"/>
+        ${mesh(x1, x2, top, h, 3.2, 'rgba(255,255,255,.45)')}
         <rect x="${f1(x1)}" y="${f1(top)}" width="${f1(x2 - x1)}" height="2.2" fill="#ffffff"/>
         <path d="M${f1(x1)} ${f1(gy)}V${f1(top - 2)}M${f1(x2)} ${f1(gy)}V${f1(top - 2)}" stroke="#cbd5e1" stroke-width="2.2"/>
         ${antennas}
       `;
 
-      if (id === 'voli') {
-        back = person({ ...FAR, volleySpike: 1, t: 0.96, flip: 1, lat: id + 'f', d: HALF, body: 'jump' });
-        front = netHtml + person({ ...NEAR, volleyReady: 1, t: 0.05, lat: id + 'n' });
-        dur = '2.7s';
-      } else {
-        const tool = { rk: s.rk };
-        back = person({ ...FAR, ...tool, t: 0.96, flip: 1, lat: id + 'f', d: HALF });
-        if (s.dbl) back += person({ ...FAR, ...tool, t: 0.92, u: 0.58, flip: 1, d: QTR, shirt: '#38bdf8' });
-        
-        // Badminton near player leaps to smash
-        const bodyAnim = id === 'badminton' ? 'jump' : 'bob';
-        front = netHtml + person({ ...NEAR, ...tool, t: 0.05, lat: id + 'n', body: bodyAnim });
-        if (s.dbl) front += person({ ...NEAR, ...tool, t: 0.08, u: -0.58, d: QTR, shirt: '#f97316' });
-        dur = '2.4s';
-      }
+      back = person({ ...FAR, volleySpike: 1, t: 0.95, flip: 1, lat: id + 'f', body: 'volleySpikeJump', shadowAnim: 'jumpShadow' });
+      front = netHtml + person({ ...NEAR, volleyReady: 1, t: 0.05, lat: id + 'n', body: 'volleyBump' });
+      dur = '2.8s';
 
     } else if (s.m === 'goal') {
+      // Soccer / Futsal Continuous Action Cycle: Dribble -> Shoot -> Dive -> Celebrate -> Reset
       fn = τ => {
-        let t = 0.22, u = 0, h = 0;
-        if (τ > 0.20 && τ <= 0.92) {
-          const q = Math.min(1, (τ - 0.20) / 0.42);
-          t = 0.22 + 0.76 * q;
-          u = 0.14 * q;
-          h = 4 * s.A * q * (1 - q);
+        let t, u, h, a = 1;
+        if (τ < 0.26) {
+          // Phase 1: Striker dribbles forward towards penalty box
+          const q = τ / 0.26;
+          t = 0.08 + 0.12 * q;
+          u = 0.05 * Math.sin(q * Math.PI * 2);
+          h = 2 * Math.abs(Math.sin(q * Math.PI * 3));
+        } else if (τ < 0.58) {
+          // Phase 2: Power shot curving into top-right corner of the goal
+          const q = (τ - 0.26) / 0.32;
+          t = 0.20 + 0.76 * q;
+          u = 0.0 + 0.24 * q;
+          h = 4 * s.A * q * (1 - q * 0.7);
+        } else if (τ < 0.88) {
+          // Phase 3: Ball caught in the net mesh vibrating
+          const q = (τ - 0.58) / 0.30;
+          t = 0.96;
+          u = 0.24 + 0.02 * Math.sin(q * Math.PI * 4);
+          h = 32 - 14 * q;
+          a = q < 0.75 ? 1 : 1 - (q - 0.75) / 0.25;
+        } else {
+          // Phase 4: Ball respawns at striker foot smoothly
+          const q = (τ - 0.88) / 0.12;
+          t = 0.08;
+          u = 0;
+          h = 0;
+          a = q;
         }
-        const a = τ < 0.86 ? 1 : τ < 0.92 ? 1 - (τ - 0.86) / 0.06 : τ < 0.96 ? 0 : (τ - 0.96) / 0.04;
         return { u, t, h, a };
       };
 
@@ -391,25 +519,29 @@
         ${mesh(gx1, gx2, gt, gh, 3, 'rgba(255,255,255,.45)')}
       `;
 
+      // Goalkeeper: Shuffles, dives horizontally, lands, and recovers
       back = person({
         ...FAR,
         shirt: '#eab308',
         shorts: '#0f172a',
         t: 0.965,
         gkGloves: 1,
-        body: 'dive',
+        body: 'gkDiveSequence',
         num: '1'
       });
 
+      // Striker: Runs up, kicks, raises arms in celebration, jogs back!
       front = person({
         ...NEAR,
-        t: 0.12,
+        t: 0.10,
         kick: 1,
         shirt: '#ea580c',
+        strikerAction: 1,
+        body: 'strikerCelebrationCycle',
         num: '9'
       });
 
-      dur = '2.9s';
+      dur = '3.0s';
     }
 
     kf(id + 'b', fn, 60, bmk);
@@ -417,7 +549,6 @@
 
     ballShadow = `<ellipse ${an(id + 's')} rx="1.6" ry=".6" fill="#000000"/>`;
 
-    // Authentic Sport Balls
     let ballElement = '';
     if (id === 'badminton') {
       ballElement = `
@@ -456,7 +587,6 @@
       `;
     }
 
-    // Broadcast Action Badge Graphic (SMASH, GOAL, ACE, SPIKE, VOLLEY)
     const txt = actionWord
       ? `<g class="pop anim" style="animation-name:pop;transform-origin:150px 76px;">
            <rect x="94" y="61" width="112" height="28" rx="8" fill="rgba(15,23,42,0.88)" stroke="#facc15" stroke-width="1.8"/>
@@ -464,7 +594,6 @@
          </g>`
       : '';
 
-    // Append dynamic styles into DOM
     if (typeof document !== 'undefined') {
       const styleTag = document.createElement('style');
       styleTag.textContent = css;
@@ -474,7 +603,7 @@
     return `<svg viewBox="0 0 300 180" aria-hidden="true" style="--d:${dur}">${g}${ballShadow}${back}${front}${ballElement}${txt}</svg>`;
   }
 
-  // Sports Catalog matching Database Categories + Feature Badges
+  // Sports Catalog
   const SPORTS = [
     {
       id: 'futsal',
@@ -593,17 +722,12 @@
     }
   ];
 
-  // Helper format rupiah
   const rp = n => 'Rp ' + Math.round(n).toLocaleString('id-ID');
 
-  /**
-   * Render Sport Selector into a container
-   */
   function renderSportCards(target, options = {}) {
     const el = typeof target === 'string' ? document.querySelector(target) : target;
     if (!el) return;
 
-    // Dynamically sync court counts and prices from database categories
     const catList = options.categories || window.ARENA_CATEGORIES || null;
     if (Array.isArray(catList) && catList.length > 0) {
       catList.forEach(cat => {
@@ -681,7 +805,6 @@
 
     el.innerHTML = html;
 
-    // Mobile touch interaction
     const cards = el.querySelectorAll('.sport-select-card');
     cards.forEach(card => {
       card.addEventListener('touchstart', function () {
