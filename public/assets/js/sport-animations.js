@@ -1,5 +1,5 @@
 /**
- * ArenaSport — Interactive 3D Isometric Sport Animations (V6 Elite Motion Engine)
+ * ArenaSport — Interactive 3D Isometric Sport Animations (V7 Masterpiece Motion Engine)
  * Synthesizing techniques from:
  * - MisterBooo/LeetCodeAnimation: Algorithmic trajectory tracing, kinetic shockwaves & target rings
  * - juliangarnier/anime: Physics spring overshoot, ghost motion trails, speed wind streaks
@@ -211,7 +211,7 @@
   const FAR = { shirt: '#0284c7', shorts: '#0f172a', hair: '#29180b', band: '#38bdf8', front: 1, num: '10' };
 
   /**
-   * Main Artwork & Physics Trajectory Generator (V6 Elite)
+   * Main Artwork & Physics Trajectory Generator (V7 Masterpiece)
    */
   function generateArt(s) {
     const id = s.id;
@@ -239,22 +239,29 @@
       return `translate:${f1(x)}px ${f1(y)}px;scale:${(k * R).toFixed(3)};opacity:${(((p.a ?? 1) * 0.45) / (1 + p.h / 35)).toFixed(2)}`;
     };
 
-    // Defs: Gradients, Shading & Stadium Floodlights
+    // Defs: Gradients, Shading, Floodlights & Specular Sheen
     let g = `
       <defs>
         <linearGradient id="stadium-light-left-${id}" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
-          <stop offset="40%" stop-color="#ffffff" stop-opacity="0.09"/>
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.38"/>
+          <stop offset="35%" stop-color="#ffffff" stop-opacity="0.12"/>
           <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
         </linearGradient>
         <linearGradient id="stadium-light-right-${id}" x1="1" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
-          <stop offset="40%" stop-color="#ffffff" stop-opacity="0.09"/>
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.38"/>
+          <stop offset="35%" stop-color="#ffffff" stop-opacity="0.12"/>
           <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
         </linearGradient>
         <linearGradient id="court-depth-${id}" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#000000" stop-opacity="0.35"/>
           <stop offset="100%" stop-color="#000000" stop-opacity="0.04"/>
+        </linearGradient>
+        <!-- Polished Court Surface Specular Sheen -->
+        <linearGradient id="court-sheen-${id}" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+          <stop offset="30%" stop-color="#ffffff" stop-opacity="0.02"/>
+          <stop offset="65%" stop-color="#ffffff" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
         </linearGradient>
         <linearGradient id="padel-glass-shine" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45"/>
@@ -264,27 +271,41 @@
         </linearGradient>
         <!-- Luminous Trajectory Glow -->
         <linearGradient id="traj-glow-${id}" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stop-color="#f97316" stop-opacity="0.2"/>
-          <stop offset="50%" stop-color="#facc15" stop-opacity="0.85"/>
+          <stop offset="0%" stop-color="#f97316" stop-opacity="0.25"/>
+          <stop offset="45%" stop-color="#facc15" stop-opacity="0.9"/>
           <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.95"/>
         </linearGradient>
       </defs>
-      <!-- Stadium Dark Night Background -->
-      <rect width="300" height="180" fill="#070d18"/>
-      
-      <!-- LED Arena Top Ribbon Banner -->
-      <rect width="300" height="34" fill="#050a12"/>
-      <rect y="31" width="300" height="3.5" fill="var(--sport-primary, #ea580c)"/>
-      <g font-family="'Kanit', sans-serif" font-style="italic" font-weight="900" font-size="6.5" letter-spacing="1">
-        <text x="50" y="22" fill="#ffffff" opacity=".85" text-anchor="middle">ARENA<tspan fill="#f97316">SPORT</tspan></text>
-        <text x="150" y="22" fill="#ffffff" opacity=".85" text-anchor="middle">ARENA<tspan fill="#f97316">SPORT</tspan></text>
-        <text x="250" y="22" fill="#ffffff" opacity=".85" text-anchor="middle">ARENA<tspan fill="#f97316">SPORT</tspan></text>
-      </g>
-      <!-- LED Spotlight fixtures -->
-      <circle cx="20" cy="10" r="3.2" fill="#ffffff" opacity=".95"/>
-      <circle cx="280" cy="10" r="3.2" fill="#ffffff" opacity=".95"/>
 
-      <!-- Stadium Floodlight Beams -->
+      <!-- Stadium Dark Night Sky Background -->
+      <rect width="300" height="180" fill="#060c16"/>
+      
+      <!-- Distant Grandstand Tier & Spectator Atmosphere -->
+      <path d="M0 14 L300 14 L300 24 L0 24 Z" fill="#040810"/>
+      <path d="M0 24 L300 24 L300 34 L0 34 Z" fill="#091222"/>
+      <!-- Randomized Camera Flashes from Crowd (LeetCode/Sports Broadcast FX) -->
+      <circle cx="35" cy="18" r="1.3" class="anim" style="animation-name:crowdFlash;--d:3.2s;animation-delay:0.3s;" fill="#ffffff"/>
+      <circle cx="95" cy="20" r="1.2" class="anim" style="animation-name:crowdFlash;--d:2.6s;animation-delay:1.4s;" fill="#ffffff"/>
+      <circle cx="175" cy="19" r="1.4" class="anim" style="animation-name:crowdFlash;--d:3.6s;animation-delay:2.2s;" fill="#ffffff"/>
+      <circle cx="235" cy="17" r="1.2" class="anim" style="animation-name:crowdFlash;--d:2.9s;animation-delay:0.8s;" fill="#ffffff"/>
+
+      <!-- High-Tech LED Stadium Perimeter Board with Smooth Scrolling Ticker -->
+      <rect width="300" height="34" fill="#03070e"/>
+      <rect y="31" width="300" height="3.5" fill="var(--sport-primary, #ea580c)"/>
+      <g overflow="hidden">
+        <g class="anim" style="animation-name:ledMarquee;--d:14s;animation-timing-function:linear;">
+          <text x="0" y="22" font-family="'Kanit', sans-serif" font-style="italic" font-weight="900" font-size="6.5" letter-spacing="1.2" fill="#ffffff">ARENA<tspan fill="#f97316">SPORT</tspan> LIVE • TOURNAMENT ARENA • OFFICIAL COURT • ARENA<tspan fill="#f97316">SPORT</tspan> LIVE • TOURNAMENT ARENA • OFFICIAL COURT • </text>
+          <text x="300" y="22" font-family="'Kanit', sans-serif" font-style="italic" font-weight="900" font-size="6.5" letter-spacing="1.2" fill="#ffffff">ARENA<tspan fill="#f97316">SPORT</tspan> LIVE • TOURNAMENT ARENA • OFFICIAL COURT • ARENA<tspan fill="#f97316">SPORT</tspan> LIVE • TOURNAMENT ARENA • OFFICIAL COURT • </text>
+        </g>
+      </g>
+
+      <!-- Stadium Floodlight Fixtures & Glowing Lamp Bulbs -->
+      <circle cx="20" cy="10" r="4.5" fill="#facc15" opacity=".4"/>
+      <circle cx="20" cy="10" r="2.8" fill="#ffffff" opacity=".95"/>
+      <circle cx="280" cy="10" r="4.5" fill="#facc15" opacity=".4"/>
+      <circle cx="280" cy="10" r="2.8" fill="#ffffff" opacity=".95"/>
+
+      <!-- Volumetric Stadium Floodlight Beams -->
       <polygon points="15,10 70,10 145,180 0,180" fill="url(#stadium-light-left-${id})" pointer-events="none"/>
       <polygon points="285,10 230,10 155,180 300,180" fill="url(#stadium-light-right-${id})" pointer-events="none"/>
 
@@ -292,7 +313,7 @@
       <polygon points="${pts([[-1.25, -0.12], [1.25, -0.12], [1.25, 1.06], [-1.25, 1.06]])}" fill="${s.o}"/>
     `;
 
-    // Court Textures
+    // Court Textures & Polished Floor Sheen
     if (id === 'minisoccer') {
       g += `<polygon points="${pts(BOX)}" fill="${s.c}"/>`;
       for (let u = -1; u < 1; u += 0.333) {
@@ -308,26 +329,27 @@
       g += `<polygon points="${pts(BOX)}" fill="${s.c}"/>`;
     }
 
-    g += `<polygon points="${pts(BOX)}" fill="url(#court-depth-${id})"/>` + lines(s);
+    // Layered Depth & Polished Specular Sheen
+    g += `<polygon points="${pts(BOX)}" fill="url(#court-depth-${id})"/>` +
+         `<polygon points="${pts(BOX)}" fill="url(#court-sheen-${id})" opacity="0.3" pointer-events="none"/>` +
+         lines(s);
 
     let fn,
       front = '',
       back = '',
       ballShadow = '',
       dur = '2.6s',
-      trajPts = [],
       kineticTelemetry = '';
 
     let actionWord = '';
-    if (id === 'futsal' || id === 'minisoccer') actionWord = 'GOAL!';
-    else if (id === 'badminton') actionWord = 'SMASH!';
-    else if (id === 'voli') actionWord = 'SPIKE!';
-    else if (id === 'tenis') actionWord = 'ACE!';
-    else if (id === 'padel') actionWord = 'VOLLEY!';
+    if (id === 'futsal' || id === 'minisoccer') actionWord = '⚡ GOAL! ⚡';
+    else if (id === 'badminton') actionWord = '💥 SMASH! 💥';
+    else if (id === 'voli') actionWord = '🔥 SPIKE! 🔥';
+    else if (id === 'tenis') actionWord = '🎾 ACE! 🎾';
+    else if (id === 'padel') actionWord = '⚡ VOLLEY! ⚡';
 
     // Physics Models & Trajectories
     if (id === 'tenis' || id === 'padel') {
-      // Real Tennis / Padel Ground-Bounce Rally Physics
       fn = τ => {
         const ret = τ >= 0.5;
         const x = ret ? τ - 0.5 : τ;
@@ -346,7 +368,6 @@
         return { u, t: ret ? 1 - t : t, h: Math.max(0, h) };
       };
 
-      // Player sway with active footwork
       kf(id + 'n', τ => 0.28 * Math.cos(2 * Math.PI * τ) - 0.14, 24, u => `translate:${f1(P(u, 0.05)[0] - 150)}px 0`);
       kf(id + 'f', τ => 0.28 * Math.cos(2 * Math.PI * τ) + 0.14, 24, u => `translate:${f1(P(u, 0.95)[0] - 150)}px 0`);
 
@@ -377,7 +398,6 @@
       if (s.dbl) front += person({ ...NEAR, ...tool, t: 0.08, u: -0.58, d: QTR, shirt: '#f97316' });
       dur = '2.6s';
 
-      // Kinetic Bounce Rings on Court Floor (LeetCodeAnimation)
       kineticTelemetry = `
         <ellipse class="anim" style="animation-name:courtImpactPulse;transform-origin:140.5px 63.3px;" cx="140.5" cy="63.3" rx="14" ry="4.5" fill="none" stroke="#d9f828" stroke-width="1.8"/>
         <ellipse class="anim" style="animation-name:courtImpactPulse;transform-origin:159.5px 127.3px;${HALF};" cx="159.5" cy="127.3" rx="18" ry="5.8" fill="none" stroke="#f97316" stroke-width="1.8"/>
@@ -423,7 +443,6 @@
       front = netHtml + person({ ...NEAR, ...tool, t: 0.05, lat: id + 'n', body: 'smashJump', shadowAnim: 'jumpShadow' });
       dur = '2.4s';
 
-      // Kinetic Smash Wind Slash (anime.js style)
       kineticTelemetry = `
         <g class="anim" style="animation-name:smashSlash;transform-origin:184px 80px;">
           <line x1="184" y1="80" x2="160" y2="105" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
@@ -481,7 +500,6 @@
       front = netHtml + person({ ...NEAR, volleyReady: 1, t: 0.05, lat: id + 'n', body: 'volleyBump' });
       dur = '2.8s';
 
-      // Kinetic Spike Burst above Net
       kineticTelemetry = `
         <circle class="anim" style="animation-name:spikeBurst;transform-origin:155px 48px;" cx="155" cy="48" r="15" fill="none" stroke="#facc15" stroke-width="2"/>
         <ellipse class="anim" style="animation-name:courtImpactPulse;transform-origin:138px 122px;animation-delay:calc(var(--d,2.8s)*0.72);" cx="138" cy="122" rx="16" ry="5.2" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
@@ -548,7 +566,6 @@
 
       dur = '3.0s';
 
-      // Kinetic Goal Detonation Shockwave (LeetCodeAnimation)
       kineticTelemetry = `
         <circle class="anim" style="animation-name:goalNetShockwave;transform-origin:163.5px 38.5px;" cx="163.5" cy="38.5" r="18" fill="none" stroke="#facc15" stroke-width="2.2"/>
         <g class="anim" style="animation-name:powerKickBurst;transform-origin:155px 135px;">
@@ -569,7 +586,7 @@
       const p = fn(i / N_TRAJ);
       const [px, py] = P(p.u, p.t);
       const k = SC(p.t);
-      trajPoints.append ? null : trajPoints.push(`${f1(px)} ${f1(py - (p.h + R) * k)}`);
+      trajPoints.push(`${f1(px)} ${f1(py - (p.h + R) * k)}`);
     }
     const trajSvgPath = `M${trajPoints.join(' L')}`;
     const trajectoryGuideline = `
@@ -579,7 +596,6 @@
     let ballElement = '';
     if (id === 'badminton') {
       ballElement = `
-        <!-- Ghost motion trail (anime.js style) -->
         <g ${an(id + 'b', 'animation-delay:calc(var(--d,2.4s) - 0.05s);opacity:0.35;pointer-events:none;')}>
           <circle cx="0" cy="0.4" r="1.1" fill="#cbd5e1"/>
         </g>
@@ -590,7 +606,6 @@
       `;
     } else if (id === 'tenis') {
       ballElement = `
-        <!-- Ghost motion trail (anime.js style) -->
         <g ${an(id + 'b', 'animation-delay:calc(var(--d,2.6s) - 0.05s);opacity:0.35;pointer-events:none;')}>
           <circle r="1.2" fill="#d9f828" opacity="0.6"/>
         </g>
@@ -601,7 +616,6 @@
       `;
     } else if (id === 'voli') {
       ballElement = `
-        <!-- Ghost motion trail (anime.js style) -->
         <g ${an(id + 'b', 'animation-delay:calc(var(--d,2.8s) - 0.05s);opacity:0.35;pointer-events:none;')}>
           <circle r="1.5" fill="#ffffff" opacity="0.6"/>
         </g>
@@ -613,7 +627,6 @@
       `;
     } else if (id === 'minisoccer' || id === 'futsal') {
       ballElement = `
-        <!-- Ghost motion trail (anime.js style) -->
         <g ${an(id + 'b', 'animation-delay:calc(var(--d,3.0s) - 0.06s);opacity:0.35;pointer-events:none;')}>
           <circle r="1.4" fill="#ffffff" opacity="0.6"/>
         </g>
@@ -632,8 +645,8 @@
 
     const txt = actionWord
       ? `<g class="pop anim" style="animation-name:pop;transform-origin:150px 76px;">
-           <rect x="94" y="61" width="112" height="28" rx="8" fill="rgba(15,23,42,0.92)" stroke="#facc15" stroke-width="2" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.5))"/>
-           <text x="150" y="81" text-anchor="middle" font-family="'Kanit', sans-serif" font-style="italic" font-size="16" font-weight="900" fill="#facc15" letter-spacing="1.5">${actionWord}</text>
+           <rect x="86" y="59" width="128" height="32" rx="10" fill="rgba(11,18,34,0.95)" stroke="#facc15" stroke-width="2.2" filter="drop-shadow(0 0 16px rgba(250,204,21,0.75))"/>
+           <text x="150" y="81" text-anchor="middle" font-family="'Kanit', sans-serif" font-style="italic" font-size="15.5" font-weight="900" fill="#facc15" letter-spacing="1.5">${actionWord}</text>
          </g>`
       : '';
 
@@ -646,7 +659,7 @@
     return `<svg viewBox="0 0 300 180" aria-hidden="true" style="--d:${dur}">${g}${trajectoryGuideline}${kineticTelemetry}${ballShadow}${back}${front}${ballElement}${txt}</svg>`;
   }
 
-  // Sports Catalog
+  // Sports Catalog with authentic metadata
   const SPORTS = [
     {
       id: 'futsal',
@@ -786,8 +799,8 @@
         const dy = (y - cy) / cy;
 
         // Controlled 3D rotation angle
-        const rotX = (-dy * 6).toFixed(2);
-        const rotY = (dx * 6).toFixed(2);
+        const rotX = (-dy * 7).toFixed(2);
+        const rotY = (dx * 7).toFixed(2);
 
         this.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-8px) scale3d(1.025, 1.025, 1)`;
       });
