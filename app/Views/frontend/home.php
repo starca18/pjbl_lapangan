@@ -6,13 +6,45 @@
 <section class="hero-section text-center text-lg-start">
   <!-- Shimmer & Sparkle Effects Layer -->
   <div class="hero-sparkles-container" aria-hidden="true">
-    <span class="hero-sparkle sp-1">✦</span>
-    <span class="hero-sparkle sp-2">✧</span>
-    <span class="hero-sparkle sp-3">✦</span>
-    <span class="hero-sparkle sp-4">✧</span>
-    <span class="hero-sparkle sp-5">✦</span>
-    <span class="hero-sparkle sp-6">✧</span>
-    <span class="hero-sparkle sp-7">✦</span>
+    <div class="hero-sparkle sp-1">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+        <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 6.627 12 0 12 0Z"/>
+        <circle cx="12" cy="12" r="2" fill="#fff7ed"/>
+      </svg>
+    </div>
+    <div class="hero-sparkle sp-2">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+        <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 6.627 12 0 12 0Z"/>
+      </svg>
+    </div>
+    <div class="hero-sparkle sp-3">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="white">
+        <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 6.627 12 0 12 0Z"/>
+        <circle cx="12" cy="12" r="2" fill="#fff7ed"/>
+      </svg>
+    </div>
+    <div class="hero-sparkle sp-4">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="white">
+        <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 6.627 12 0 12 0Z"/>
+        <circle cx="12" cy="12" r="2" fill="#fff7ed"/>
+      </svg>
+    </div>
+    <div class="hero-sparkle sp-5">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
+        <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 6.627 12 0 12 0Z"/>
+      </svg>
+    </div>
+    <div class="hero-sparkle sp-6">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="white">
+        <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 6.627 12 0 12 0Z"/>
+        <circle cx="12" cy="12" r="2.5" fill="#fff7ed"/>
+      </svg>
+    </div>
+    <div class="hero-sparkle sp-7">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="white">
+        <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 6.627 12 0 12 0Z"/>
+      </svg>
+    </div>
     <div class="hero-shimmer-sweep"></div>
   </div>
   <div class="container position-relative" style="z-index: 2;">

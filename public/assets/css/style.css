@@ -123,8 +123,14 @@ main {
   color: #ffffff;
   user-select: none;
   line-height: 1;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 14px rgba(254, 215, 170, 0.7));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 16px rgba(254, 215, 170, 0.7));
   animation: sparkleTwinkle 3.8s infinite ease-in-out;
+}
+.hero-sparkle svg {
+  display: block;
 }
 
 .hero-sparkle.sp-1 { top: 12%; left: 6%; font-size: 1.5rem; animation-delay: 0s; }
