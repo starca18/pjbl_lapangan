@@ -4,7 +4,18 @@
 
 <!-- Hero Section -->
 <section class="hero-section text-center text-lg-start">
-  <div class="container">
+  <!-- Shimmer & Sparkle Effects Layer -->
+  <div class="hero-sparkles-container" aria-hidden="true">
+    <span class="hero-sparkle sp-1">✦</span>
+    <span class="hero-sparkle sp-2">✧</span>
+    <span class="hero-sparkle sp-3">✦</span>
+    <span class="hero-sparkle sp-4">✧</span>
+    <span class="hero-sparkle sp-5">✦</span>
+    <span class="hero-sparkle sp-6">✧</span>
+    <span class="hero-sparkle sp-7">✦</span>
+    <div class="hero-shimmer-sweep"></div>
+  </div>
+  <div class="container position-relative" style="z-index: 2;">
     <div class="row align-items-center g-4">
       <div class="col-lg-7">
         <h1 class="hero-title mb-3">
@@ -14,7 +25,7 @@
           Cek jadwal langsung dan sewa lapangan olahraga favorit Anda tanpa ribet.
         </p>
         <div class="d-flex flex-wrap gap-2 gap-md-3 justify-content-center justify-content-lg-start">
-          <a href="<?= base_url('jadwal') ?>" class="btn btn-sport d-inline-flex align-items-center">
+          <a href="<?= base_url('jadwal') ?>" class="btn btn-sport btn-shimmer d-inline-flex align-items-center">
             <i class="bi bi-calendar3 me-2"></i>Cek Jadwal Lapangan
           </a>
           <a href="#pilih-olahraga" class="btn btn-outline-light px-3 px-md-4 py-2 fw-semibold rounded-3 d-inline-flex align-items-center">
