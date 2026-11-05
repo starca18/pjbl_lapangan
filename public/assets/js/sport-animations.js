@@ -1,13 +1,9 @@
 /**
- * ArenaSport — Interactive 3D Isometric Sport Animations (V5 Pro Motion Engine)
- * Pure SVG + Real-Time Physics Trajectories & Fluid Athletic Character Mechanics
- * Features:
- * - Alternating running & shuffle footwork (no sliding/skating!)
- * - Authentic ground bounce physics in Tennis & Padel
- * - Aerodynamic smash flight & steep drop in Badminton
- * - Dribble, power kick, diving save, celebration & reset in Soccer/Futsal
- * - True Set-and-Spike volleyball cycle
- * - Broadcast climax badges (GOAL, SMASH, ACE, SPIKE, VOLLEY)
+ * ArenaSport — Interactive 3D Isometric Sport Animations (V6 Elite Motion Engine)
+ * Synthesizing techniques from:
+ * - MisterBooo/LeetCodeAnimation: Algorithmic trajectory tracing, kinetic shockwaves & target rings
+ * - juliangarnier/anime: Physics spring overshoot, ghost motion trails, speed wind streaks
+ * - lgvalle/Material-Animations: Interactive 3D perspective tilt, circular ripple waves, dynamic spotlight
  */
 
 (function () {
@@ -93,7 +89,6 @@
     let arms = '';
 
     if (o.strikerAction) {
-      // Striker kicking wind-up and celebration arms
       arms = `
         <g class="anim" style="transform-origin:0px -54px;animation-name:strikerArms;${D}">
           <path d="M-8 -54 L-14 -44 L-18 -36 M8 -54 L14 -44 L18 -36" ${ST}/>
@@ -166,7 +161,6 @@
       <text x="0" y="-43" font-size="7.5" font-weight="900" fill="#ffffff" text-anchor="middle" font-family="'Kanit', sans-serif" opacity=".95">${num}</text>
     `;
 
-    // Active footwork leg animations (running/stepping instead of sliding!)
     const legL = o.kick 
       ? `<path d="M-4 -28 L-10 -14 L-11 -1" ${lw}/><ellipse cx="-11.5" cy="0" rx="4.8" ry="2.4" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>`
       : `<g class="anim" style="animation-name:footworkL;transform-origin:-4px -28px;${D}">
@@ -189,7 +183,6 @@
 
     return `<g ${o.lat ? an(o.lat) : ''}>
       <g transform="translate(${f1(x)} ${f1(y)}) scale(${o.flip ? -k : k} ${k})">
-        <!-- Dynamic Ground Shadow that expands/contracts with jump -->
         <ellipse class="anim" style="animation-name:${o.shadowAnim || 'shadowPulse'};${D}" rx="15" ry="3.5" fill="rgba(0,0,0,.35)"/>
         <g ${an(o.body || 'athleticTorso', D)}>
           ${legL}
@@ -218,7 +211,7 @@
   const FAR = { shirt: '#0284c7', shorts: '#0f172a', hair: '#29180b', band: '#38bdf8', front: 1, num: '10' };
 
   /**
-   * Main Artwork & Physics Trajectory Generator (V5)
+   * Main Artwork & Physics Trajectory Generator (V6 Elite)
    */
   function generateArt(s) {
     const id = s.id;
@@ -269,6 +262,12 @@
           <stop offset="70%" stop-color="#ffffff" stop-opacity="0.2"/>
           <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
         </linearGradient>
+        <!-- Luminous Trajectory Glow -->
+        <linearGradient id="traj-glow-${id}" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#f97316" stop-opacity="0.2"/>
+          <stop offset="50%" stop-color="#facc15" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.95"/>
+        </linearGradient>
       </defs>
       <!-- Stadium Dark Night Background -->
       <rect width="300" height="180" fill="#070d18"/>
@@ -315,7 +314,9 @@
       front = '',
       back = '',
       ballShadow = '',
-      dur = '2.6s';
+      dur = '2.6s',
+      trajPts = [],
+      kineticTelemetry = '';
 
     let actionWord = '';
     if (id === 'futsal' || id === 'minisoccer') actionWord = 'GOAL!';
@@ -324,22 +325,19 @@
     else if (id === 'tenis') actionWord = 'ACE!';
     else if (id === 'padel') actionWord = 'VOLLEY!';
 
-    // Physics Models
+    // Physics Models & Trajectories
     if (id === 'tenis' || id === 'padel') {
       // Real Tennis / Padel Ground-Bounce Rally Physics
       fn = τ => {
         const ret = τ >= 0.5;
         const x = ret ? τ - 0.5 : τ;
-        // x from 0 to 0.5
         const T_BOUNCE = 0.34;
         let t, h;
         if (x < T_BOUNCE) {
           const q = x / T_BOUNCE;
           t = 0.08 + 0.70 * q;
-          // Arcing high over net, then dropping to ground
           h = 32 * (1 - q) + 52 * Math.sin(q * Math.PI);
         } else {
-          // Bounce off court surface popping up to opponent racket
           const q = (x - T_BOUNCE) / (0.5 - T_BOUNCE);
           t = 0.78 + 0.16 * q;
           h = 34 * Math.sin(q * Math.PI * 0.5);
@@ -379,19 +377,22 @@
       if (s.dbl) front += person({ ...NEAR, ...tool, t: 0.08, u: -0.58, d: QTR, shirt: '#f97316' });
       dur = '2.6s';
 
+      // Kinetic Bounce Rings on Court Floor (LeetCodeAnimation)
+      kineticTelemetry = `
+        <ellipse class="anim" style="animation-name:courtImpactPulse;transform-origin:140.5px 63.3px;" cx="140.5" cy="63.3" rx="14" ry="4.5" fill="none" stroke="#d9f828" stroke-width="1.8"/>
+        <ellipse class="anim" style="animation-name:courtImpactPulse;transform-origin:159.5px 127.3px;${HALF};" cx="159.5" cy="127.3" rx="18" ry="5.8" fill="none" stroke="#f97316" stroke-width="1.8"/>
+      `;
+
     } else if (id === 'badminton') {
-      // True Badminton Smash-and-Dig Rally Physics
       fn = τ => {
         const ret = τ >= 0.5;
         const x = ret ? τ - 0.5 : τ;
         let t, h;
         if (x < 0.22) {
-          // Explosive downward smash from near jump
           const q = x / 0.22;
           t = 0.06 + 0.86 * q;
           h = 72 * (1 - q) + 24 * q;
         } else {
-          // High defensive lob returning over net
           const q = (x - 0.22) / 0.28;
           t = 0.92 - 0.84 * q;
           h = 24 * (1 - q) + 68 * Math.sin(q * Math.PI) + 72 * q;
@@ -422,24 +423,29 @@
       front = netHtml + person({ ...NEAR, ...tool, t: 0.05, lat: id + 'n', body: 'smashJump', shadowAnim: 'jumpShadow' });
       dur = '2.4s';
 
+      // Kinetic Smash Wind Slash (anime.js style)
+      kineticTelemetry = `
+        <g class="anim" style="animation-name:smashSlash;transform-origin:184px 80px;">
+          <line x1="184" y1="80" x2="160" y2="105" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+          <line x1="188" y1="76" x2="164" y2="101" stroke="#facc15" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+        </g>
+        <ellipse class="anim" style="animation-name:courtImpactPulse;transform-origin:140px 65px;" cx="140" cy="65" rx="15" ry="5" fill="none" stroke="#facc15" stroke-width="1.8"/>
+      `;
+
     } else if (id === 'voli') {
-      // True Volleyball Set & Spike Flow
       fn = τ => {
         let t, h, u;
         if (τ < 0.45) {
-          // Near setter sets the ball high above the net
           const q = τ / 0.45;
           t = 0.10 + 0.65 * q;
           u = 0.10 * q;
           h = 24 + 68 * Math.sin(q * Math.PI * 0.85);
         } else if (τ < 0.72) {
-          // Far spiker smashes ball downward into near court
           const q = (τ - 0.45) / 0.27;
           t = 0.75 - 0.65 * q;
           u = 0.10 - 0.22 * q;
           h = 78 * (1 - q) + 12 * q;
         } else {
-          // Near receiver digs ball back up
           const q = (τ - 0.72) / 0.28;
           t = 0.10 + 0.02 * Math.sin(q * Math.PI);
           u = -0.12 + 0.12 * q;
@@ -475,31 +481,32 @@
       front = netHtml + person({ ...NEAR, volleyReady: 1, t: 0.05, lat: id + 'n', body: 'volleyBump' });
       dur = '2.8s';
 
+      // Kinetic Spike Burst above Net
+      kineticTelemetry = `
+        <circle class="anim" style="animation-name:spikeBurst;transform-origin:155px 48px;" cx="155" cy="48" r="15" fill="none" stroke="#facc15" stroke-width="2"/>
+        <ellipse class="anim" style="animation-name:courtImpactPulse;transform-origin:138px 122px;animation-delay:calc(var(--d,2.8s)*0.72);" cx="138" cy="122" rx="16" ry="5.2" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+      `;
+
     } else if (s.m === 'goal') {
-      // Soccer / Futsal Continuous Action Cycle: Dribble -> Shoot -> Dive -> Celebrate -> Reset
       fn = τ => {
         let t, u, h, a = 1;
         if (τ < 0.26) {
-          // Phase 1: Striker dribbles forward towards penalty box
           const q = τ / 0.26;
           t = 0.08 + 0.12 * q;
           u = 0.05 * Math.sin(q * Math.PI * 2);
           h = 2 * Math.abs(Math.sin(q * Math.PI * 3));
         } else if (τ < 0.58) {
-          // Phase 2: Power shot curving into top-right corner of the goal
           const q = (τ - 0.26) / 0.32;
           t = 0.20 + 0.76 * q;
           u = 0.0 + 0.24 * q;
           h = 4 * s.A * q * (1 - q * 0.7);
         } else if (τ < 0.88) {
-          // Phase 3: Ball caught in the net mesh vibrating
           const q = (τ - 0.58) / 0.30;
           t = 0.96;
           u = 0.24 + 0.02 * Math.sin(q * Math.PI * 4);
           h = 32 - 14 * q;
           a = q < 0.75 ? 1 : 1 - (q - 0.75) / 0.25;
         } else {
-          // Phase 4: Ball respawns at striker foot smoothly
           const q = (τ - 0.88) / 0.12;
           t = 0.08;
           u = 0;
@@ -519,7 +526,6 @@
         ${mesh(gx1, gx2, gt, gh, 3, 'rgba(255,255,255,.45)')}
       `;
 
-      // Goalkeeper: Shuffles, dives horizontally, lands, and recovers
       back = person({
         ...FAR,
         shirt: '#eab308',
@@ -530,7 +536,6 @@
         num: '1'
       });
 
-      // Striker: Runs up, kicks, raises arms in celebration, jogs back!
       front = person({
         ...NEAR,
         t: 0.10,
@@ -542,6 +547,14 @@
       });
 
       dur = '3.0s';
+
+      // Kinetic Goal Detonation Shockwave (LeetCodeAnimation)
+      kineticTelemetry = `
+        <circle class="anim" style="animation-name:goalNetShockwave;transform-origin:163.5px 38.5px;" cx="163.5" cy="38.5" r="18" fill="none" stroke="#facc15" stroke-width="2.2"/>
+        <g class="anim" style="animation-name:powerKickBurst;transform-origin:155px 135px;">
+          <polygon points="155,128 157,133 162,135 157,137 155,142 153,137 148,135 153,133" fill="#ea580c"/>
+        </g>
+      `;
     }
 
     kf(id + 'b', fn, 60, bmk);
@@ -549,9 +562,27 @@
 
     ballShadow = `<ellipse ${an(id + 's')} rx="1.6" ry=".6" fill="#000000"/>`;
 
+    // Compute Trajectory SVG Path for Hawk-Eye / LeetCode Tracing
+    const trajPoints = [];
+    const N_TRAJ = 28;
+    for (let i = 0; i <= N_TRAJ; i++) {
+      const p = fn(i / N_TRAJ);
+      const [px, py] = P(p.u, p.t);
+      const k = SC(p.t);
+      trajPoints.append ? null : trajPoints.push(`${f1(px)} ${f1(py - (p.h + R) * k)}`);
+    }
+    const trajSvgPath = `M${trajPoints.join(' L')}`;
+    const trajectoryGuideline = `
+      <path d="${trajSvgPath}" class="trajectory-arc anim" fill="none" stroke="url(#traj-glow-${id})" stroke-width="1.8" stroke-dasharray="3,5" stroke-linecap="round" opacity="0.65" style="animation-name:trajectoryFlow;--d:1.5s;"/>
+    `;
+
     let ballElement = '';
     if (id === 'badminton') {
       ballElement = `
+        <!-- Ghost motion trail (anime.js style) -->
+        <g ${an(id + 'b', 'animation-delay:calc(var(--d,2.4s) - 0.05s);opacity:0.35;pointer-events:none;')}>
+          <circle cx="0" cy="0.4" r="1.1" fill="#cbd5e1"/>
+        </g>
         <g ${an(id + 'b')}>
           <path d="M-2 -3.5 L2 -3.5 L1.2 0 L-1.2 0 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.3"/>
           <circle cx="0" cy="0.4" r="1.3" fill="#e2d4b7" stroke="#92400e" stroke-width="0.3"/>
@@ -559,6 +590,10 @@
       `;
     } else if (id === 'tenis') {
       ballElement = `
+        <!-- Ghost motion trail (anime.js style) -->
+        <g ${an(id + 'b', 'animation-delay:calc(var(--d,2.6s) - 0.05s);opacity:0.35;pointer-events:none;')}>
+          <circle r="1.2" fill="#d9f828" opacity="0.6"/>
+        </g>
         <g ${an(id + 'b')}>
           <circle r="1.5" fill="#d9f828" stroke="#0f172a" stroke-width="0.3"/>
           <path d="M-1 -0.8 Q0 0 -1 0.8 M1 -0.8 Q0 0 1 0.8" stroke="#ffffff" stroke-width="0.4" fill="none"/>
@@ -566,6 +601,10 @@
       `;
     } else if (id === 'voli') {
       ballElement = `
+        <!-- Ghost motion trail (anime.js style) -->
+        <g ${an(id + 'b', 'animation-delay:calc(var(--d,2.8s) - 0.05s);opacity:0.35;pointer-events:none;')}>
+          <circle r="1.5" fill="#ffffff" opacity="0.6"/>
+        </g>
         <g ${an(id + 'b')}>
           <circle r="1.9" fill="#ffffff" stroke="#0f172a" stroke-width="0.3"/>
           <path d="M-1.4 0 Q0 -1.4 1.4 0" stroke="#1d4ed8" stroke-width="0.9" fill="none"/>
@@ -574,6 +613,10 @@
       `;
     } else if (id === 'minisoccer' || id === 'futsal') {
       ballElement = `
+        <!-- Ghost motion trail (anime.js style) -->
+        <g ${an(id + 'b', 'animation-delay:calc(var(--d,3.0s) - 0.06s);opacity:0.35;pointer-events:none;')}>
+          <circle r="1.4" fill="#ffffff" opacity="0.6"/>
+        </g>
         <g ${an(id + 'b')}>
           <circle r="1.8" fill="#ffffff" stroke="#0f172a" stroke-width="0.35"/>
           <polygon points="0,-0.8 -0.7,-0.2 -0.4,0.6 0.4,0.6 0.7,-0.2" fill="#0f172a"/>
@@ -589,7 +632,7 @@
 
     const txt = actionWord
       ? `<g class="pop anim" style="animation-name:pop;transform-origin:150px 76px;">
-           <rect x="94" y="61" width="112" height="28" rx="8" fill="rgba(15,23,42,0.88)" stroke="#facc15" stroke-width="1.8"/>
+           <rect x="94" y="61" width="112" height="28" rx="8" fill="rgba(15,23,42,0.92)" stroke="#facc15" stroke-width="2" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.5))"/>
            <text x="150" y="81" text-anchor="middle" font-family="'Kanit', sans-serif" font-style="italic" font-size="16" font-weight="900" fill="#facc15" letter-spacing="1.5">${actionWord}</text>
          </g>`
       : '';
@@ -600,7 +643,7 @@
       document.head.appendChild(styleTag);
     }
 
-    return `<svg viewBox="0 0 300 180" aria-hidden="true" style="--d:${dur}">${g}${ballShadow}${back}${front}${ballElement}${txt}</svg>`;
+    return `<svg viewBox="0 0 300 180" aria-hidden="true" style="--d:${dur}">${g}${trajectoryGuideline}${kineticTelemetry}${ballShadow}${back}${front}${ballElement}${txt}</svg>`;
   }
 
   // Sports Catalog
@@ -724,6 +767,52 @@
 
   const rp = n => 'Rp ' + Math.round(n).toLocaleString('id-ID');
 
+  /**
+   * Material 3D Tilt, Ripple & Spotlight Interaction Engine (Material-Animations + anime.js)
+   */
+  function initMaterialInteractions(container) {
+    const cards = container.querySelectorAll('.sport-select-card');
+    cards.forEach((card, idx) => {
+      card.style.setProperty('--card-index', idx);
+
+      // Mousemove: 3D Perspective Tilt with Spring Physics
+      card.addEventListener('mousemove', function (e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const dx = (x - cx) / cx;
+        const dy = (y - cy) / cy;
+
+        // Controlled 3D rotation angle
+        const rotX = (-dy * 6).toFixed(2);
+        const rotY = (dx * 6).toFixed(2);
+
+        this.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-8px) scale3d(1.025, 1.025, 1)`;
+      });
+
+      card.addEventListener('mouseleave', function () {
+        this.style.transform = '';
+      });
+
+      // Material Expanding Circular Ripple on Click/Tap
+      card.addEventListener('click', function (e) {
+        const rect = this.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'material-card-ripple';
+        const size = Math.max(rect.width, rect.height) * 2;
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+        ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+        this.appendChild(ripple);
+        setTimeout(() => {
+          if (ripple.parentNode) ripple.remove();
+        }, 650);
+      });
+    });
+  }
+
   function renderSportCards(target, options = {}) {
     const el = typeof target === 'string' ? document.querySelector(target) : target;
     if (!el) return;
@@ -756,7 +845,7 @@
     const baseUrl = (options.baseUrl || '').replace(/\/$/, '');
 
     let html = '';
-    SPORTS.forEach(s => {
+    SPORTS.forEach((s, idx) => {
       const isSelected = currentSlug === s.slug;
       const targetUrl = baseUrl ? `${baseUrl}/booking?category=${s.slug}#daftar-lapangan` : `javascript:void(0)`;
       const svgArt = generateArt(s);
@@ -804,6 +893,9 @@
     });
 
     el.innerHTML = html;
+
+    // Initialize Material 3D Tilt & Ripple Interactions
+    initMaterialInteractions(el);
 
     const cards = el.querySelectorAll('.sport-select-card');
     cards.forEach(card => {
