@@ -361,8 +361,17 @@
         return { u, t: ret ? 1 - t : t, h: Math.max(0, h) };
       };
 
-      kf(id + 'n', τ => 0.28 * Math.cos(2 * Math.PI * τ) - 0.14, 24, u => `translate:${f1(P(u, 0.05)[0] - 150)}px 0`);
-      kf(id + 'f', τ => 0.28 * Math.cos(2 * Math.PI * τ) + 0.14, 24, u => `translate:${f1(P(u, 0.95)[0] - 150)}px 0`);
+      if (id === 'padel') {
+        // Padel Doubles: 4 active players, 2 on each side of the net (all moving in tandem!)
+        kf('padeln', τ => 0.35 + 0.16 * Math.cos(2 * Math.PI * τ), 24, u => `translate:${f1(P(u, 0.06)[0] - P(0.35, 0.06)[0])}px 0`);
+        kf('padeln2', τ => -0.35 + 0.16 * Math.cos(2 * Math.PI * τ + 0.8), 24, u => `translate:${f1(P(u, 0.08)[0] - P(-0.35, 0.08)[0])}px 0`);
+        kf('padelf', τ => -0.35 + 0.16 * Math.cos(2 * Math.PI * τ), 24, u => `translate:${f1(P(u, 0.95)[0] - P(-0.35, 0.95)[0])}px 0`);
+        kf('padelf2', τ => 0.35 + 0.16 * Math.cos(2 * Math.PI * τ + 0.8), 24, u => `translate:${f1(P(u, 0.92)[0] - P(0.35, 0.92)[0])}px 0`);
+      } else {
+        // Tennis Singles: 2 players covering the full baseline
+        kf(id + 'n', τ => 0.28 * Math.cos(2 * Math.PI * τ) - 0.14, 24, u => `translate:${f1(P(u, 0.05)[0] - 150)}px 0`);
+        kf(id + 'f', τ => 0.28 * Math.cos(2 * Math.PI * τ) + 0.14, 24, u => `translate:${f1(P(u, 0.95)[0] - 150)}px 0`);
+      }
 
       if (s.walls) {
         g += wall([[-1, 0, 0], [-1, 1, 0], [-1, 1, 115], [-1, 0, 115]], 'left') +
@@ -385,10 +394,18 @@
       `;
 
       const tool = { rk: s.rk };
-      back = person({ ...FAR, ...tool, t: 0.95, flip: 1, lat: id + 'f', d: HALF });
-      if (s.dbl) back += person({ ...FAR, ...tool, t: 0.92, u: 0.58, flip: 1, d: QTR, shirt: '#38bdf8' });
-      front = netHtml + person({ ...NEAR, ...tool, t: 0.05, lat: id + 'n' });
-      if (s.dbl) front += person({ ...NEAR, ...tool, t: 0.08, u: -0.58, d: QTR, shirt: '#f97316' });
+      if (id === 'padel') {
+        // Padel Doubles: All 4 players are actively moving, footworking, and swinging!
+        back = person({ ...FAR, ...tool, t: 0.95, u: -0.35, flip: 1, lat: 'padelf', d: HALF, shirt: '#0284c7', num: '10' }) +
+               person({ ...FAR, ...tool, t: 0.92, u: 0.35, flip: 1, lat: 'padelf2', d: QTR, shirt: '#38bdf8', num: '8' });
+        front = netHtml +
+                person({ ...NEAR, ...tool, t: 0.06, u: 0.35, lat: 'padeln', shirt: '#ea580c', num: '7' }) +
+                person({ ...NEAR, ...tool, t: 0.08, u: -0.35, lat: 'padeln2', d: QTR, shirt: '#f97316', num: '11' });
+      } else {
+        // Tennis Singles: 2 players
+        back = person({ ...FAR, ...tool, t: 0.95, flip: 1, lat: id + 'f', d: HALF });
+        front = netHtml + person({ ...NEAR, ...tool, t: 0.05, lat: id + 'n' });
+      }
       dur = '2.6s';
 
       kineticTelemetry = `
@@ -642,7 +659,7 @@
       document.head.appendChild(styleTag);
     }
 
-    return `<svg viewBox="0 0 300 180" aria-hidden="true" style="--d:${dur}">${g}${trajectoryGuideline}${kineticTelemetry}${ballShadow}${back}${front}${ballElement}</svg>`;
+    return `<svg viewBox="0 0 300 180" aria-hidden="true" style="--d:${dur}"><style>${css}</style>${g}${trajectoryGuideline}${kineticTelemetry}${ballShadow}${back}${front}${ballElement}</svg>`;
   }
 
   // Sports Catalog with authentic metadata
