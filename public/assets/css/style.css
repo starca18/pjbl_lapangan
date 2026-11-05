@@ -697,31 +697,31 @@ footer a:hover {
   }
 }
 
-/* ── Sport Selection Card ────────────────────────────── */
+/* ── Sport Selection Card (V4 Pro) ───────────────────── */
 .sport-select-card {
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border: 2px solid var(--sport-border);
-  border-radius: 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 18px;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
   height: 100%;
 }
 
 .sport-select-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--sport-primary);
-  box-shadow: 0 16px 32px -8px rgba(234, 88, 12, 0.35);
+  transform: translateY(-8px);
+  border-color: #ea580c;
+  box-shadow: 0 20px 35px -10px rgba(234, 88, 12, 0.28);
   color: inherit;
 }
 
 .sport-select-card.on,
 .sport-select-card.active {
-  border-color: var(--sport-primary);
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.25);
+  border-color: #ea580c;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.25);
   background: #fffbf7;
 }
 
@@ -729,7 +729,7 @@ footer a:hover {
   position: relative;
   width: 100%;
   aspect-ratio: 300 / 180;
-  background-color: #0c1722;
+  background-color: #070d18;
   overflow: hidden;
 }
 
@@ -738,57 +738,113 @@ footer a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.sport-select-card:hover .sport-canvas-wrap svg {
+  transform: scale(1.03);
 }
 
 .sport-card-tag {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: rgba(28, 25, 23, 0.85);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(6px);
   color: #ffffff;
   font-size: 0.72rem;
   font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 5;
+}
+
+.sport-card-status {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(6px);
+  color: #4ade80;
+  font-size: 0.68rem;
+  font-weight: 700;
   padding: 3px 8px;
-  border-radius: 6px;
-  backdrop-filter: blur(4px);
+  border-radius: 9999px;
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  display: inline-flex;
+  align-items: center;
+  z-index: 5;
 }
 
 .sport-card-info {
-  padding: 1rem 1.15rem;
+  padding: 1.15rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
 .sport-card-title {
-  font-size: 1.15rem;
+  font-size: 1.18rem;
   font-weight: 800;
   letter-spacing: -0.3px;
-  color: var(--sport-dark);
+  color: #0f172a;
 }
 
 .sport-card-price {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--sport-primary-dark);
+  font-family: 'Kanit', sans-serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #ea580c;
+}
+.sport-card-price .price-period {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-style: normal;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
 }
 
 .sport-card-desc {
   font-size: 0.82rem;
-  color: var(--sport-muted);
-  line-height: 1.4;
-  flex-grow: 1;
+  color: #64748b;
+  line-height: 1.45;
 }
 
-.sport-card-action {
-  font-size: 0.75rem;
-  color: var(--sport-muted);
-  font-weight: 500;
-}
-
-.sport-select-card:hover .sport-card-action {
-  color: var(--sport-primary-dark);
+.sport-feature-tag {
+  font-size: 0.68rem;
   font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background-color: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.sport-cta-pill {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: #fff7ed;
+  color: #ea580c;
+  border: 1.5px solid #fed7aa;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.sport-select-card:hover .sport-cta-pill {
+  background: #ea580c;
+  color: #ffffff;
+  border-color: #ea580c;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+}
+
+.sport-select-card:hover .sport-cta-pill i {
+  transform: translateX(3px);
+  transition: transform 0.2s ease;
 }
 
 /* ── Mobile Overrides for Sport Cards ────────────────── */

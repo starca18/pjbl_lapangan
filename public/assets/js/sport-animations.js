@@ -1,14 +1,15 @@
 /**
- * ArenaSport — Interactive 3D Isometric Sport Animations (V3)
+ * ArenaSport — Interactive 3D Isometric Sport Animations (V4 Pro)
  * Pure SVG + Dynamic Physics-Driven Keyframe Generator
- * Styles: Athletic Figures, Stadium Floodlights, Authentic Balls/Shuttlecock & Auto-Play
+ * Upgrades: Broadcast Action Badges (SMASH, GOAL, ACE, SPIKE, VOLLEY),
+ * Feature Tags, Stadium Lights, Authentic Balls & 60FPS Auto-Play.
  */
 
 (function () {
   'use strict';
 
   const INK = '#0f172a';
-  // Isometric perspective factor
+  // Perspective mapping: u [-1, 1], t [0, 1]
   const SC = t => 1 / (1 + 1.45 * t);
   const P = (u, t) => {
     const k = SC(t);
@@ -40,8 +41,8 @@
   };
 
   const an = (n, x = '') => `class="anim" style="animation-name:${n};${x}"`;
-  const HALF = 'animation-delay:calc(var(--d,2.4s) / -2)';
-  const QTR = 'animation-delay:calc(var(--d,2.4s) / -4)';
+  const HALF = 'animation-delay:calc(var(--d,2.5s) / -2)';
+  const QTR = 'animation-delay:calc(var(--d,2.5s) / -4)';
 
   // Court Markings
   function lines(s) {
@@ -65,12 +66,10 @@
         ln([[0, 0], [0, 0.35]], 1.3) +
         ln([[0, 0.65], [0, 1]], 1.3);
     } else if (i === 'voli') {
-      // 3-meter attack lines and center line
       g += ln([[-1, 0.333], [1, 0.333]], 1.5) +
         ln([[-1, 0.5], [1, 0.5]], 1.8) +
         ln([[-1, 0.667], [1, 0.667]], 1.5);
     } else if (s.m === 'goal') {
-      // Soccer / Futsal center line and penalty boxes
       g += ln([[-1, 0.5], [1, 0.5]], 1.6) +
         ln(circ(0, 0.5, 0.28, 0.25), 1.5) +
         ln([[-s.box, 1], [-s.box, s.by], [s.box, s.by], [s.box, 1]], 1.5) +
@@ -90,23 +89,19 @@
     const ST = `fill="none" stroke="${sk}" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"`;
     let arms = '';
 
-    // Arms & Equipment
     if (o.arms) {
       arms = `<g class="anim" style="transform-origin:0px -56px;animation-name:${o.arms[1]};${D}"><path d="${o.arms[0]}" ${ST}/></g>`;
     }
 
     if (o.volleySpike) {
-      // Two arms raised high for spike
       arms = `<path d="M-8 -54 L-14 -72 L-10 -84 M8 -54 L14 -72 L10 -84" ${ST}/>`;
     }
 
     if (o.volleyReady) {
-      // Forearm platform clasped together for bump pass
       arms = `<path d="M-8 -52 L-3 -40 L0 -35 M8 -52 L3 -40 L0 -35" ${ST}/>`;
     }
 
     if (o.gkGloves) {
-      // Goalkeeper hands with neon gloves
       arms = `<path d="M-8 -52 L-16 -58 L-22 -66" ${ST}/><ellipse cx="-23" cy="-68" rx="4" ry="4" fill="#d9f828" stroke="#0f172a" stroke-width="1.2"/><path d="M8 -52 L16 -58 L22 -66" ${ST}/><ellipse cx="23" cy="-68" rx="4" ry="4" fill="#d9f828" stroke="#0f172a" stroke-width="1.2"/>`;
     }
 
@@ -114,7 +109,6 @@
       const [rx, ry, isPadel] = o.rk;
       const cy = -46 - ry;
       if (isPadel) {
-        // Padel paddle: solid carbon oval with perforation dots
         arms = `<path d="M-8 -54 L-13 -44 L-10 -36" ${ST}/>
           <g class="anim" style="transform-origin:7px -54px;animation-name:arm;${D}">
             <path d="M8 -54 L13 -44 L16 -39" ${ST}/>
@@ -125,7 +119,6 @@
             <circle cx="22" cy="${cy+2}" r="0.8" fill="#ffffff" opacity=".7"/>
           </g>`;
       } else {
-        // Badminton / Tennis racket with strings & head
         arms = `<path d="M-8 -54 L-13 -44 L-10 -36" ${ST}/>
           <g class="anim" style="transform-origin:7px -54px;animation-name:arm;${D}">
             <path d="M8 -54 L13 -44 L16 -39" ${ST}/>
@@ -137,7 +130,6 @@
       }
     }
 
-    // Athletic Head & Hair/Headband
     const head = o.front
       ? `<circle cy="-65" r="5.6" fill="${sk}"/>
          <path d="M-5.6 -65 a5.6 5.6 0 0 1 11.2 0 Q0 -69 -5.6 -65Z" fill="${o.hair}"/>
@@ -145,11 +137,9 @@
       : `<circle cy="-65" r="5.8" fill="${o.hair}"/>
          <rect x="-5.6" y="-66.5" width="11.2" height="2.2" rx="1" fill="${o.band || '#ffffff'}"/>`;
 
-    // Dynamic Kick / Run Animation
     const lk = o.kick ? an('legk', 'transform-origin:3px -28px') : '';
     const lw = `stroke="${sk}" stroke-width="4.2" fill="none" stroke-linecap="round" stroke-linejoin="round"`;
     
-    // Athletic Jersey with V-neck & Number
     const num = o.num || '7';
     const jerseyGraphic = `
       <path d="M-8.5 -57 L8.5 -57 L7 -36 L-7 -36 Z" fill="${o.shirt}" stroke="rgba(15,23,42,.3)" stroke-width=".8"/>
@@ -159,26 +149,21 @@
 
     return `<g ${o.lat ? an(o.lat) : ''}>
       <g transform="translate(${f1(x)} ${f1(y)}) scale(${o.flip ? -k : k} ${k})">
-        <!-- Contact Floor Shadow -->
         <ellipse rx="15" ry="3.5" fill="rgba(0,0,0,.35)"/>
         <g ${an(o.body || 'bob', D)}>
-          <!-- Left Leg & Athletic Sneaker -->
           <path d="M-4 -28 L-10 -14 L-11 -1" ${lw}/>
           <ellipse cx="-11.5" cy="0" rx="4.8" ry="2.4" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
           <path d="M-13 -0.5 L-8 -0.5" stroke="${o.shorts}" stroke-width="1.2"/>
           
-          <!-- Right Leg & Athletic Sneaker -->
           <g ${lk}>
             <path d="M4 -28 L10 -14 L11 -1" ${lw}/>
             <ellipse cx="11.5" cy="0" rx="4.8" ry="2.4" fill="#ffffff" stroke="#0f172a" stroke-width="0.8"/>
             <path d="M8 -0.5 L13 -0.5" stroke="${o.shorts}" stroke-width="1.2"/>
           </g>
 
-          <!-- Sport Shorts with athletic trim -->
           <path d="M-8 -37 L8 -37 L10 -24 L2 -26 L-2 -26 L-10 -24 Z" fill="${o.shorts}"/>
           <path d="M-8 -36 L-10 -24 M8 -36 L10 -24" stroke="#ffffff" stroke-width="1" opacity=".6"/>
 
-          <!-- Torso, Arms & Head -->
           ${jerseyGraphic}
           ${arms}
           ${head}
@@ -194,7 +179,6 @@
       return f1(x) + ',' + f1(y - h * SC(t));
     }).join(' ');
     
-    // Glass with realistic specular shine highlight
     return `<polygon points="${ptsStr}" fill="rgba(255,255,255,.14)" stroke="rgba(255,255,255,.6)" stroke-width=".8"/>
       <polygon points="${ptsStr}" fill="url(#padel-glass-shine)" opacity=".6"/>`;
   };
@@ -235,17 +219,17 @@
     let g = `
       <defs>
         <linearGradient id="stadium-light-left-${id}" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28"/>
-          <stop offset="40%" stop-color="#ffffff" stop-opacity="0.08"/>
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
+          <stop offset="40%" stop-color="#ffffff" stop-opacity="0.09"/>
           <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
         </linearGradient>
         <linearGradient id="stadium-light-right-${id}" x1="1" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28"/>
-          <stop offset="40%" stop-color="#ffffff" stop-opacity="0.08"/>
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
+          <stop offset="40%" stop-color="#ffffff" stop-opacity="0.09"/>
           <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
         </linearGradient>
         <linearGradient id="court-depth-${id}" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#000000" stop-opacity="0.32"/>
+          <stop offset="0%" stop-color="#000000" stop-opacity="0.35"/>
           <stop offset="100%" stop-color="#000000" stop-opacity="0.04"/>
         </linearGradient>
         <linearGradient id="padel-glass-shine" x1="0" y1="0" x2="1" y2="1">
@@ -267,12 +251,12 @@
         <text x="250" y="22" fill="#ffffff" opacity=".85" text-anchor="middle">ARENA<tspan fill="#f97316">SPORT</tspan></text>
       </g>
       <!-- LED Spotlight fixtures -->
-      <circle cx="20" cy="10" r="3" fill="#ffffff" opacity=".9"/>
-      <circle cx="280" cy="10" r="3" fill="#ffffff" opacity=".9"/>
+      <circle cx="20" cy="10" r="3.2" fill="#ffffff" opacity=".95"/>
+      <circle cx="280" cy="10" r="3.2" fill="#ffffff" opacity=".95"/>
 
       <!-- Stadium Floodlight Beams -->
-      <polygon points="15,10 65,10 135,180 0,180" fill="url(#stadium-light-left-${id})" pointer-events="none"/>
-      <polygon points="285,10 235,10 165,180 300,180" fill="url(#stadium-light-right-${id})" pointer-events="none"/>
+      <polygon points="15,10 70,10 145,180 0,180" fill="url(#stadium-light-left-${id})" pointer-events="none"/>
+      <polygon points="285,10 230,10 155,180 300,180" fill="url(#stadium-light-right-${id})" pointer-events="none"/>
 
       <!-- Outer Court Apron -->
       <polygon points="${pts([[-1.25, -0.12], [1.25, -0.12], [1.25, 1.06], [-1.25, 1.06]])}" fill="${s.o}"/>
@@ -280,34 +264,36 @@
 
     // Specific Court Textures
     if (id === 'minisoccer') {
-      // Base grass
       g += `<polygon points="${pts(BOX)}" fill="${s.c}"/>`;
-      // Alternating mowed lawn stripes for authentic turf
       for (let u = -1; u < 1; u += 0.333) {
-        g += `<polygon points="${pts([[u, 0], [u + 0.166, 0], [u + 0.166, 1], [u, 1]])}" fill="#1a6e2e" opacity="0.35"/>`;
+        g += `<polygon points="${pts([[u, 0], [u + 0.166, 0], [u + 0.166, 1], [u, 1]])}" fill="#1a6e2e" opacity="0.38"/>`;
       }
     } else if (id === 'tenis') {
-      // US Open 2-tone: Green Apron + Blue Main Court
       g += `<polygon points="${pts(BOX)}" fill="#1d6b47"/>`;
       g += `<polygon points="${pts([[-0.75, 0], [0.75, 0], [0.75, 1], [-0.75, 1]])}" fill="#1e5cb8"/>`;
     } else if (id === 'futsal') {
-      // Parquet wood/vinyl reflection
       g += `<polygon points="${pts(BOX)}" fill="${s.c}"/>`;
-      g += `<polygon points="${pts([[-1, 0.3], [1, 0.3], [1, 0.65], [-1, 0.65]])}" fill="#ffffff" opacity="0.08"/>`;
+      g += `<polygon points="${pts([[-1, 0.3], [1, 0.3], [1, 0.65], [-1, 0.65]])}" fill="#ffffff" opacity="0.09"/>`;
     } else {
       g += `<polygon points="${pts(BOX)}" fill="${s.c}"/>`;
     }
 
-    // Court Depth Shadow & Court Lines
+    // Court Depth Shadow & Lines
     g += `<polygon points="${pts(BOX)}" fill="url(#court-depth-${id})"/>` + lines(s);
 
     let fn,
       front = '',
       back = '',
-      ball = '',
       ballShadow = '',
-      pop = '',
-      dur = '2.6s';
+      dur = '2.5s';
+
+    // Broadcast Action Badges for each sport
+    let actionWord = '';
+    if (id === 'futsal' || id === 'minisoccer') actionWord = 'GOAL!';
+    else if (id === 'badminton') actionWord = 'SMASH!';
+    else if (id === 'voli') actionWord = 'SPIKE!';
+    else if (id === 'tenis') actionWord = 'ACE!';
+    else if (id === 'padel') actionWord = 'VOLLEY!';
 
     // Sports Mechanics
     if (s.m === 'net') {
@@ -317,7 +303,6 @@
         const x = ret ? τ - 0.5 : τ;
         let t, h;
         if (s.bz) {
-          // Tennis / Padel ground bounce physics
           if (x < T1) {
             const q = x / T1;
             t = 0.1 + 0.62 * q;
@@ -328,7 +313,6 @@
             h = s.hit * q + 48 * q * (1 - q);
           }
         } else {
-          // Badminton / Voli clean aerial arc
           const q = x / 0.5;
           t = 0.1 + 0.8 * q;
           h = s.hit + 4 * s.A * q * (1 - q);
@@ -336,18 +320,15 @@
         return { u: 0.32 * Math.cos(2 * Math.PI * τ), t: ret ? 1 - t : t, h };
       };
 
-      // Near & Far player sway
       kf(id + 'n', τ => 0.32 * Math.cos(2 * Math.PI * τ) - 0.12, 24, u => `translate:${f1(P(u, 0.04)[0] - 150)}px 0`);
       kf(id + 'f', τ => 0.32 * Math.cos(2 * Math.PI * τ) + 0.12, 24, u => `translate:${f1(P(u, 0.96)[0] - 150)}px 0`);
 
-      // Padel 3D Glass Walls & Steel Posts
       if (s.walls) {
         g += wall([[-1, 0, 0], [-1, 1, 0], [-1, 1, 115], [-1, 0, 115]], 'left') +
              wall([[1, 0, 0], [1, 1, 0], [1, 1, 115], [1, 0, 115]], 'right') +
              wall([[-1, 1, 0], [1, 1, 0], [1, 1, 115], [-1, 1, 115]], 'back');
       }
 
-      // Net Structure
       const [nb, nt] = s.net;
       const k = SC(0.5);
       const [x1, gy] = P(-1.06, 0.5);
@@ -355,7 +336,6 @@
       const top = gy - nt * k;
       const h = (nt - nb) * k;
 
-      // Antenna rods for Volleyball
       let antennas = '';
       if (id === 'voli') {
         antennas = `
@@ -375,18 +355,20 @@
       if (id === 'voli') {
         back = person({ ...FAR, volleySpike: 1, t: 0.96, flip: 1, lat: id + 'f', d: HALF, body: 'jump' });
         front = netHtml + person({ ...NEAR, volleyReady: 1, t: 0.05, lat: id + 'n' });
-        dur = '2.8s';
+        dur = '2.7s';
       } else {
         const tool = { rk: s.rk };
         back = person({ ...FAR, ...tool, t: 0.96, flip: 1, lat: id + 'f', d: HALF });
         if (s.dbl) back += person({ ...FAR, ...tool, t: 0.92, u: 0.58, flip: 1, d: QTR, shirt: '#38bdf8' });
-        front = netHtml + person({ ...NEAR, ...tool, t: 0.05, lat: id + 'n' });
+        
+        // Badminton near player leaps to smash
+        const bodyAnim = id === 'badminton' ? 'jump' : 'bob';
+        front = netHtml + person({ ...NEAR, ...tool, t: 0.05, lat: id + 'n', body: bodyAnim });
         if (s.dbl) front += person({ ...NEAR, ...tool, t: 0.08, u: -0.58, d: QTR, shirt: '#f97316' });
         dur = '2.4s';
       }
 
     } else if (s.m === 'goal') {
-      // Soccer / Futsal Goal Mechanics
       fn = τ => {
         let t = 0.22, u = 0, h = 0;
         if (τ > 0.20 && τ <= 0.92) {
@@ -404,16 +386,14 @@
       const gt = gy - s.gh * SC(1);
       const gh = gy - gt;
       
-      // 3D Goal with depth posts & hexagon netting
       g += `
         <rect x="${f1(gx1)}" y="${f1(gt)}" width="${f1(gx2 - gx1)}" height="${f1(gh)}" fill="rgba(255,255,255,.18)" stroke="#ffffff" stroke-width="2.2"/>
         ${mesh(gx1, gx2, gt, gh, 3, 'rgba(255,255,255,.45)')}
       `;
 
-      // Diving Goalkeeper with Neon Gloves
       back = person({
         ...FAR,
-        shirt: '#eab308', // Neon Goalkeeper kit
+        shirt: '#eab308',
         shorts: '#0f172a',
         t: 0.965,
         gkGloves: 1,
@@ -421,7 +401,6 @@
         num: '1'
       });
 
-      // Striker in kicking follow-through
       front = person({
         ...NEAR,
         t: 0.12,
@@ -430,21 +409,17 @@
         num: '9'
       });
 
-      pop = 'GOL!';
-      dur = '3.0s';
+      dur = '2.9s';
     }
 
-    // Keyframes for ball trajectory & ground shadow
     kf(id + 'b', fn, 60, bmk);
     kf(id + 's', fn, 60, smk);
 
-    // Dynamic Ball Ground Shadow
     ballShadow = `<ellipse ${an(id + 's')} rx="1.6" ry=".6" fill="#000000"/>`;
 
     // Authentic Sport Balls
     let ballElement = '';
     if (id === 'badminton') {
-      // Shuttlecock (Kok) with conical feathers & cork
       ballElement = `
         <g ${an(id + 'b')}>
           <path d="M-2 -3.5 L2 -3.5 L1.2 0 L-1.2 0 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.3"/>
@@ -452,7 +427,6 @@
         </g>
       `;
     } else if (id === 'tenis') {
-      // Optic Neon Tennis ball with white curved seam
       ballElement = `
         <g ${an(id + 'b')}>
           <circle r="1.5" fill="#d9f828" stroke="#0f172a" stroke-width="0.3"/>
@@ -460,7 +434,6 @@
         </g>
       `;
     } else if (id === 'voli') {
-      // Tricolor Volleyball (Yellow / Blue / White)
       ballElement = `
         <g ${an(id + 'b')}>
           <circle r="1.9" fill="#ffffff" stroke="#0f172a" stroke-width="0.3"/>
@@ -469,7 +442,6 @@
         </g>
       `;
     } else if (id === 'minisoccer' || id === 'futsal') {
-      // Classic Pentagon Soccer/Futsal Ball
       ballElement = `
         <g ${an(id + 'b')}>
           <circle r="1.8" fill="#ffffff" stroke="#0f172a" stroke-width="0.35"/>
@@ -477,7 +449,6 @@
         </g>
       `;
     } else {
-      // Padel ball
       ballElement = `
         <g ${an(id + 'b')}>
           <circle r="1.4" fill="#d9f828" stroke="#0f172a" stroke-width="0.3"/>
@@ -485,10 +456,11 @@
       `;
     }
 
-    // Goal Popup Celebration
-    const txt = pop
-      ? `<g class="pop anim" style="animation-name:pop">
-           <text x="150" y="86" text-anchor="middle" font-family="'Kanit', sans-serif" font-style="italic" font-size="26" font-weight="900" fill="#facc15" stroke="${INK}" stroke-width="3.5" paint-order="stroke">${pop}</text>
+    // Broadcast Action Badge Graphic (SMASH, GOAL, ACE, SPIKE, VOLLEY)
+    const txt = actionWord
+      ? `<g class="pop anim" style="animation-name:pop;transform-origin:150px 76px;">
+           <rect x="94" y="61" width="112" height="28" rx="8" fill="rgba(15,23,42,0.88)" stroke="#facc15" stroke-width="1.8"/>
+           <text x="150" y="81" text-anchor="middle" font-family="'Kanit', sans-serif" font-style="italic" font-size="16" font-weight="900" fill="#facc15" letter-spacing="1.5">${actionWord}</text>
          </g>`
       : '';
 
@@ -502,7 +474,7 @@
     return `<svg viewBox="0 0 300 180" aria-hidden="true" style="--d:${dur}">${g}${ballShadow}${back}${front}${ballElement}${txt}</svg>`;
   }
 
-  // Sports Catalog matching Database Categories
+  // Sports Catalog matching Database Categories + Feature Badges
   const SPORTS = [
     {
       id: 'futsal',
@@ -513,7 +485,8 @@
       o: '#7c2d12',
       p: 150000,
       courts: 2,
-      d: '5 vs 5 &bull; Vinyl & Interlock',
+      d: '5 vs 5 &bull; Standar Nasional',
+      tags: ['Indoor AC', 'Lantai Vinyl', 'Lampu LED'],
       m: 'goal',
       A: 12,
       R: 3.8,
@@ -532,6 +505,7 @@
       p: 350000,
       courts: 1,
       d: '7 vs 7 &bull; Rumput Sintetis Bintang 2',
+      tags: ['Outdoor', 'Rumput Sintetis', 'Gawang 3D'],
       m: 'goal',
       A: 32,
       R: 4.2,
@@ -550,6 +524,7 @@
       p: 50000,
       courts: 2,
       d: 'Tunggal & Ganda &bull; Karpet BWF',
+      tags: ['Indoor AC', 'Karpet BWF', 'Kok Bulu'],
       m: 'net',
       rk: [5, 7.5, 0],
       hit: 54,
@@ -568,6 +543,7 @@
       p: 80000,
       courts: 1,
       d: '6 vs 6 &bull; Lapangan Indoor Kayu',
+      tags: ['Indoor', 'Lantai Kayu', 'Net Antena'],
       m: 'net',
       hit: 64,
       A: 58,
@@ -585,6 +561,7 @@
       p: 120000,
       courts: 2,
       d: 'Hard Court Standar ITF',
+      tags: ['Outdoor', 'Hard Court ITF', 'Bola Neon'],
       m: 'net',
       rk: [6, 8, 0],
       hit: 35,
@@ -603,6 +580,7 @@
       p: 200000,
       courts: 1,
       d: 'Panoramik &bull; Dinding Kaca Tempered',
+      tags: ['Semi-Indoor', 'Kaca Panoramik', 'Paddle Karbon'],
       m: 'net',
       rk: [6, 7.5, 1],
       hit: 35,
@@ -670,17 +648,29 @@
              aria-pressed="${isSelected}">
             <div class="sport-canvas-wrap">
               ${svgArt}
-              <span class="sport-card-tag">${s.courts} Lapangan</span>
+              <span class="sport-card-tag">
+                <i class="bi bi-shield-check text-warning me-1"></i>${s.courts} Lapangan
+              </span>
+              <span class="sport-card-status">
+                <span class="live-pulse-dot me-1"></span>Siap Booking
+              </span>
             </div>
-            <div class="sport-card-info">
+            <div class="sport-card-info p-3">
               <div class="d-flex justify-content-between align-items-center mb-1">
                 <h5 class="sport-card-title mb-0">${s.n}</h5>
-                <span class="sport-card-price">Mulai ${rp(s.p)}/jam</span>
+                <span class="sport-card-price">${rp(s.p)}<span class="price-period">/jam</span></span>
               </div>
               <p class="sport-card-desc mb-2">${s.d}</p>
-              <div class="d-flex align-items-center justify-content-end pt-1 border-top">
-                <span class="badge ${isSelected ? 'bg-warning text-dark' : 'bg-light text-secondary border'}">
-                  ${isSelected ? 'Dipilih' : 'Pilih Lapangan'} <i class="bi bi-chevron-right ms-1"></i>
+              
+              <!-- Feature Pills -->
+              <div class="d-flex flex-wrap gap-1 mb-2.5">
+                ${(s.tags || []).map(t => `<span class="sport-feature-tag">${t}</span>`).join('')}
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                <span class="small text-muted" style="font-size:0.75rem;"><i class="bi bi-clock me-1 text-warning"></i>07:00 - 23:00</span>
+                <span class="sport-cta-pill">
+                  ${isSelected ? 'Dipilih' : 'Pilih Lapangan'} <i class="bi bi-arrow-right ms-1"></i>
                 </span>
               </div>
             </div>
@@ -691,7 +681,7 @@
 
     el.innerHTML = html;
 
-    // Mobile touch interaction: tap to play / toggle animation
+    // Mobile touch interaction
     const cards = el.querySelectorAll('.sport-select-card');
     cards.forEach(card => {
       card.addEventListener('touchstart', function () {
